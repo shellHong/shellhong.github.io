@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "release": "gulp swig && gulp css && gulp js && gulp images"
+    "release": "cross-env NODE_ENV=production gulp swig_task && cross-env NODE_ENV=production gulp css_task && cross-env NODE_ENV=production gulp js_task && cross-env NODE_ENV=production gulp images_task",
+    "dev": "gulp swig_task && gulp css_task && gulp js_task && gulp images_task"
   },
   "author": "",
   "license": "ISC",
@@ -17,16 +18,20 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-runtime": "^6.23.0",
+    "cross-env": "^5.0.5",
     "css-loader": "^0.23.1",
     "del": "^2.2.1",
     "ejs": "^2.5.4",
     "file-loader": "^0.9.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-htmlmin": "^3.0.0",
     "gulp-md5-plus": "^0.2.5",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
     "gulp-swig": "^0.8.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-uglifycss": "^1.0.8",
     "gulp-util": "^3.0.7",
     "webpack": "^1.13.1"
   }
