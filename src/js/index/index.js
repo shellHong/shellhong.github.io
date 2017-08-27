@@ -1,8 +1,11 @@
 (function(){
-    var stage, textStage, form, input;
+    var stage, textStage, form, input, entrance;
     var circles, textPixels, textFormed;
     var offsetX, offsetY, text;
     var colors = ['#B2949D', '#FFF578', '#FF5F8D', '#37A9CC', '#188EB2'];
+
+    var WIDTH = 800;
+    var HEIGHT = 200;
 
     function init() {
         initStages();
@@ -15,11 +18,11 @@
 
     // Init Canvas
     function initStages() {
-        offsetX = (window.innerWidth-600)/2;
+        offsetX = (window.innerWidth-WIDTH)/2;
         offsetY = (window.innerHeight-300)/2;
         textStage = new createjs.Stage("text");
-        textStage.canvas.width = 600;
-        textStage.canvas.height = 200;
+        textStage.canvas.width = WIDTH;
+        textStage.canvas.height = HEIGHT;
 
         stage = new createjs.Stage("stage");
         stage.canvas.width = window.innerWidth;
@@ -28,9 +31,15 @@
 
     function initForm() {
         form = document.getElementById('form');
-        form.style.top = offsetY+200+'px';
+        form.style.top = offsetY+HEIGHT+'px';
         form.style.left = offsetX+'px';
         input = document.getElementById('inputText');
+
+        entrance = document.getElementById('entrance');
+        entrance.style.top = offsetY+'px';
+        entrance.style.left = offsetX+'px';
+        entrance.style.width = WIDTH+'px';
+        entrance.style.height = HEIGHT+'px';
     }
 
     function initText() {
@@ -41,7 +50,7 @@
 
     function initCircles() {
         circles = [];
-        for(var i=0; i<600; i++) {
+        for(var i=0; i<WIDTH; i++) {
             var circle = new createjs.Shape();
             var r = 7;
             var x = window.innerWidth*Math.random();
@@ -81,7 +90,7 @@
             }});
         } else {
             if(c.movement == 'float') {
-                c.tween = TweenLite.to(c, 5 + Math.random()*3.5, {x: c.x + -100+Math.random()*200, y: c.y + -100+Math.random()*200, ease:Quad.easeInOut, alpha: 0.2 + Math.random()*0.5,
+                c.tween = TweenLite.to(c, 5 + Math.random()*3.5, {x: c.x + -100+Math.random()*HEIGHT, y: c.y + -100+Math.random()*HEIGHT, ease:Quad.easeInOut, alpha: 0.2 + Math.random()*0.5,
                     onComplete: function() {
                         tweenCircle(c);
                     }});
@@ -121,6 +130,9 @@
 
     // event handlers
     function addListeners() {
+        entrance.addEventListener('click', function(e) {
+          alert('This is blog of ShellHong!');
+        });
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             if(textFormed) {
@@ -146,18 +158,18 @@
         text.text = t;
         text.font = "900 "+fontSize+"px 'Source Sans Pro'";
         text.textAlign = 'center';
-        text.x = 300;
+        text.x = WIDTH/2;
         text.y = (172-fontSize)/2;
         textStage.addChild(text);
         textStage.update();
 
         var ctx = document.getElementById('text').getContext('2d');
-        var pix = ctx.getImageData(0,0,600,200).data;
+        var pix = ctx.getImageData(0,0,WIDTH,HEIGHT).data;
         textPixels = [];
         for (var i = pix.length; i >= 0; i -= 4) {
             if (pix[i] != 0) {
-                var x = (i / 4) % 600;
-                var y = Math.floor(Math.floor(i/600)/4);
+                var x = (i / 4) % WIDTH;
+                var y = Math.floor(Math.floor(i/WIDTH)/4);
 
                 if((x && x%8 == 0) && (y && y%8 == 0)) textPixels.push({x: x, y: y});
             }
@@ -176,7 +188,7 @@
         }else{
           explode();
           setTimeout(function() {
-            createText('WELCOME',110);
+            createText('WELCOME');
           }, 810);
           clearInterval(handle);
         }

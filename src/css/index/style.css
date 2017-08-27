@@ -35,3 +35,8 @@ form {
   width: 600px;
   height: 100px;
 }
+
+.entrance{
+  position: absolute;
+  background-color: transparent;
+}
