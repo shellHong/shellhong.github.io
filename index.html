@@ -5,132 +5,19 @@
     <title>blog of ShellHong</title>
     <meta name="viewport" content="width=1000,user-scalable=no,initial-scale=1.0">
     <meta name="keyword" content="博客、shellhong、blog">
-    <style media="screen">
-      body{
-        background: #F0FCFF url(./export/images/island.png) repeat-x 100% -460px;
-        background-size: 780px;
-      }
-      .boat {
-        width: 380px;
-        position: absolute;
-        top: 10%;
-        left: 35%;
-      }
-      .mike {
-        width: 180px;
-        position: absolute;
-        top: 55%;
-        left: -15%;
-        -webkit-transform: rotateZ(-5deg);
-        -moz-transform: rotateZ(-5deg);
-        -o-transform: rotateZ(-5deg);
-        -ms-transform: rotateZ(-5deg);
-        transform: rotateZ(-5deg);
-      }
-            /*	Animations
-      ------------------------------------------ */
-
-      body {
-      	-webkit-animation: bg-move 8s ease-out forwards;
-      }
-      .boat {
-      	-webkit-animation: rock-boat 3s linear infinite,
-                           boat-move 8s 3s ease-out forwards;
-      }
-      .boat::after {
-      	-webkit-animation: steam 4s 2s infinite;
-      }
-      .mike {
-      	-webkit-animation: mike-move 6s 6s ease-out forwards,
-      	                   mike-float 3.2s infinite;
-      }
-      .boat img {
-        width: 100%;
-        margin-top: 200px;
-      }
-      .entrance, .boat::after {
-        width: 120px;
-        height: 200px;
-        position: absolute;
-        top: 28%;
-        left: 0%;
-        opacity: 0;
-      }
-
-      .entrance{
-        box-sizing: border-box;
-        padding-top: 14px;
-        padding-left: 35px;
-        z-index: 1;
-      }
-
-      .entrance p{
-        width: 40px;
-        margin: 0;
-        cursor: pointer;
-        color: red;
-      }
-
-      .boat::after {
-        -webkit-animation: steam 4s 2s infinite;
-        content: "";
-        display: block;
-        background: url(https://treehouse-code-samples.s3.amazonaws.com/CSS-DD/codepen/stage-12/steam.png) no-repeat;
-        background-size: 120px;
-      }
-
-      .entrance{
-        -webkit-animation: entrance 4s 2s infinite;
-      }
-      /*	Keyframes - WebKit only
-      ------------------------------------------ */
-
-      @-webkit-keyframes rock-boat {
-      	50%  { -webkit-transform: rotate(-5deg) translateY(-10px); }
-      }
-
-      @-webkit-keyframes boat-move {
-      	100% { left: 52%; }
-      }
-
-      @-webkit-keyframes steam {
-      	40%,
-      	60%  { opacity: .8; }
-      	100% { -webkit-transform: translate(-15%, -35%) rotateZ(20deg); }
-      }
-
-      @-webkit-keyframes entrance {
-      	40%,
-      	60%  { opacity: .6; }
-      	100% { -webkit-transform: translate(-15%, -35%)}
-      }
-
-      @-webkit-keyframes bg-move {
-      	0%   { background-position:  100% -560px; }
-      	100% { background-position: -350% -460px; }
-      }
-
-      @-webkit-keyframes mike-move {
-      	100% { left: 12%; }
-      }
-
-      @-webkit-keyframes mike-float {
-      	50% { -webkit-transform: rotateZ(5deg) translateY(-5px); }
-      }
-    </style>
+    <link rel="stylesheet" href="./src/css/index/style.css" media="screen" type="text/css" />
   </head>
   <body>
-    <div class="boat">
-      <img src="./export/images/boat.png" alt="tugboat">
-      <div class='entrance'>
-        <p id='entrancep'>点击进入</p>
-      </div>
+    <canvas id="text" width="500" height="100"></canvas>
+    <canvas id="stage" width="500" height="100"></canvas>
+    <form id="form" style='display:none;'>
+        <input type="text" id="inputText" value="HELLO" />
+        <input type="submit" value="TRY IT" />
+    </form>
     </div>
-    <img class="mike" src="./export/images/mike.png">
-    <script type="text/javascript">
-      document.getElementById('entrancep').onclick = function(){
-        alert('hello world');
-      }
-    </script>
+    <script src='./src/js/index/TweenLite.min.js'></script>
+    <script src='./src/js/index/easeljs-0.7.1.min.js'></script>
+    <script src='./src/js/index/requestAnimationFrame.js'></script>
+    <script src="./src/js/index/index.js"></script>
   </body>
 </html>
