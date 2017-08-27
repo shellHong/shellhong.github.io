@@ -4,7 +4,7 @@
     var offsetX, offsetY, text;
     var colors = ['#B2949D', '#FFF578', '#FF5F8D', '#37A9CC', '#188EB2'];
 
-    var WIDTH = 800;
+    var WIDTH = 660;
     var HEIGHT = 200;
 
     function init() {
