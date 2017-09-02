@@ -6,10 +6,9 @@
   <meta charset="UTF-8">
 
   <title>ShellHong.404</title>
-
   <style>
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
-
+@font-face{font-family:'Architects Daughter';font-style:normal;font-weight:400;src:local('Architects Daughter Regular'),local('ArchitectsDaughter-Regular'),url(./export/files/g.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215}
 </style>
 
     <style>
@@ -118,39 +117,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1e4ea', end
     background: linear-gradient(135deg, transparent 25%, #0aa 25%);
     background-size:10px 10px;
 }
+.sun-wrap{
+  position:absolute;
+	left:49%;
+	bottom:350px;
+
+}
 .sun {
 	background:#ff9944;
 	width:40px;
 	height:40px;
 	border-radius:50%;
 	box-shadow:0 0 50px rgba(255,153,68,0.7);
-	position:absolute;
-	left:49%;
-	bottom:350px;
+  display: inline-block;
 }
-.four1, .four2{
-  position:absolute;
-  bottom:350px;
-  font-size: 40px;
+.four{
+  font-size: 60px;
   opacity: .3;
   font-weight: bold;
-  color: white;
+  color: #0c62f3;
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
 }
-.four1{
-	left:38%;
-}
-.four2{
-	left:66%;
-}
-.tree-1 {
-	position:absolute;
-	z-index:2;
-	bottom:210px;
-	right:10px;
-	width:50px;
-	height:100px;
 
-}
 .trunk {
 	width:20%;
 	height:30%;
@@ -828,14 +816,13 @@ to{-webkit-transform:rotate(0deg);}
 <body>
 
   <div class="country-wrap">
-
-	<!--<div class="mountain-1"></div>
-	<div class="mountain-2"></div>-->
 <div style="text-align:center;clear:both">
 </div>
-	<div class="four1">4</div>
-	<div class="sun"></div>
-	<div class="four2">4</div>
+  <div class="sun-wrap">
+    <span class="four">4</span>
+  	<div class="sun"></div>
+  	<span class="four">4</span>
+  </div>
 	<div class="grass"></div>
 	<div class="street">
 		<div class="car">
@@ -873,15 +860,6 @@ to{-webkit-transform:rotate(0deg);}
 	</div>
 	<div class="street-stripe"></div>
 	<div class="hill">
-		<!--<div class="tree-1">
-			<div class="branch-1"></div>
-			<div class="branch-2"></div>
-			<div class="branch-3"></div>
-		</div>
-		<div class="tree-1">
-		<div class="branch"></div>
-		<div class="trunk"></div>
-	</div>-->
 	</div>
 
 </div>
