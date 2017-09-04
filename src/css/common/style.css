@@ -430,14 +430,16 @@ aside#sidebar p.repo-owner, aside#sidebar p.repo-owner a {
   margin-bottom: 40px
 }
 a.button {
-  width: 134px;
+  width: 126px;
   height: 58px;
-  padding-top: 22px;
-  padding-left: 68px;
-  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+  padding: 10px 10px 4px;
+  border: 2px solid white;
+  border-radius: 10px;
+  text-align: center;
+  font-family: 'Architects Daughter','Helvetica Neue',Helvetica,Arial,serif;
   font-size: 23px;
   line-height: 1.2;
-  color: #fff
+  color: #fff;
 }
 a.button small {
   display: block;
@@ -447,7 +449,6 @@ header a.button {
   position: absolute;
   top: 0;
   right: 0;
-  background: transparent url(../../images/github-button.png) 0 0 no-repeat
 }
 aside a.button {
   display: block;
@@ -656,7 +657,7 @@ footer a:hover {
     width: 740px
   }
   header h1, header h2 {
-    width: 340px
+    width: 540px
   }
   header h1 {
     font-size: 60px

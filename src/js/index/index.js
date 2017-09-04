@@ -131,7 +131,7 @@
     // event handlers
     function addListeners() {
         entrance.addEventListener('click', function(e) {
-          alert('This is blog of ShellHong!');
+          location.href='export/views/work_nav.html';
         });
         form.addEventListener('submit', function(e) {
             e.preventDefault();
