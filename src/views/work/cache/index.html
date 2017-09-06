@@ -8,8 +8,8 @@
 
 <h2>现象</h2>
 
-<p>怎么知道哪些资源是缓存了的？
-遵循步骤chrome -> Developer Tools -> Network标签 -> 页面访问或刷新，然后便可查看页面网络请求的相关记录：</p>
+<div>怎么知道哪些资源是缓存了的？</div>
+<div>遵循步骤chrome -> Developer Tools -> Network标签 -> 页面访问或刷新，然后便可查看页面网络请求的相关记录：</div>
 
 <p><img src="../../../images/work/cache/cache.png" alt="cache" title="" /></p>
 
@@ -38,12 +38,12 @@
 </tr>
 </tbody></table>
 
-<p>304则表示：缓存到期情况下，浏览器发起头部询问，服务器返回未改动应答。这种情况下，虽然还是要进行网络请求，但是请求包体积很小。</p>
+<p>304则表示：缓存到期情况下，浏览器发起头部询问，服务器返回未改动应答。这种情况下，虽然还是要进行网络请求，但是包体积很小，速度也比较快。</p>
 
 <h2>协议缓存</h2>
 
-<p>通过在http协议头部添加特定字段，来实现的静态资源缓存。
-相关字段有：Expires，Cache-control，Last-Modified/If-Modified-Since，Etag/If-None-Match，max-age=0/no-cache等。</p>
+<div>通过在http协议头部添加特定字段，来实现的静态资源缓存。</div>
+<div>相关字段有：Expires，Cache-control，Last-Modified/If-Modified-Since，Etag/If-None-Match，max-age=0/no-cache等。</div>
 
 <ul>
 <li>Expires和Cache-control</li>
@@ -103,43 +103,53 @@
 了解更多Expires、Cache-control的详情，<a href="https://baike.baidu.com/item/Cache-control/1885913?fr=aladdin">点击前往</a>。</p>
 
 <ul>
-<li><p>缓存过期检查
+<li>缓存过期检查</li>
+</ul>
+<p>
 Expires和Cache-control用于设置缓存时间和策略，而Last-Modified/If-Modified-Since和Etag/If-None-Match则用于缓存过期后，检查资源是否改动。如未改动，返回304状态，继续使用原有资源。否则，返回改动后的资源。</p></li>
-<li><p>流程图（copy于网上）</p></li>
+</p>
+<ul><li>流程图（copy于网上）</li>
 </ul>
 
 <p><img src="../../../images/work/cache/cacheflow.png" alt="cache" title="" /></p>
 
 <h2>AppCache</h2>
 
-<p>关于HTML5 AppCache的文章，网上已经有很多，这里不再详述。接下来，要讲一些特别的点。</p>
+<p>关于HTML5 AppCache的文章，网上已经有很多，这里不再详述，就讲几个要点。</p>
 
 <ul>
 <li>配置文件的MIME-type设置为<code>text/cache-manifest</code> </li>
-<li>Hybrid App类型项目中，webview的设置有几个注意点
-```java
-WebSettings settings = mWebView.getSettings();</li>
+<li>Hybrid App类型项目中，webview的设置有几个注意点</li>
 </ul>
-
-<p>settings.setCacheMode(WebSettings.LOAD_DEFAULT); //缓存模式设置
+<pre><code>
+WebSettings settings = mWebView.getSettings();
+settings.setCacheMode(WebSettings.LOAD_DEFAULT); //缓存模式设置
 settings.setAppCacheMaxSize(1024 * 1024 * 5); //缓冲大小设置
 settings.setAppCachePath("xxxxxxx"); //缓存路径设置
 settings.setAppCacheEnabled(true); //缓存是否打开设置
-```
-* AppCache修改完成后，需要二次访问才能生效（即使通过updateready事件触发页面reload，也算是二次访问）
-* 所以，接下来着重讲一下如果保障每次资源更新，都能实现首次访问生效
-    * 本方案仅适用于Hybrid App项目
-    * 项目中放一个config配置文件（构建生成），用于html文件的版本控制，内容如下</p>
-
-<pre><code>```json
-[{
- "src": "dist/a.html",
- "replace": "dist/a01.html",
-}]
-```
-* 客户端读取config文件，把符合`src`的相关页面路径替换成对应的`replace`
-* 这样就实现资源更新，html路径也更新，从而首次访问生效
 </code></pre>
+<ul>
+<li>AppCache修改完成后，需要二次访问才能生效（即使通过updateready事件触发页面reload，也算是二次访问）</li>
+<li>如何实现首次访问生效呢，方案如下
+  <ul>
+    <li>本方案仅适用于Hybrid App项目</li>
+    <li>项目中放一个config配置文件（构建生成），用于html文件的版本控制，内容如下</li>
+  </ul>
+</li>
+</ul>
+
+    <pre><code>
+    [{
+     "src": "dist/a.html",
+     "replace": "dist/a01.html",
+    }]
+    </code></pre>
+<ul>
+    <ul>
+      <li>客户端读取config文件，把符合`src`的相关页面路径替换成对应的`replace`</li>
+      <li>这样就实现资源更新，html路径也更新，从而首次访问生效</li>
+    </ul>
+</ul>
 
 <ul>
 <li>应用场景举例（首屏秒级加载、渲染实现）
