@@ -15,12 +15,28 @@
 
 <p><img src="../../../images/work/cache/serviceworker.png" alt="cache" title="" /></p>
 
-<p>缓存生效情况下，Size列情况下大致如下
-| 缓存方式       | Size                                                 |
-| ---------------|:----------------------------------------------------:|
-| 协议缓存       | <code>from cache</code>、<code>from memory cache</code>、<code>from disk cache</code> |
-| AppCache       | <code>from cache</code>、<code>from memory cache</code>、<code>from disk cache</code> |
-| service worker | <code>from ServiceWorker</code>                                 | </p>
+<p>缓存生效情况下，Size列情况下大致如下</p>
+
+<table class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>缓存方式</th>
+ <th style="text-align:center;">Size</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>协议缓存</td>
+ <td style="text-align:center;"><code>from cache</code>、<code>from memory cache</code>、<code>from disk cache</code></td>
+</tr>
+<tr>
+ <td>AppCache</td>
+ <td style="text-align:center;"><code>from cache</code>、<code>from memory cache</code>、<code>from disk cache</code></td>
+</tr>
+<tr>
+ <td>service worker</td>
+ <td style="text-align:center;"><code>from ServiceWorker</code></td>
+</tr>
+</tbody></table>
 
 <p>304则表示：缓存到期情况下，浏览器发起头部询问，服务器返回未改动应答。这种情况下，虽然还是要进行网络请求，但是请求包体积很小。</p>
 
@@ -33,23 +49,58 @@
 <li>Expires和Cache-control</li>
 </ul>
 
-<p>| 字段名称       | 字段值                                               |
-| ---------------|:----------------------------------------------------:|
-| Expires        | 过期时间（例如：Tue, 05 Sep 2017 07:06:20 GMT）      |
-| Cache-control  | private（默认值）、public、no-cache、max-age＝500等  |</p>
+<table class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段名称</th>
+ <th style="text-align:center;">字段值</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>Expires</td>
+ <td style="text-align:center;">过期时间（例如：Tue, 05 Sep 2017 07:06:20 GMT）</td>
+</tr>
+<tr>
+ <td>Cache-control</td>
+ <td style="text-align:center;">private（默认值）、public、no-cache、max-age＝500等</td>
+</tr>
+</tbody></table>
 
 <p>Cache-control，拥有更多、更灵活的配置项，而且其优先级比Expires更高（如果其设置了max-age，则会覆盖Expires的设置）。</p>
 
-<p>| Cache-directive| 说明                                                 |
-| ---------------|:----------------------------------------------------:|
-| public   | 所有内容都将被缓存(客户端和代理服务器都可缓存)                |
-| private  | 内容只缓存到私有缓存中(仅客户端可以缓存，代理服务器不可缓存)  |
-| no-cache | 必须先与服务器确认返回的响应是否被更改，然后才能使用该响应来满足后续对同一个网址的请求。因此，如果存在合适的验证令牌 (ETag)，no-cache 会发起往返通信来验证缓存的响应，如果资源未被更改，可以避免下载。           |
-| no-store | 所有内容都不会被缓存到缓存或 Internet 临时文件中              |
-| must-revalidation/proxy-revalidation                                     | 如果缓存的内容失效，请求必须发送到服务器/代理以进行重新验证                |
-| max-age=xxx (xxx is numeric)                                             | 缓存的内容将在 xxx 秒后失效, 这个选项只在HTTP 1.1可用,并如果和Last-Modified一起使用时, 优先级较高  |</p>
-
-<p>了解更多Expires、Cache-control的详情，<a href="https://baike.baidu.com/item/Cache-control/1885913?fr=aladdin">点击前往</a>。</p>
+<table class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>Cache-directive</th>
+ <th style="text-align:center;">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>public</td>
+ <td style="text-align:center;">所有内容都将被缓存(客户端和代理服务器都可缓存)</td>
+</tr>
+<tr>
+ <td>private</td>
+ <td style="text-align:center;">内容只缓存到私有缓存中(仅客户端可以缓存，代理服务器不可缓存)</td>
+</tr>
+<tr>
+ <td>no-cache</td>
+ <td style="text-align:center;">必须先与服务器确认返回的响应是否被更改，然后才能使用该响应来满足后续对同一个网址的请求。因此，如果存在合适的验证令牌 (ETag)，no-cache 会发起往返通信来验证缓存的响应，如果资源未被更改，可以避免下载。</td>
+</tr>
+<tr>
+ <td>no-store</td>
+ <td style="text-align:center;">所有内容都不会被缓存到缓存或 Internet 临时文件中</td>
+</tr>
+<tr>
+ <td>must-revalidation/proxy-revalidation</td>
+ <td style="text-align:center;">如果缓存的内容失效，请求必须发送到服务器/代理以进行重新验证</td>
+</tr>
+<tr>
+ <td>max-age=xxx (xxx is numeric)</td>
+ <td style="text-align:center;">缓存的内容将在 xxx 秒后失效, 这个选项只在HTTP 1.1可用,并如果和Last-Modified一起使用时, 优先级较高</td>
+</tr>
+</tbody></table>
+了解更多Expires、Cache-control的详情，<a href="https://baike.baidu.com/item/Cache-control/1885913?fr=aladdin">点击前往</a>。</p>
 
 <ul>
 <li><p>缓存过期检查
@@ -103,9 +154,26 @@ settings.setAppCacheEnabled(true); //缓存是否打开设置
 
 <ul>
 <li>更强大、更可控的PWA方案</li>
-<li>通过强大的sw-precache开源工具，可以快速、高效实现预缓存、运行时缓存、缓存数量等</li>
+<li>通过强大的
+  <a href="https://github.com/GoogleChrome/sw-precache" target="_blank">sw-precache</a>
+  开源工具，可以快速、高效实现预缓存、运行时缓存、缓存数量等</li>
 <li>兼容：webview和部分浏览器运行该方案时，存在service worker保持心跳的过程中，干扰业务逻辑（清除业务数据等），从而导致app崩溃</li>
-<li>所以慎用</li>
+<li>具体的话，网上有很多相关文章，这里也不作详述了</li>
+</ul>
+
+<h2>其他方案浏览</h2>
+
+<ul>
+<li>客户端方案</li>
+<ul>
+  <li>Hybrid App类型项目，可通过客户端实现资源预下载</li>
+  <li>访问页面时，如果存在本地资源，则使用本地，否则访问远程</li>
+</ul>
+<li>localStorage方案</li>
+<ul>
+  <li>一部分代码使用localStorage存储，并作版本控制</li>
+  <li>使用的时候，如果存储中存在正确版本代码则使用，否则，远程获取</li>
+</ul>
 </ul>
 {% endblock %}
 
