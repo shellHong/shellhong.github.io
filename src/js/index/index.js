@@ -131,7 +131,26 @@
     // event handlers
     function addListeners() {
         entrance.addEventListener('click', function(e) {
-          location.href='export/views/work_nav.html';
+          if(swal){
+            swal({
+              title: "",
+              text: "",
+              type: "input",
+              showCancelButton: true,
+              closeOnConfirm: false,
+              animation: "slide-from-top",
+              inputPlaceholder: "请输入授权码"
+            },
+            function(inputValue){
+              if (inputValue === false) return false;
+
+              if (inputValue === "") {
+                swal.showInputError("授权码不能为空");
+                return false
+              }
+              location.href = inputValue.toLowerCase() + '/views/work_nav.html';
+            });
+          }
         });
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -178,6 +197,19 @@
         formText();
 
     }
+
+    function fillAlertRes(){
+      var script = document.createElement('script');
+      script.setAttribute('src', './index/sweetalert_2f9966a6.js');
+      document.body.appendChild(script);
+      var link = document.createElement('link');
+      link.setAttribute('rel', 'stylesheet');
+      link.setAttribute('media', 'screen');
+      link.setAttribute('type', 'text/css');
+      link.setAttribute('href', './index/sweetalert_d8cc2607.css');
+      document.body.appendChild(link);
+    }
+
     window.onload = function() {
       init();
       var index = 3;
@@ -193,6 +225,9 @@
           clearInterval(handle);
         }
         index--;
+      }, 1000);
+      setTimeout(function(){
+        fillAlertRes();
       }, 1000);
     };
 })();

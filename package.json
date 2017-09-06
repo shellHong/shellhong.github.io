@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "release": "cross-env NODE_ENV=production gulp swig_task && cross-env NODE_ENV=production gulp css_task && cross-env NODE_ENV=production gulp js_task && cross-env NODE_ENV=production gulp images_task",
-    "dev": "gulp swig_task && gulp css_task && gulp js_task && gulp images_task"
+    "release": "cross-env NODE_ENV=production gulp swig_task && cross-env NODE_ENV=production gulp css_task && cross-env NODE_ENV=production gulp js_task && cross-env NODE_ENV=production gulp images_task && gulp del:index && node index-res.js",
+    "dev": "gulp swig_task && gulp css_task && gulp js_task && gulp images_task && gulp del:index && node index-res.js"
   },
   "author": "",
   "license": "ISC",

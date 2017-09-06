@@ -189,3 +189,10 @@ gulp.task('js_task', ['hash:js', 'hash:js_index']);
 
 //5
 gulp.task('images_task', ['hash:img1', 'hash:img2', 'hash:img_index']);
+
+//6
+gulp.task('del:index', function() {
+  return del('./index/', {
+    force: true,
+  });
+});
