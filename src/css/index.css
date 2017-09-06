@@ -43,3 +43,5 @@ form {
   position: absolute;
   background-color: transparent;
 }
+
+input:focus { font-size: 16px!important}
