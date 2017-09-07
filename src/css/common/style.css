@@ -969,3 +969,6 @@ table td[class*=span],table th[class*=span],.row-fluid table td[class*=span],.ro
 .table-striped-white tbody>tr:nth-child(2n+1)>td,.table-striped-white tbody>tr:nth-child(2n+1)>th {
     background-color: rgba(102,128,153,.05)
 }
+.nav_time{
+  color: #ddd;
+}
