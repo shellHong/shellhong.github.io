@@ -57,3 +57,9 @@ cp内容页说明
       }
   }, false);
   ```
+
+
+  deeplink流程模拟测试工具
+  --------
+
+  [点击跳转](http://blog.shellhong.com/wiki/tools/index.html)
