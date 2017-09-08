@@ -190,7 +190,6 @@ gulp.task('hash:css', ['swig'], function() {
 
 gulp.task('hash:js', function() {
   var g = gulp.src(srcPath.js)
-    .pipe(babel())
     .pipe(md5(8, outPath.html + '/**/*.html'));
   if (isProd) {
     g = g.pipe(uglify());
@@ -200,7 +199,6 @@ gulp.task('hash:js', function() {
 
 gulp.task('hash:js_index', function() {
   var g = gulp.src(srcPath.js)
-    .pipe(babel())
     .pipe(md5(8, `${outPath.index}index.html`));
   if (isProd) {
     g = g.pipe(uglify());
