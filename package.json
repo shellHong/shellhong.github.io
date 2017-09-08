@@ -4,17 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "release": "cross-env NODE_ENV=production gulp swig_task && cross-env NODE_ENV=production gulp css_task && cross-env NODE_ENV=production gulp js_task && cross-env NODE_ENV=production gulp images_task && gulp del:index && node index-res.js",
-    "dev": "gulp swig_task && gulp css_task && gulp js_task && gulp images_task && gulp del:index && node index-res.js"
+    "release": "cross-env NODE_ENV=production gulp del:effect && cross-env NODE_ENV=production gulp swig_task && cross-env NODE_ENV=production gulp css_task && cross-env NODE_ENV=production gulp js_task && cross-env NODE_ENV=production gulp images_task && gulp del:index && node index-res.js && cross-env NODE_ENV=production gulp effect_html && cross-env NODE_ENV=production gulp effect_js && cross-env NODE_ENV=production gulp effect_scss &&  cross-env NODE_ENV=production gulp effect_img",
+    "dev": "gulp swig_task && gulp css_task && gulp js_task && gulp images_task && gulp del:index && node index-res.js && gulp effect_html && gulp effect_js && gulp effect_scss && gulp effect_img",
+    "effect" : "cross-env NODE_ENV=production gulp del:effect && cross-env NODE_ENV=production gulp effect_html && cross-env NODE_ENV=production gulp effect_js && cross-env NODE_ENV=production gulp effect_scss &&  cross-env NODE_ENV=production gulp effect_img"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "babel-loader": "^6.2.4",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-export-extensions": "^6.8.0",
-    "babel-plugin-transform-runtime": "^6.9.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-runtime": "^6.23.0",
@@ -25,6 +24,7 @@
     "file-loader": "^0.9.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-babel": "^7.0.0",
     "gulp-htmlmin": "^3.0.0",
     "gulp-md5-plus": "^0.2.5",
     "gulp-rename": "^1.2.2",

@@ -11,6 +11,7 @@ var fs = require('fs');
 var htmlmin = require('gulp-htmlmin');
 var uglifycss = require('gulp-uglifycss');
 var uglify = require('gulp-uglify');
+var babel = require('gulp-babel');
 
 var isProd = process.env.NODE_ENV === 'production';
 
@@ -33,6 +34,15 @@ var srcPath = {
   images: ['./src/images/**/*'],
   files: './src/files/**/*'
 };
+
+var effectSrc = {
+  scss: './src/effect/**/*.scss',
+  js: './src/effect/**/*.js',
+  images: './src/effect/**/img/*',
+  html: './src/effect/**/*.html'
+};
+
+var effectOut = './effect';
 
 var browsers = ['> 1%', 'ie >= 9', 'last 2 versions', 'Android >= 4.4'];
 
@@ -58,6 +68,39 @@ gulp.task('scss_index', function() {
     }))
     .pipe(md5(8, `${outPath.index}index.html`))
     .pipe(gulp.dest(outPath.css));
+});
+
+gulp.task('effect_html', function() {
+  var g = gulp.src(effectSrc.html)
+    .pipe(gulp.dest(effectOut));
+});
+
+gulp.task('effect_js', function() {
+  var g = gulp.src(effectSrc.js)
+    .pipe(babel())
+    .pipe(md5(8, `${effectOut}/**/*.html`));
+  if (isProd) {
+    g = g.pipe(uglify());
+  }
+  return g.pipe(gulp.dest(effectOut));
+});
+
+gulp.task('effect_scss', function() {
+  return gulp.src(effectSrc.scss)
+    .pipe(sass({
+      compress: isProd
+    }))
+    .pipe(autoprefixer({
+      browsers: browsers
+    }))
+    .pipe(md5(8, `${effectOut}/**/*.html`))
+    .pipe(gulp.dest(effectOut));
+});
+
+gulp.task('effect_img', function() {
+  var g = gulp.src(effectSrc.images)
+    .pipe(md5(8, `${effectOut}/**/*.html`))
+    .pipe(gulp.dest(effectOut));
 });
 
 gulp.task('css', function() {
@@ -135,12 +178,19 @@ gulp.task('del:dirPath_index', function() {
   });
 });
 
+gulp.task('del:effect', function() {
+  return del(effectOut, {
+    force: true,
+  });
+});
+
 gulp.task('hash:css', ['swig'], function() {
   gulp.start(['scss', 'css', 'scss_index', 'css_index']);
 });
 
 gulp.task('hash:js', function() {
   var g = gulp.src(srcPath.js)
+    .pipe(babel())
     .pipe(md5(8, outPath.html + '/**/*.html'));
   if (isProd) {
     g = g.pipe(uglify());
@@ -150,6 +200,7 @@ gulp.task('hash:js', function() {
 
 gulp.task('hash:js_index', function() {
   var g = gulp.src(srcPath.js)
+    .pipe(babel())
     .pipe(md5(8, `${outPath.index}index.html`));
   if (isProd) {
     g = g.pipe(uglify());
