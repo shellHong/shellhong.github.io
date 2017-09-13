@@ -22,17 +22,26 @@ var outPath = {
   index: './',
   js: './export/js',
   images: './export/images',
-  files: './export/files'
+  files: './export/files',
+  r: './export/r',
+  r_images: './export/r/images',
+  r_js: './export/r/js',
+  r_css: './export/r/css'
 };
 
 var srcPath = {
   scss: './src/scss/**/*.scss',
   css: './src/css/**/*.css',
   js: './src/js/**/*.js',
+  r_images: './src/r/images/**/*',
+  r_css: './src/r/css/**/*.css',
+  r_js: './src/r/js/**/*.js',
   swig: ['./src/views/**/*.html', '!./src/views/**/_*.html'],
+  r_swig: ['./src/r/**/*.html', '!./src/r/**/_*.html'],
   index: ['./src/index.html'],
   images: ['./src/images/**/*'],
-  files: './src/files/**/*'
+  files: './src/files/**/*',
+  r: './src/r/**/**'
 };
 
 var effectSrc = {
@@ -140,6 +149,25 @@ gulp.task('swig', function() {
   }
   return g.pipe(gulp.dest(outPath.html));
 });
+gulp.task('r_swig', function() {
+  var g = gulp.src(srcPath.r_swig)
+    .pipe(swig({
+      defaults: {
+        cache: false,
+        locals: {
+          isProd: true,
+          version: 1
+        }
+      }
+    }));
+  if (isProd) {
+    g = g.pipe(htmlmin({
+      collapseWhitespace: true,
+      minifyJS: true
+    }));
+  }
+  return g.pipe(gulp.dest(outPath.r));
+});
 
 gulp.task('swig_index', function() {
   var g = gulp.src(srcPath.index)
@@ -223,9 +251,22 @@ gulp.task('hash:img_index', function() {
     .pipe(gulp.dest(outPath.images));
 });
 
+gulp.task('r_js', function() {
+  var g = gulp.src(srcPath.r_js)
+    .pipe(gulp.dest(outPath.r_js));
+});
+gulp.task('r_css', function() {
+  var g = gulp.src(srcPath.r_css)
+    .pipe(gulp.dest(outPath.r_css));
+});
+gulp.task('r_images', function() {
+  var g = gulp.src(srcPath.r_images)
+    .pipe(gulp.dest(outPath.r_images));
+});
+
 //1
 gulp.task('swig_task', ['del:dirPath', 'del:dirPath_index'], function() {
-  gulp.start(['swig', 'swig_index']);
+  gulp.start(['swig', 'swig_index', 'r_swig']);
 });
 
 //2
@@ -237,7 +278,7 @@ gulp.task('css_task', ['hash:css', 'files']);
 gulp.task('js_task', ['hash:js', 'hash:js_index']);
 
 //5
-gulp.task('images_task', ['hash:img1', 'hash:img2', 'hash:img_index']);
+gulp.task('images_task', ['hash:img1', 'hash:img2', 'hash:img_index', 'r_css', 'r_js', 'r_images']);
 
 //6
 gulp.task('del:index', function() {

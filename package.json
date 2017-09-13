@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "release": "cross-env NODE_ENV=production gulp del:effect && cross-env NODE_ENV=production gulp swig_task && cross-env NODE_ENV=production gulp css_task && cross-env NODE_ENV=production gulp js_task && cross-env NODE_ENV=production gulp images_task && gulp del:index && node index-res.js && cross-env NODE_ENV=production gulp effect_html && cross-env NODE_ENV=production gulp effect_js && cross-env NODE_ENV=production gulp effect_scss &&  cross-env NODE_ENV=production gulp effect_img",
+    "normal": "cross-env NODE_ENV=production gulp swig_task && cross-env NODE_ENV=production gulp css_task && cross-env NODE_ENV=production gulp js_task && cross-env NODE_ENV=production gulp images_task && gulp del:index && node index-res.js",
     "dev": "gulp swig_task && gulp css_task && gulp js_task && gulp images_task && gulp del:index && node index-res.js && gulp effect_html && gulp effect_js && gulp effect_scss && gulp effect_img",
-    "effect" : "cross-env NODE_ENV=production gulp del:effect && cross-env NODE_ENV=production gulp effect_html && cross-env NODE_ENV=production gulp effect_js && cross-env NODE_ENV=production gulp effect_scss &&  cross-env NODE_ENV=production gulp effect_img"
+    "effect": "cross-env NODE_ENV=production gulp del:effect && cross-env NODE_ENV=production gulp effect_html && cross-env NODE_ENV=production gulp effect_js && cross-env NODE_ENV=production gulp effect_scss &&  cross-env NODE_ENV=production gulp effect_img",
+    "rollup": "rollup -c"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "brace": "^0.10.0"
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.0",
