@@ -973,5 +973,5 @@ table td[class*=span],table th[class*=span],.row-fluid table td[class*=span],.ro
   color: #ddd;
 }
 ul{
-  word-break: break-world;
+  word-break: break-word;
 }
