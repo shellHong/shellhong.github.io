@@ -26,7 +26,8 @@ var outPath = {
   r: './export/r',
   r_images: './export/r/images',
   r_js: './export/r/js',
-  r_css: './export/r/css'
+  r_css: './export/r/css',
+  navccc: './navccc'
 };
 
 var srcPath = {
@@ -41,7 +42,8 @@ var srcPath = {
   index: ['./src/index.html'],
   images: ['./src/images/**/*'],
   files: './src/files/**/*',
-  r: './src/r/**/**'
+  r: './src/r/**/**',
+  navxxx: ['./navxxx/*.html', '!./navxxx/_*.html']
 };
 
 var effectSrc = {
@@ -169,6 +171,26 @@ gulp.task('r_swig', function() {
   return g.pipe(gulp.dest(outPath.r));
 });
 
+gulp.task('nav_swig', function() {
+  var g = gulp.src(srcPath.navxxx)
+    .pipe(swig({
+      defaults: {
+        cache: false,
+        locals: {
+          isProd: true,
+          version: 1
+        }
+      }
+    }));
+  if (isProd) {
+    g = g.pipe(htmlmin({
+      collapseWhitespace: true,
+      minifyJS: true
+    }));
+  }
+  return g.pipe(gulp.dest(outPath.navccc));
+});
+
 gulp.task('swig_index', function() {
   var g = gulp.src(srcPath.index)
     .pipe(swig({
@@ -208,6 +230,12 @@ gulp.task('del:dirPath_index', function() {
 
 gulp.task('del:effect', function() {
   return del(effectOut, {
+    force: true,
+  });
+});
+
+gulp.task('del:navccc', function() {
+  return del(outPath.navccc, {
     force: true,
   });
 });
@@ -265,8 +293,8 @@ gulp.task('r_images', function() {
 });
 
 //1
-gulp.task('swig_task', ['del:dirPath', 'del:dirPath_index'], function() {
-  gulp.start(['swig', 'swig_index', 'r_swig']);
+gulp.task('swig_task', ['del:dirPath', 'del:dirPath_index', 'del:navccc'], function() {
+  gulp.start(['swig', 'swig_index', 'r_swig', 'nav_swig']);
 });
 
 //2
