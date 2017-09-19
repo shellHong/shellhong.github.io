@@ -148,7 +148,7 @@
                 swal.showInputError("授权码不能为空");
                 return false
               }
-              location.href = inputValue.toLowerCase() + '/views/work_nav.html';
+              location.href = inputValue.toLowerCase() + '/work_nav.html';
             });
           }
         });
