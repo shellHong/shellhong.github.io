@@ -123,6 +123,14 @@ gulp.task('css', function() {
   return g.pipe(gulp.dest(outPath.css));
 });
 
+gulp.task('css_nav', function() {
+  var g = gulp.src(srcPath.css)
+    .pipe(md5(8, outPath.navccc + '/**/*.html'));
+  if (isProd) {
+    g = g.pipe(uglifycss());
+  }
+});
+
 gulp.task('css_index', function() {
   var g = gulp.src(srcPath.css)
     .pipe(md5(8, `${outPath.index}index.html`));
@@ -241,7 +249,7 @@ gulp.task('del:navccc', function() {
 });
 
 gulp.task('hash:css', ['swig'], function() {
-  gulp.start(['scss', 'css', 'scss_index', 'css_index']);
+  gulp.start(['scss', 'css', 'scss_index', 'css_index', 'css_nav']);
 });
 
 gulp.task('hash:js', function() {
@@ -251,6 +259,14 @@ gulp.task('hash:js', function() {
     g = g.pipe(uglify());
   }
   return g.pipe(gulp.dest(outPath.js));
+});
+
+gulp.task('js_nav', function() {
+  var g = gulp.src(srcPath.js)
+    .pipe(md5(8, outPath.navccc + '/**/*.html'));
+  if (isProd) {
+    g = g.pipe(uglify());
+  }
 });
 
 gulp.task('hash:js_index', function() {
@@ -303,7 +319,7 @@ gulp.task('css_task', ['hash:css', 'files']);
 //3、webpack
 
 //4
-gulp.task('js_task', ['hash:js', 'hash:js_index']);
+gulp.task('js_task', ['hash:js', 'hash:js_index', 'js_nav']);
 
 //5
 gulp.task('images_task', ['hash:img1', 'hash:img2', 'hash:img_index', 'r_css', 'r_js', 'r_images']);
