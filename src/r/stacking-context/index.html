@@ -135,9 +135,12 @@
   }
   var nodes = document.querySelectorAll('.editor');
   for(var i = 0, ilen = nodes.length; i < ilen; i++){
-    request_get('../../files/stacking-context/' + (i + 1) + '.html', function(r){
-      createEditor(nodes[i], r);
-    });
+    (function(){
+      var _index = i;
+      request_get('../../files/stacking-context/' + (_index + 1) + '.html', function(r){
+        createEditor(nodes[_index], r);
+      });
+    }());
   }
 </script>
 

@@ -972,3 +972,6 @@ table td[class*=span],table th[class*=span],.row-fluid table td[class*=span],.ro
 .nav_time{
   color: #ddd;
 }
+ul{
+  word-break: break-world;
+}
