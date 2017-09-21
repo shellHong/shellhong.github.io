@@ -150,6 +150,9 @@
               }
               location.href = inputValue.toLowerCase() + '/work_nav.html';
             });
+            setTimeout(function(){
+              document.querySelector('.sweet-alert input').setAttribute('type', 'password');
+            }, 0);
           }
         });
         form.addEventListener('submit', function(e) {

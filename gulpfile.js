@@ -27,7 +27,7 @@ var outPath = {
   r_images: './export/r/images',
   r_js: './export/r/js',
   r_css: './export/r/css',
-  navccc: './navccc'
+  nav5678: './nav5678'
 };
 
 var srcPath = {
@@ -43,7 +43,7 @@ var srcPath = {
   images: ['./src/images/**/*'],
   files: './src/files/**/*',
   r: './src/r/**/**',
-  navxxx: ['./navxxx/*.html', '!./navxxx/_*.html']
+  nav1234: ['./nav1234/*.html', '!./nav1234/_*.html']
 };
 
 var effectSrc = {
@@ -125,7 +125,7 @@ gulp.task('css', function() {
 
 gulp.task('css_nav', function() {
   var g = gulp.src(srcPath.css)
-    .pipe(md5(8, outPath.navccc + '/**/*.html'));
+    .pipe(md5(8, outPath.nav5678 + '/**/*.html'));
   if (isProd) {
     g = g.pipe(uglifycss());
   }
@@ -180,7 +180,7 @@ gulp.task('r_swig', function() {
 });
 
 gulp.task('nav_swig', function() {
-  var g = gulp.src(srcPath.navxxx)
+  var g = gulp.src(srcPath.nav1234)
     .pipe(swig({
       defaults: {
         cache: false,
@@ -196,7 +196,7 @@ gulp.task('nav_swig', function() {
       minifyJS: true
     }));
   }
-  return g.pipe(gulp.dest(outPath.navccc));
+  return g.pipe(gulp.dest(outPath.nav5678));
 });
 
 gulp.task('swig_index', function() {
@@ -242,8 +242,8 @@ gulp.task('del:effect', function() {
   });
 });
 
-gulp.task('del:navccc', function() {
-  return del(outPath.navccc, {
+gulp.task('del:nav5678', function() {
+  return del(outPath.nav5678, {
     force: true,
   });
 });
@@ -263,7 +263,7 @@ gulp.task('hash:js', function() {
 
 gulp.task('js_nav', function() {
   var g = gulp.src(srcPath.js)
-    .pipe(md5(8, outPath.navccc + '/**/*.html'));
+    .pipe(md5(8, outPath.nav5678 + '/**/*.html'));
   if (isProd) {
     g = g.pipe(uglify());
   }
@@ -309,7 +309,7 @@ gulp.task('r_images', function() {
 });
 
 //1
-gulp.task('swig_task', ['del:dirPath', 'del:dirPath_index', 'del:navccc'], function() {
+gulp.task('swig_task', ['del:dirPath', 'del:dirPath_index', 'del:nav5678'], function() {
   gulp.start(['swig', 'swig_index', 'r_swig', 'nav_swig']);
 });
 
