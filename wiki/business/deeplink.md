@@ -63,3 +63,9 @@ cp内容页说明
   --------
 
   [点击跳转](http://blog.shellhong.com/wiki/tools/index.html)
+
+
+  deeplink链接有效性验证
+  --------
+
+  [点击跳转](http://blog.shellhong.com/wiki/tools/deeplink-test/index.html)
