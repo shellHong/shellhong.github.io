@@ -6,7 +6,7 @@ cp 只需要做
 
 * 提供应用的deeplink链接（例如：jike://page.jk/recommend?dialog=lottery）
 
-* 开发并发布cp内容页（H5页面），然后给出线上链接（例如：http://a.b.com/resources/1.html）
+* 开发并发布cp内容页（H5页面），然后给出线上链接（例如：https://a.b.com/resources/1.html，请提供https协议的）
 
 * 并在cp内容页（H5页面）中添加页面下方的代码，然后把按钮id设置为“js_notifyApp”(可参考下方的“cp内容页说明”)
 
