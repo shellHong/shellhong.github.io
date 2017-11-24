@@ -1,0 +1,103 @@
+{% extends "../_layout.html" %}
+
+{% block head_extend %}
+{% endblock %}
+
+{% block content %}
+<h1>活动</h1>
+
+<h2>简述</h2>
+
+<ul>
+<li>目标
+<ul><li>协同与解耦
+<ul><li>多人参与，并行开发，互不干扰</li></ul></li>
+<li>规范与统一
+<ul><li>全局公共数据（键值、app信息等）、埋点、基础流程封装和自动获取，减少个性化实现</li>
+<li>统一基本流程和架构</li></ul></li>
+<li>门槛与效率
+<ul><li>降低项目开发参与门槛</li>
+<li>减少重复开发</li></ul></li></ul></li>
+<li>改动
+<ul><li>流程与模块封装</li>
+<li>事件分发</li>
+<li>共性数据提炼</li></ul></li>
+</ul>
+
+<h2>架构</h2>
+
+<h3>模块交互</h3>
+
+<blockquote>
+  <p>dispense采用事件模式，负责模块间交互</p>
+</blockquote>
+
+<ul>
+<li>update类型事件仅支持外部emit，用于更新内部数据</li>
+<li>notify类型事件支持两种模式
+<ul><li>外部emit，用于主动获取数据</li>
+<li>外部监听，用于被动获取数据</li></ul></li>
+</ul>
+<p><img src="../../../images/work/re-activity/flow1.png" alt="整体架构" title="" /></p>
+
+<blockquote>
+  <p>主动emit notify类型事件，用于主动获取数据，适用于对app下载安装进度感知低的模块，例如：其它福利、火车票购买、酒店预定等deeplink类型模块，这些模块只在点击的时候，根据app下载安装进度，实现不同的逻辑处理。</p>
+</blockquote>
+
+<p><img src="../../../images/work/re-activity/flow2.png" alt="流程一" title="" /></p>
+
+<blockquote>
+  <p>监听notify类型事件，用于被动获取数据，适用于对app下载安装进度感知高的模块，例如：游戏模块、红包领取等，这些模块需要根据app下载安装进度，实时调整展示与逻辑。</p>
+</blockquote>
+
+<p><img src="../../../images/work/re-activity/flow3.png" alt="流程二" title="" /></p>
+
+<blockquote>
+  <p>
+<div>动态数据交互</div>
+<div>上面提及的app下载安装进度，其实就属于一种交互数据，由于模块需求较大，几乎都需要获取，所以进行了较大强度的封装。</div>
+<div>而不同的活动，会有自身定制话的数据交互需求（例如：免费抽奖有机会获取红包，下载安装完app有机会获取红包，那么红包相关的信息：个数之类的，就是需要不同模块交互的业务性数据）</div>
+这些数据也是采用dispense进行交互的。</p>
+</blockquote>
+
+<pre class='editor'>
+  //业务常量模块中定义
+  const ADD_RED_PACKAGE_KEY = 'ADD_RED_PACKAGE_KEY';
+
+  //展示模块中监听红包个数，实时修改展示和动画
+  Emitter.on('notifyVal', function(p, v){
+      if(p == ADD_RED_PACKAGE_KEY){
+          //修改红包展示个数
+      }
+  });
+
+  //任务模块，完成任务并获取到红包的情况下，更新红包个数
+  Emitter.emit('updateVal', ADD_RED_PACKAGE_KEY, 1);
+
+  //部分模块，需要根据红包个数，做不同的操作处理，主动获取红包个数
+  Emitter.emit('notifyVal', function(v){
+      //do something
+  }, ADD_RED_PACKAGE_KEY);
+
+
+
+</pre>
+<script src="../../../r/js/ace/ace.js" charset="utf-8"></script>
+<script src="../../../r/js/ace/ext-language_tools.js" charset="utf-8"></script>
+<script>
+  function createEditor(el, content){
+    var editor = ace.edit(el);
+    // editor.setTheme("ace/theme/tomorrow");
+    editor.session.setMode("ace/mode/javascript");
+    editor.setReadOnly(true);
+    editor.setValue(content, 1);
+    editor.setOption("maxLines", 30);
+    return editor;
+  }
+  var el = document.querySelector('.editor');
+  createEditor(el, el.innerText);
+</script>
+{% endblock %}
+
+{% block footer_extend %}
+{% endblock %}
