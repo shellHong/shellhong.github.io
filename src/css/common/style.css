@@ -976,3 +976,9 @@ table td[class*=span],table th[class*=span],.row-fluid table td[class*=span],.ro
 ul{
   word-break: break-word;
 }
+ul>li>ul>li>ul>li{
+  list-style: circle;
+}
+ul>li>ul>li{
+  list-style: square;
+}
