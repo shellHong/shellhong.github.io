@@ -74,7 +74,7 @@
           alert('不是合法的deeplink路径');
           return false;
         }
-        if(/^http|https/.test(val)){
+        if(/^(http|https)/.test(val)){
           alert('不是合法的协议');
           return false;
         }
