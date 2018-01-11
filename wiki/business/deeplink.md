@@ -57,6 +57,14 @@ cp内容页说明
       }
   }, false);
   ```
+  * cp主动调用打开scheme(openScheme)，代码：
+    ```
+    //App未下载，则弹框提示;
+    //App已安装，则打开应用的scheme;
+    document.getElementById('js_openScheme').onclick = function() {
+      parent.postMessage({event: 'openScheme' scheme: 'suning://xxxxxxxxx'},'*');
+    };
+    ```
 
 
   deeplink流程模拟测试工具
