@@ -33,9 +33,10 @@
     <script type="text/javascript">
       document.getElementById('sure').onclick=function(){
         var val = document.getElementById('url').value;
-        document.querySelectorAll('iframe').forEach(function(item){
-          item.src=val;
-        });
+        var iframes = document.querySelectorAll('iframe');
+        for(var i = 0, ilen = iframes.length; i < ilen; i++){
+          iframes[i].src=val;
+        }
       };
       var status = 'never',
           pro = 0,
@@ -97,6 +98,15 @@
               break;
             default:
 
+          }
+        }else if(data.event == 'openScheme'){
+          if (!data.scheme) {
+            return alert('postMessage参数不正确，应该为：scheme');
+          }
+          if (status == 'finish') {
+            alert('成功跳转scheme页面:' + data.scheme);
+          } else {
+            alert('应用尚未安装成功，请稍后再试');
           }
         }else{
           alert('postMessage事件名称不正确，应该为：mzDownloadApp');
