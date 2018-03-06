@@ -59,7 +59,6 @@ class ShootingStar {
   }
 }
 
-
 // 流星雨
 class MeteorShower {
   constructor(cvs, ctx) {

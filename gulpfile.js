@@ -48,6 +48,7 @@ var srcPath = {
 
 var effectSrc = {
   scss: './src/effect/**/*.scss',
+  css: './src/effect/**/*.css',
   js: './src/effect/**/*.js',
   images: './src/effect/**/img/*',
   html: './src/effect/**/*.html'
@@ -112,6 +113,15 @@ gulp.task('effect_img', function() {
   var g = gulp.src(effectSrc.images)
     .pipe(md5(8, `${effectOut}/**/*.html`))
     .pipe(gulp.dest(effectOut));
+});
+
+gulp.task('effect_css', function() {
+  var g = gulp.src(effectSrc.css)
+    .pipe(md5(8, `${effectOut}/**/*.html`));
+  if (isProd) {
+    g = g.pipe(uglifycss());
+  }
+  return g.pipe(gulp.dest(effectOut));
 });
 
 gulp.task('css', function() {
