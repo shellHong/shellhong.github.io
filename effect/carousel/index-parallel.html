@@ -13,7 +13,7 @@
       overflow: hidden;
     }
   </style>
-  <script type="text/javascript" src="./index_fabd35dd.js"></script>
+  <script type="text/javascript" src="./index_b21f378b.js"></script>
 </head>
 <body>
 		<div class="sky-carousel"></div>
@@ -29,10 +29,15 @@
           './img/7_a404afb4.jpg'
         ], {
           type: 'parallel',
-          width: '70%',//图片宽度，可为数字（像素值）或字符串（百分比，相对于容器宽度）
-          marginR: 10,//图片彼此间的距离，可为数字（像素值）或字符串（百分比，相对于容器宽度）
-          isAutoCarousel: true,//是否自动轮播
-          animateTime: .4
+          width: '70%',
+          marginR: 10,
+          isAutoCarousel: false,
+          animateTime: .2,
+          autoCarouselTime: 5000,
+          startX: 30,
+          dragHolder: 120,
+          effectDistance: 20,
+          isSort: true
         });
     </script>
 </body>

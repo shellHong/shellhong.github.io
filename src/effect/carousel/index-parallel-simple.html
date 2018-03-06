@@ -13,22 +13,30 @@
       overflow: hidden;
     }
   </style>
-  <script type="text/javascript" src="./index_b21f378b.js"></script>
+  <script type="text/javascript" src="./index.js"></script>
 </head>
 <body>
 		<div class="sky-carousel"></div>
     <div style='color:red;text-align:center;font-size:60px;margin-top:100px;'>仅支持移动端</div>
     <script type="text/javascript">
     		carousel.init(document.querySelector('.sky-carousel'), [
-          './img/1_14731692.jpg',
-          './img/2_6314aecb.jpg',
-          './img/3_105dba92.jpg',
-          './img/4_ba65a967.jpg',
-          './img/5_e841a8a7.jpg',
-          './img/6_3d7b784c.jpg',
-          './img/7_a404afb4.jpg'
+          './img/1.jpg',
+          './img/2.jpg',
+          './img/3.jpg',
+          './img/4.jpg',
+          './img/5.jpg',
+          './img/6.jpg',
+          './img/7.jpg'
         ], {
-          isAutoCarousel: true,//是否自动轮播
+          type: 'parallel-simple',
+          width: '70%',
+          marginR: 10,
+          isAutoCarousel: true,
+          animateTime: .2,
+          autoCarouselTime: 5000,
+          startX: 30,
+          dragHolder: 120,
+          effectDistance: 20,
           isSort: true
         });
     </script>
