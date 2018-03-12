@@ -299,11 +299,11 @@ gulp.task('hash:img2', function() {
     .pipe(gulp.dest(outPath.images));
 });
 
-gulp.task('hash:img_index', function() {
-  var g = gulp.src(srcPath.images)
-    .pipe(md5(8, `${outPath.index}index.html`))
-    .pipe(gulp.dest(outPath.images));
-});
+// gulp.task('hash:img_index', function() {
+//   var g = gulp.src(srcPath.images)
+//     .pipe(md5(8, `${outPath.index}index.html`))
+//     .pipe(gulp.dest(outPath.images));
+// });
 
 gulp.task('r_js', function() {
   var g = gulp.src(srcPath.r_js)
@@ -332,7 +332,7 @@ gulp.task('css_task', ['hash:css', 'files']);
 gulp.task('js_task', ['hash:js', 'hash:js_index', 'js_nav']);
 
 //5
-gulp.task('images_task', ['hash:img1', 'hash:img2', 'hash:img_index', 'r_css', 'r_js', 'r_images']);
+gulp.task('images_task', ['hash:img1', 'hash:img2', 'r_css', 'r_js', 'r_images']);
 
 //6
 gulp.task('del:index', function() {
