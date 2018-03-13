@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../css/common/font_92a0e396.css" type="text/css">
+    <link rel="stylesheet" href="../../../css/common/style_1f6aed7d.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="../../../css/common/print_9fc78c3d.css" media="print" type="text/css">
+    
+
+    <title>ShellHong's Blog</title>
+    <style media="screen">
+      div{
+        line-height: 1.6;
+        padding-bottom: 6px;
+      }
+      blockquote{
+        margin-left: 0;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="inner">
+        <a href="https://blog.shellhong.com">
+          <h1>ShellHong Blog</h1>
+        </a>
+        <a href="mailto:shellhong6@gmail.com" class="button">Send email to me</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+
+        <section id="main-content"><!--内容主体-->
+          
+<h2>viewport与单位</h2>
+
+<h3>设备像素（px）</h3>
+
+<ul>
+<li>物理单位，又叫物理像素，单位px</li>
+<li>同一设备，设备像素（px）所代表的物理长度（英寸）固定不变</li>
+<li>不同一设备，设备像素（px）所代表的物理长度（英寸）不一定一样</li>
+</ul>
+
+<h3>分辨率</h3>
+
+<ul>
+<li>单位是设备像素(px)</li>
+<li>设备的设备像素（个数和物理长度）出厂时就设置好了，不可变</li>
+<li>所以，设备分辨率也是固定的</li>
+</ul>
+
+<p>那么pc端的修改屏幕分辨率和移动端的调整显示大小，是怎么回事呢。</p>
+
+<ul>
+<li>当1个图像像素用多个物理像素表示时，边界模糊化处理</li>
+<li>当多个图像像素用1个物理像素表示时，取接近的色彩（用一个颜色来近似表示多个颜色）</li>
+<li>总的来说，通过软件手段处理</li>
+</ul>
+
+<h3>设备独立像素（dp）</h3>
+
+<ul>
+<li>多用于Android项目中的控件大小（字体大小主要是用sp作为单位）</li>
+<li>px = dp * (dpi/160)</li>
+<li>android: dpi,ios: ppi</li>
+<li>在dpi=160的设备上(一倍屏)的1px=1dp</li>
+<li>在dpi=320的设备上(二倍屏)的2px=1dp</li>
+</ul>
+
+<h3>css像素</h3>
+
+<ul>
+<li>默认情况(例如pc端，采用默认分辨率时)下，1个css像素＝1个设备像素，即分辨率的单位</li>
+</ul>
+
+<h3>viewport</h3>
+
+<ul>
+<li>layout viewport：浏览器默认的viewport（固定宽度），未设置viewport宽度的情况下，宽度可以通过 document.documentElement.clientWidth 来获取</li>
+<li>visual viewport：浏览器可视区域，宽度可以通过window.innerWidth 来获取</li>
+<li>ideal viewport：移动设备的理想viewport，ideal viewport宽度不同设备不一样，例如：分辨率为1280*720px的2倍屏的device-width为：720/2=360px，这里的device-width便是ideal viewport的宽度</li>
+<li>移动端默认情况下，ideal viewport的宽度等于layout viewport（大部分为980,1024px），所以，理论上来说，如果分辨率为1334*750px的话，1个css像素 ＝ 750/980个设备像素（小于1或有小数，做软件处理）</li>
+</ul>
+
+<p><code>&lt;meta name="viewport" content="width=400, initial-scale=1"&gt;</code>中，<code>initial-scale=1</code>表示1倍ideal viewport的宽度，即device-width；而<code>width=400</code>又把宽度设置为400；这种冲突情况下，取大者。</p>
+
+<h3>参考</h3>
+
+<ul>
+<li>http://tgideas.qq.com/webplat/info/news_version3/804/7104/7106/m5723/201509/376281.shtml</li>
+<li>http://www.cnblogs.com/2050/p/3877280.html</li>
+</ul>
+
+        </section>
+
+        <!-- <aside id="sidebar">
+          <p><a href="http://blog.shellhong.com/export/views/work_nav.html">工作</a></p>
+          <p><a href="http://blog.shellhong.com/export/views/life_nav.html">生活</a></p>
+        </aside> -->
+
+      </div>
+    </div>
+    
+
+  </body>
+</html>
