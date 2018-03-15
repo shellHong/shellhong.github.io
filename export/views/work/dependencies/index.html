@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../css/common/font_92a0e396.css" type="text/css">
+    <link rel="stylesheet" href="../../../css/common/style_1f6aed7d.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="../../../css/common/print_9fc78c3d.css" media="print" type="text/css">
+    
+
+    <title>ShellHong's Blog</title>
+    <style media="screen">
+      div{
+        line-height: 1.6;
+        padding-bottom: 6px;
+      }
+      blockquote{
+        margin-left: 0;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="inner">
+        <a href="https://blog.shellhong.com">
+          <h1>ShellHong Blog</h1>
+        </a>
+        <a href="mailto:shellhong6@gmail.com" class="button">Send email to me</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+
+        <section id="main-content"><!--内容主体-->
+          
+<h1>关于package.json中的包配置</h1>
+
+<h2>dependencies</h2>
+
+<ul>
+<li>该配置项放的是和业务挂钩的包，其缺失会影响正常业务运行</li>
+<li>在package.json文件的同级目录下，运行<code>npm install</code>会安装此配置中的包</li>
+<li>运行<code>npm install $package</code>，会把<code>$package</code>包写入dependencies配置项</li>
+<li>运行<code>npm install --s $package</code>，会把<code>$package</code>包写入dependencies配置项</li>
+<li>具备传递安装，例如：A依赖于B，B依赖于C，然后安装A的时候，会自动把B和C都安装了</li>
+</ul>
+
+<h2>devDependencies</h2>
+
+<ul>
+<li>该配置项放的是和业务无关的包，其缺失不会影响正常业务运行，仅用于开发调试</li>
+<li>在package.json文件的同级目录下，运行<code>npm install</code>会安装此配置中的包</li>
+<li>在package.json文件的同级目录下，运行<code>npm install --production</code>，则不会安装此配置中的包</li>
+<li>运行<code>npm install --dev $package</code>，会把<code>$package</code>包写入此配置项中</li>
+<li>不具备传递安装</li>
+</ul>
+
+<h2>peerDependencies</h2>
+
+<ul>
+<li>3.0之前的版本，会自动安装该配置项中的包，但是如果同一个包安装了多个不同的版本，则会报错</li>
+<li>3.0以后，只会做警告提示，然后需要自行安装和解决冲突</li>
+<li>主要用在插件的开发中，例如：<code>sass-loader</code>是为<code>webpack</code>开发的加载器，其兼容webpack 2.x到4.x版本，那么便可在该包的<code>peerDependencies</code>配置项中，写入<code>"webpack": "^2.0.0 || ^3.0.0 || ^4.0.0"</code></li>
+<li>非附属关系，不建议使用该配置项（例如：某个包，其应用范围很广或独立性强，那么就不适宜如此使用）</li>
+</ul>
+
+<p>图片1</p>
+
+<h2>版本号</h2>
+
+<ul>
+<li>用 ~ 指示范围
+<div>~1.2.3: >= 1.2.3 &lt; 1.3.0
+</div><div>~1.2: >= 1.2.0 &lt; 1.3.0
+</div><div>~1: >= 1.0.0 &lt; 2.0.0
+</div><div>~0.2.3: >= 0.2.3 &lt; 0.3.0</div></li>
+<li>用 ^ 指定范围
+<div>^1.2.3: >=1.2.3 &lt; 2.0.0
+</div><div>^0.2.3: >=0.2.3 &lt; 0.3.0
+</div><div>^0.0.3: >=0.0.3 &lt; 0.0.4</div></li>
+<li><p>其他从字面意思理解</p>
+
+<blockquote>
+  <p>、>=、&lt;、&lt;=、*、||等</p>
+</blockquote></li>
+</ul>
+
+        </section>
+
+        <!-- <aside id="sidebar">
+          <p><a href="http://blog.shellhong.com/export/views/work_nav.html">工作</a></p>
+          <p><a href="http://blog.shellhong.com/export/views/life_nav.html">生活</a></p>
+        </aside> -->
+
+      </div>
+    </div>
+    
+
+  </body>
+</html>
