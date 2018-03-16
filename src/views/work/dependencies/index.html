@@ -1,6 +1,12 @@
 {% extends "../_layout.html" %}
 
 {% block head_extend %}
+<style media="screen">
+  pre{
+    margin: 0;
+    padding: 0;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -32,6 +38,7 @@
 <li>3.0之前的版本，会自动安装该配置项中的包，但是如果同一个包安装了多个不同的版本，则会报错</li>
 <li>3.0以后，只会做警告提示，然后需要自行安装和解决冲突</li>
 <li>主要用在插件的开发中，例如：<code>sass-loader</code>是为<code>webpack</code>开发的加载器，其兼容webpack 2.x到4.x版本，那么便可在该包的<code>peerDependencies</code>配置项中，写入<code>"webpack": "^2.0.0 || ^3.0.0 || ^4.0.0"</code></li>
+<li></li>
 <li>非附属关系，不建议使用该配置项（例如：某个包，其应用范围很广或独立性强，那么就不适宜如此使用）</li>
 </ul>
 
@@ -56,6 +63,27 @@
   <p>&gt;、&gt;=、&lt;、&lt;=、*、||&nbsp;&nbsp;等</p>
 </blockquote></li>
 </ul>
+
+<h2>.npmrc文件</h2>
+<div>
+  这个文件用于配置npm源，可用于替代全局配置，也比较适合协作开发。举个例子：
+</div>
+<div>
+  <pre>
+  <code>
+    @flyme:registry=http://appff.meizu.com:8888/
+    registry=https://registry.npm.taobao.org
+  </code></pre>
+</div>
+<h2>publishConfig</h2>
+<div>
+  这个字段用于设置发布时候的一些设定。尤其方便你希望发布前设定指定的tag或registry。举个例子：
+</div>
+<pre><code>
+  "publishConfig": {
+    "registry": "http://appff.meizu.com:8888/"
+  }
+</code></pre>
 {% endblock %}
 
 {% block footer_extend %}
