@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>border-radius</title>
+</head>
+
+<body>
+  <style media="screen">
+    html, body{
+      height: 100%;
+      overflow: hidden;
+    }
+    div {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #cccccc;
+    }
+  </style>
+  <div></div>
+  <script type="text/javascript">
+    var el = document.querySelector('div');
+    el.addEventListener('mouseover', function() {
+      this.style.backgroundColor = '#7ebaea';
+    });
+    el.addEventListener('click', function() {
+      this.style.backgroundColor = '#c7e863';
+    });
+    el.addEventListener('mouseout', function() {
+      this.style.backgroundColor = '#cccccc';
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>map and area</title>
+  </head>
+  <body>
+    <style media="screen">
+      html, body{
+        height: 100%;
+        overflow: hidden;
+      }
+      img{
+        width: 100px;
+        height: 100px;
+        background-color: #cccccc;
+        clip-path: polygon(0 0, 100px 50px, 50px 100px);
+      }
+    </style>
+    <img src="data:image/gif;base64,R0lGODlhEAAQAIAAAP///wAAACH5BAEAAAAALAAAAAAQABAAAAIOhI+py+0Po5y02ouzPgUAOw=="
+         class="area"
+         usemap="#circle">
+    <map id="circle" name="circle">
+    	<area shape="poly" coords="0,0 100,50 50,100" href="#circle">
+    </map>
+    <script type="text/javascript">
+      var el = document.querySelector('area');
+      var img = document.querySelector('img');
+      el.addEventListener('mouseover', function() {
+        img.style.backgroundColor = '#7ebaea';
+      });
+      el.addEventListener('click', function() {
+        img.style.backgroundColor = '#c7e863';
+      });
+      el.addEventListener('mouseout', function() {
+        img.style.backgroundColor = '#cccccc';
+      });
+    </script>
+  </body>
+</html>

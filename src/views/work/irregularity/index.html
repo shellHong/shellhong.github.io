@@ -1,0 +1,50 @@
+{% extends "../_layout.html" %}
+
+{% block head_extend %}
+<style media="screen">
+  iframe{
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
+    border: none;
+    outline: none;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>关于不规则形状事件响应实现</h1>
+
+<h2>border-radius</h2>
+
+<iframe src="./border-radius.html"></iframe>
+
+<h2>svg</h2>
+
+<iframe src="./svg.html"></iframe>
+
+<h2>clip-path</h2>
+
+<iframe src="./clip-path.html"></iframe>
+
+<h2>map and area</h2>
+
+<iframe src="./mapAndarea.html"></iframe>
+
+<h2>交互</h2>
+
+<ul>
+<li>pc端，鼠标移动，mouseover和mouseout颜色发生变化</li>
+<li>pc端和移动端，点击图形，颜色发生变化</li>
+</ul>
+
+
+<h2>参考</h2>
+
+<ul>
+<li>http://www.zhangxinxu.com/wordpress/2017/05/html-area-map/</li>
+</ul>
+{% endblock %}
+
+{% block footer_extend %}
+{% endblock %}
