@@ -1,0 +1,98 @@
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: -webkit-linear-gradient(top, #fff5f5, #ffecf0);
+  /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(top, #fff5f5, #ffecf0);
+  /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(top, #fff5f5, #ffecf0);
+  /* Firefox 3.6 - 15 */
+  background: linear-gradient(to top, #fff5f5, #ffecf0);
+  /* 标准的语法 */
+}
+
+svg {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  font-family: helvetica, sans-serif;
+}
+
+path,
+line {
+  stroke: #777;
+}
+
+.svgField {
+  height: 100%;
+}
+svg:first-of-type{
+  position: absolute;
+  z-index: 2;
+}
+.people{
+  width: 640px;
+  height: 480px;
+  position: absolute;
+  bottom: -410px;
+  z-index: 1;
+}
+
+.people path, .evn path:nth-of-type(2) {
+  stroke-dasharray: 1440;
+  stroke-dashoffset: 1440;
+  animation: dash 5s linear;
+  -webkit-animation: dash 5s linear;
+  animation-fill-mode: forwards;
+}
+
+.appearHeart {
+  stroke-dasharray: 190;
+  stroke-dashoffset: 190;
+  animation: dash 3s linear;
+  -webkit-animation: dash 3s linear;
+  animation-fill-mode: forwards;
+}
+
+.evn path:nth-of-type(1) {
+  cursor: pointer;
+}
+
+
+.evn path:nth-of-type(3) {
+  stroke-dasharray: 226;
+  stroke-dashoffset: 226;
+  animation: dash 3s linear;
+  -webkit-animation: dash 3s linear;
+  animation-fill-mode: forwards;
+}
+.evn path:nth-of-type(4) {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: dash 5s linear;
+  -webkit-animation: dash 5s linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.disappearHeart {
+  stroke-dasharray: 190;
+  stroke-dashoffset: 0;
+  animation: disappearHeartAni 3s linear;
+  -webkit-animation: disappearHeartAni 3s linear;
+  animation-fill-mode: forwards;
+}
+@keyframes disappearHeartAni {
+  to {
+    stroke-dasharray: 190;
+    stroke-dashoffset: 190;
+  }
+}
