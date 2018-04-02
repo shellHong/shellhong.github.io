@@ -4,10 +4,10 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  /* background: -webkit-linear-gradient(top, #fff5f5, #ffecf0);
+  background: -webkit-linear-gradient(top, #fff5f5, #ffecf0);
   background: -o-linear-gradient(top, #fff5f5, #ffecf0);
   background: -moz-linear-gradient(top, #fff5f5, #ffecf0);
-  background: linear-gradient(to top, #fff5f5, #ffecf0); */
+  background: linear-gradient(to top, #fff5f5, #ffecf0);
 }
 
 svg {

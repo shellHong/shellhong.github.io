@@ -127,17 +127,51 @@ function createHeart() {
   var svg = d3.select('svg'),
       heartLen = 190,
       firstPath = null;
-  svg.append('path')
+  var heartPath = svg.append('path')
     .style('stroke', 'red')
     .style('stroke-width', 1)
     .attr('d', transform('m29.727744,14.504978c11.750414,-31.304472 57.78892,0 0,40.248607c-57.78892,-40.248607 -11.750414,-71.553079 0,-40.248607z', 57, 53))
     .attr('fill-opacity', 0);
 
-    firstPath = document.querySelector('path');
-    firstPath.classList.add('appearHeart');
-    firstPath.addEventListener('click', function(){
-      firstPath.classList.remove('appearHeart');
-      firstPath.classList.add('disappearHeart');
+  var tipLine = svg.append('line');
+  tipLine.style('stroke-width', 1)
+    .style('stroke', 'red')
+    .transition()
+    .delay(function(d, i) {
+      return 3000;
+    })
+    .attr('x1', heartStartX + 15 + 16)
+    .attr('y1', heartStartY + 30)
+    .attr('x2', heartStartX + 15 + 16)
+    .attr('y2', heartStartY + 30)
+    .transition()
+    .delay(function(d, i) {
+      return 0;
+    })
+    .duration(2000)
+    .attr('x2', heartStartX + 100 + 16)
+    .attr('y2', heartStartY + 30);
+
+  var tipText = svg.append('text');
+  tipText.transition()
+     .delay(function(d, i) {
+       return 5000;
+     })
+     .style('fill', 'red')
+     .attr('x', heartStartX + 17 + 16)
+     .attr('y', heartStartY + 23)
+     .text('请点击红心')
+     .attr('fill-opacity', 0)
+     .transition()
+     .duration(1000)
+     .attr('fill-opacity', 0.6);
+
+    heartPath.classed('appearHeart', true);
+    heartPath.on('click', function(){
+      tipText.remove();
+      tipLine.remove();
+      heartPath.classed('appearHeart', false);
+      heartPath.classed('disappearHeart', true);
 
       var point1 = getPoint(heartStartX, heartStartY, 0, winH, heartLen),
           point2 = getPoint(0, winH, heartStartX, heartStartY, heartLen);
@@ -177,8 +211,7 @@ function createHeart() {
         .remove();
 
       setTimeout(function(){
-        // document.querySelector('line').remove();
-        // regenerate();
+        regenerate();
       }, 7500);
     });
 }
