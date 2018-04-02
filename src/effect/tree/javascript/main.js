@@ -120,7 +120,7 @@ function getPoint(startX, startY, endX, endY, dLen){
       len = Math.sqrt(Math.pow(xOffset, 2) + Math.pow(yOffset, 2)),
       rate = dLen / len;
 
-  return [startX + xOffset * rate, yOffset + yOffset * rate];
+  return [startX + xOffset * rate, startY + yOffset * rate];
 }
 
 function createHeart() {
@@ -153,6 +153,7 @@ function createHeart() {
           return 0;
         })
         .duration(3000)
+        .ease(d3.easeLinear)
         .attr('x2', point1[0])
         .attr('y2', point1[1])
         .transition()
@@ -160,6 +161,7 @@ function createHeart() {
           return 0;
         })
         .duration(3000)
+        .ease(d3.easeLinear)
         .attr('x2', 0)
         .attr('y2', winH)
         .attr('x1', point2[0])
@@ -168,13 +170,15 @@ function createHeart() {
         .delay(function(d, i) {
           return 0;
         })
+        .ease(d3.easeLinear)
         .duration(1000)
         .attr('x1', 0)
-        .attr('y1', winH);
+        .attr('y1', winH)
+        .remove();
 
       setTimeout(function(){
-        document.querySelector('line').remove();
-        regenerate();
+        // document.querySelector('line').remove();
+        // regenerate();
       }, 7500);
     });
 }
