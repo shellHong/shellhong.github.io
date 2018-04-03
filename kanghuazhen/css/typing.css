@@ -28,6 +28,7 @@
 .output-wrap{
   display: none;
   position: absolute;
-  left: 30%;
-  top: 100px;
+  left: 12%;
+  top: 200px;
+  color: #af5f70;
 }

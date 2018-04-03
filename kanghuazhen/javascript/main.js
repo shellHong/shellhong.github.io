@@ -153,20 +153,19 @@ function createHeartPath() {
       .attr('d', transform('m29.727744,14.504978c11.750414,-31.304472 57.78892,0 0,40.248607c-57.78892,-40.248607 -11.750414,-71.553079 0,-40.248607z', 57, 53))
       .attr('fill-opacity', 0)
       .classed('appearHeart', true);
-      setTimeout(function(){
-        resolve();
-      }, 3000);
+    resolve();
   });
 }
 
 function createTipLine() {
   return new Promise(function(resolve, reject){
-    mainSvg.style('stroke-width', 1)
+    mainSvg.append('line')
+      .style('stroke-width', 1)
       .attr('id', 'tipLine')
       .style('stroke', 'red')
       .transition()
       .delay(function(d, i) {
-        return 3000;
+        return 2500;
       })
       .attr('x1', heartStartX + 15 + 16)
       .attr('y1', heartStartY + 30)
@@ -191,7 +190,7 @@ function createTipText() {
       .attr('id', 'tipText')
       .transition()
       .delay(function(d, i) {
-        return 5000;
+        return 0;
       })
       .style('fill', 'red')
       .attr('x', heartStartX + 17 + 16)
@@ -330,7 +329,7 @@ function createPeople() {
       .attr('fill-opacity', 0);
       setTimeout(function(){
         resolve();
-      }, 5000);
+      }, 1500);
   });
 
 }
@@ -362,8 +361,10 @@ function createTree() {
       .ease(d3.easeLinear)
       .attr('x2', x2)
       .attr('y2', y2)
-      .on('end', function(){
-        resolve();
+      .on('end', function(d, index){
+        if(index + 1 == branches.length){
+          resolve();
+        }
       });
   });
 }
@@ -392,9 +393,11 @@ function createFlowers() {
       .duration(500)
       .attr('r', 5)
       .style("filter", "url(#Gaussian_Blur)")
-      .on('end', function(){
-        resolve();
-        document.getElementById('output-wrap').style.display = 'block';
+      .on('end', function(d, index){
+        if(index + 1 == flowers.length){
+          resolve();
+          document.getElementById('output-wrap').style.display = 'block';
+        }
       });
   });
 }

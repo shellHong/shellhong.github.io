@@ -37,11 +37,18 @@ svg:first-of-type{
   z-index: 1;
 }
 
-.people path, .evn path:nth-of-type(2) {
+.evn path:nth-of-type(2) {
   stroke-dasharray: 1440;
   stroke-dashoffset: 1440;
   animation: dash 5s linear;
   -webkit-animation: dash 5s linear;
+  animation-fill-mode: forwards;
+}
+.people path{
+  stroke-dasharray: 550;
+  stroke-dashoffset: 550;
+  animation: dash 3s linear;
+  -webkit-animation: dash 3s linear;
   animation-fill-mode: forwards;
 }
 
