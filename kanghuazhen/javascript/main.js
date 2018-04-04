@@ -172,7 +172,7 @@ function createHeartPath() {
       .style('stroke-width', 1)
       .attr('d', transform('m29.727744,14.504978c11.750414,-31.304472 57.78892,0 0,40.248607c-57.78892,-40.248607 -11.750414,-71.553079 0,-40.248607z', 57, 53))
       .attr('fill-opacity', 0)
-      .classed('appearHeart', true);
+      .classed('appearHeartPath', true);
     resolve();
   });
 }
@@ -235,8 +235,8 @@ function addHeartListener() {
     heartPath.on('click', function(){
       tipText.remove();
       tipLine.remove();
-      heartPath.classed('appearHeart', false);
-      heartPath.classed('disappearHeart', true);
+      heartPath.classed('appearHeartPath', false);
+      heartPath.classed('disappearHeartPath', true);
 
       var point1 = getPoint(heartStartX, heartStartY, 0, winH, heartLen),
           point2 = getPoint(0, winH, heartStartX, heartStartY, heartLen);
@@ -301,6 +301,7 @@ function create() {
 function createGround() {
   return new Promise(function(resolve, reject){
     mainSvg.append('path')
+      .classed('groundPath', true)
       .style('stroke', '#cacaca')
       .style('stroke-width', bottomH)
       .attr('d', 'm0,' + (winH - bottomH) + 'h' + halfW + 'c' + (halfW + halfW/6) + ',-65 ' + (halfW + halfW/4) + ',-45 ' + (winW) + ',0')
@@ -321,6 +322,7 @@ function createGround() {
 function createChair() {
   return new Promise(function(resolve, reject){
     mainSvg.append('path')
+      .classed('chairPath', true)
       .style('stroke', '#a58b8b')
       .style('stroke-width', 1)
       .attr('d', 'm'+qW+','+(winH - bottomH - 13) + 'h100v13h-100v-13')
@@ -342,6 +344,7 @@ function createPeople() {
   return new Promise(function(resolve, reject){
     document.getElementById('people').style.left = qW + 'px';
     d3.select('#people')
+      .classed('peoplePath', true)
       .append('path')
       .style('stroke', '#4a4a4a')
       .style('stroke-width', 1.5)

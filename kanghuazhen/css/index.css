@@ -35,64 +35,17 @@ svg:first-of-type{
   position: absolute;
   z-index: 2;
 }
-.people{
-  width: 640px;
-  height: 480px;
-  position: absolute;
-  bottom: -410px;
-  z-index: 1;
-}
 
-.evn path:nth-of-type(2) {
-  stroke-dasharray: 1440;
-  stroke-dashoffset: 1440;
-  animation: dash 5s linear;
-  -webkit-animation: dash 5s linear;
-  animation-fill-mode: forwards;
-}
-.people path{
-  stroke-dasharray: 550;
-  stroke-dashoffset: 550;
-  animation: dash 3s linear;
-  -webkit-animation: dash 3s linear;
-  animation-fill-mode: forwards;
-}
-
-.appearHeart {
+.appearHeartPath {
   stroke-dasharray: 190;
   stroke-dashoffset: 190;
   animation: dash 3s linear;
   -webkit-animation: dash 3s linear;
   animation-fill-mode: forwards;
-}
-
-.evn path:nth-of-type(1) {
   cursor: pointer;
 }
 
-
-.evn path:nth-of-type(3) {
-  stroke-dasharray: 226;
-  stroke-dashoffset: 226;
-  animation: dash 3s linear;
-  -webkit-animation: dash 3s linear;
-  animation-fill-mode: forwards;
-}
-.evn path:nth-of-type(4) {
-  stroke-dasharray: 400;
-  stroke-dashoffset: 400;
-  animation: dash 5s linear;
-  -webkit-animation: dash 5s linear;
-  animation-fill-mode: forwards;
-}
-
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.disappearHeart {
+.disappearHeartPath {
   stroke-dasharray: 190;
   stroke-dashoffset: 0;
   animation: disappearHeartAni 3s linear;
@@ -103,5 +56,49 @@ svg:first-of-type{
   to {
     stroke-dasharray: 190;
     stroke-dashoffset: 190;
+  }
+}
+
+.people{
+  width: 640px;
+  height: 480px;
+  position: absolute;
+  bottom: -410px;
+  z-index: 1;
+}
+
+.groundPath {
+  stroke-dasharray: 1440;
+  stroke-dashoffset: 1440;
+  animation: dash 5s linear;
+  -webkit-animation: dash 5s linear;
+  animation-fill-mode: forwards;
+}
+.peoplePath{
+  stroke-dasharray: 550;
+  stroke-dashoffset: 550;
+  animation: dash 3s linear;
+  -webkit-animation: dash 3s linear;
+  animation-fill-mode: forwards;
+}
+
+.chairPath {
+  stroke-dasharray: 226;
+  stroke-dashoffset: 226;
+  animation: dash 3s linear;
+  -webkit-animation: dash 3s linear;
+  animation-fill-mode: forwards;
+}
+/* .evn path:nth-of-type(4) {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: dash 5s linear;
+  -webkit-animation: dash 5s linear;
+  animation-fill-mode: forwards;
+} */
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
   }
 }
