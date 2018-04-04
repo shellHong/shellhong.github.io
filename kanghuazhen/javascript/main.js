@@ -1,9 +1,10 @@
 var winH = window.innerHeight,
     winW = window.innerWidth,
     HEIGHT = 1000,
-    WIDTH = 800;
+    WIDTH = 800,
+    isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent);
 
-if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+if(isMobile){
   var rate = Math.min(window.innerWidth/HEIGHT, window.innerHeight/WIDTH);
   if(winH < HEIGHT){
     winH /= rate;
@@ -11,7 +12,6 @@ if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
   if(winW < WIDTH){
     winW /= rate;
   }
-  document.querySelector('.output-wrap').style.top = (200/rate) + 'px';
   if(rate < 1){
     document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=" + rate + ", maximum-scale=" + rate + ", user-scalable=no");
   }
@@ -21,6 +21,8 @@ if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
 var flowers = [];
 var branches = [];
 var offsetH = 30;
+var flowerMax = 0;
+var flowerMin = 600;
 var startH = winH - offsetH;
 var seed = {
   i: 0,
@@ -47,6 +49,8 @@ function branch(b) {
   branches.push(b);
 
   if (b.d === maxDepth) {
+    flowerMax = Math.max(b.y, flowerMax);
+    flowerMin = Math.max(b.y, flowerMin);
     flowers.push(b);
     return;
   }
@@ -387,14 +391,16 @@ function createTree() {
 
 function createFlowers() {
   return new Promise(function(resolve, reject){
-    mainSvg.append("defs")
-      .append("filter")
-      .attr("id", "Gaussian_Blur")
-      .append("feGaussianBlur")
-      .attr("in", "SourceGraphic")
-      .attr("stdDeviation", 2);
+    if(!isMobile){
+      mainSvg.append("defs")
+        .append("filter")
+        .attr("id", "Gaussian_Blur")
+        .append("feGaussianBlur")
+        .attr("in", "SourceGraphic")
+        .attr("stdDeviation", 2);
+    }
 
-    mainSvg.selectAll('circle')
+    var transition = mainSvg.selectAll('circle')
       .data(flowers)
       .enter()
       .append('circle')
@@ -407,20 +413,29 @@ function createFlowers() {
         return i % 5;
       })
       .duration(500)
-      .attr('r', 5)
-      .style("filter", "url(#Gaussian_Blur)")
-      .on('end', function(d, index){
-        if(index + 1 == flowers.length){
-          resolve();
-          document.getElementById('output-wrap').style.display = 'block';
-        }
-      });
+      .attr('r', 5);
+    if(isMobile){
+      transition = transition.style("fill-opacity", ".6");
+    }else{
+      transition = transition.style("filter", "url(#Gaussian_Blur)");
+    }
+
+    transition.on('end', function(d, index){
+      if(index + 1 == flowers.length){
+        resolve();
+        document.getElementById('output-wrap').style.display = 'block';
+      }
+    });
   });
 }
 function createText() {
   return new Promise(function(resolve, reject){
     setTimeout(function(){
-      document.getElementById('output-wrap').style.display = 'block';
+      var ele = document.getElementById('output-wrap');
+      if(isMobile){
+        ele.style.top = (winH - flowerMax) + (flowerMax - flowerMin)/2 + 'px';
+      }
+      ele.style.display = 'block';
       var typing = new Typing({
         source: document.getElementById('source'),
         output: document.getElementById('output'),

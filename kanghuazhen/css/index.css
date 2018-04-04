@@ -8,7 +8,11 @@ body {
   background: -o-linear-gradient(top, #fff5f5, #ffecf0);
   background: -moz-linear-gradient(top, #fff5f5, #ffecf0);
   background: linear-gradient(to top, #fff5f5, #ffecf0);
+}
+body * {
   user-select: none;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
 }
 
 svg {
