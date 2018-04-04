@@ -77,9 +77,10 @@ svg:first-of-type{
 .peoplePath{
   stroke-dasharray: 550;
   stroke-dashoffset: 550;
-  animation: dash 3s linear;
-  -webkit-animation: dash 3s linear;
+  animation: dash 5s linear;
+  -webkit-animation: dash 5s linear;
   animation-fill-mode: forwards;
+  z-index: 1;
 }
 
 .chairPath {
@@ -88,6 +89,7 @@ svg:first-of-type{
   animation: dash 3s linear;
   -webkit-animation: dash 3s linear;
   animation-fill-mode: forwards;
+  z-index: 2;
 }
 /* .evn path:nth-of-type(4) {
   stroke-dasharray: 400;

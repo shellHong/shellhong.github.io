@@ -5,15 +5,15 @@ var winH = window.innerHeight,
     isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent);
 
 if(isMobile){
-  var rate = Math.min(window.innerWidth/HEIGHT, window.innerHeight/WIDTH);
+  window.scale = Math.min(window.innerWidth/HEIGHT, window.innerHeight/WIDTH);
   if(winH < HEIGHT){
-    winH /= rate;
+    winH /= scale;
   }
   if(winW < WIDTH){
-    winW /= rate;
+    winW /= scale;
   }
-  if(rate < 1){
-    document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=" + rate + ", maximum-scale=" + rate + ", user-scalable=no");
+  if(scale < 1){
+    document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=no");
   }
 }
 
@@ -273,8 +273,9 @@ function addHeartListener() {
         .duration(1000)
         .attr('x1', 0)
         .attr('y1', winH)
-        .remove().
-        on('end', function(){
+        .remove()
+        .on('end', function(){
+          mainSvg.select('#heartPath').remove();
           resolve();
         });
     });
@@ -344,15 +345,15 @@ function createPeople() {
   return new Promise(function(resolve, reject){
     document.getElementById('people').style.left = qW + 'px';
     d3.select('#people')
-      .classed('peoplePath', true)
       .append('path')
+      .classed('peoplePath', true)
       .style('stroke', '#4a4a4a')
       .style('stroke-width', 1.5)
       .attr('d', 'm102.36685,19.712079c-3.509374,3.348599 -18.622442,7.595834 -20.571686,7.595834l-16.566741,0c-2.749499,0 -6.890267,0.463507 -8.839511,1.526104c0.223924,0.170268 0.447849,0.340536 0.664432,0.513956c1.497724,1.195027 4.999757,2.878786 8.097991,2.878786c1.457345,0 2.654056,-0.362607 3.670893,-1.1162c4.324312,-3.175178 6.570899,-3.547245 7.874066,-3.547245c1.545446,0 2.874309,0.60855 3.65621,1.6743c1.468357,1.973845 0.389115,4.556239 '+ '-0.712153,6.580533c-2.635701,4.805334 -11.225592,9.998501 -20.538648,9.998501c-0.007342,0 -0.007342,0 -0.014684,0c-1.299496,0 -2.573296,-0.104053 -3.792033,-0.312158l0,10.250749c0,2.339605 3.792033,7.986819 15.296612,7.986819s14.518383,-11.669647 14.518383,-13.678176l0,-14.226817c8.186092,-3.685982 16.56307,-5.691357 20.571686,-12.28135c3.770007,-6.192701 0.190886,-7.192236 -3.314817,-3.843637zm-25.732962,14.901582c2.922031,-5.357128 -0.194557,-5.357128 '+ '-5.653176,-1.34007s-13.453824,0.331076 -16.181298,-1.844567c-2.727474,-2.17249 -5.454947,-3.84679 -10.329894,-3.679675c-4.874946,0.167115 -16.372184,-0.50765 -23.005488,-1.844567c-6.625962,-1.34007 -17.969023,-9.45932 -18.9051,-7.362504c-0.976458,2.175644 0.774558,3.682828 4.287603,7.362504c3.505703,3.685982 18.629783,8.75933 18.629783,8.75933s0,10.887677 0,15.406079c0,4.524708 10.913566,11.382715 16.56307,11.382715s9.940779,-3.348599 '+ '9.940779,-5.69451l0,-14.226817c9.357107,4.193632 21.731688,-1.557635 24.653719,-6.917916zm-5.873429,-11.953427c6.402038,0 11.596352,-4.458493 11.596352,-9.957511c0,-5.502171 -5.194314,-9.960664 -11.596352,-9.960664s-11.592681,4.458493 -11.592681,9.960664c0,5.499018 5.190643,9.957511 11.592681,9.957511zm-30.552845,0c6.402038,0 11.592681,-4.458493 11.592681,-9.957511c0,-5.502171 -5.190643,-9.960664 -11.592681,-9.960664c-6.405709,0 -11.596352,4.458493 '+ '-11.596352,9.960664c0,5.499018 5.186972,9.957511 11.596352,9.957511z')
       .attr('fill-opacity', 0);
       setTimeout(function(){
         resolve();
-      }, 1500);
+      }, 2000);
   });
 
 }
@@ -436,7 +437,7 @@ function createText() {
     setTimeout(function(){
       var ele = document.getElementById('output-wrap');
       if(isMobile){
-        ele.style.top = ((winH - flowerMax) + (flowerMax - flowerMin)/2) + 'px';
+        ele.style.top = (flowerMax + (flowerMax - flowerMin)/2) + 'px';
       }
       ele.style.display = 'block';
       var typing = new Typing({
@@ -446,7 +447,7 @@ function createText() {
         brDelay: 1000,
         end: function() {
           setTimeout(function(){
-            // document.getElementById('typing-cursor').remove();
+            document.getElementById('typing-cursor').remove();
             resolve();
           }, 300);
         }
