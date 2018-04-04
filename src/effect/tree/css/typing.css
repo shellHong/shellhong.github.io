@@ -24,3 +24,11 @@
 .typing-cursor-white {
   color: #fff;
 }
+
+.output-wrap{
+  display: none;
+  position: absolute;
+  left: 12%;
+  top: 200px;
+  color: #af5f70;
+}

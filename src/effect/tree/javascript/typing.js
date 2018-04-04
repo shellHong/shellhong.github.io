@@ -96,16 +96,3 @@ Typing.fn = Typing.prototype = {
         this.play(this.chain);
     }
 }
-
-var typing = new Typing({
-  source: document.getElementById('source'),
-  output: document.getElementById('output'),
-  delay: 80,
-  brDelay: 1000,
-  end: function() {
-    setTimeout(function(){
-      console.log('in end')
-    }, 300);
-  }
-});
-typing.start();
