@@ -433,7 +433,7 @@ function createText() {
     setTimeout(function(){
       var ele = document.getElementById('output-wrap');
       if(isMobile){
-        ele.style.top = (winH - flowerMax) + (flowerMax - flowerMin)/2 + 'px';
+        ele.style.top = ((winH - flowerMax) + (flowerMax - flowerMin)/2) + 'px';
       }
       ele.style.display = 'block';
       var typing = new Typing({
