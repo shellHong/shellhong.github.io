@@ -69,6 +69,8 @@ Typing.fn = Typing.prototype = {
                     that.play(ele);
                 } else if (ele.parent) {
                     that.play(ele.parent);
+                }else{
+                  that.end();
                 }
             });
         } else {

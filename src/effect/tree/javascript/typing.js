@@ -3,6 +3,8 @@ function Typing(opts) {
     this.source = opts.source;
     this.output = opts.output;
     this.delay = opts.delay || 120;
+    this.brDelay = opts.brDelay || 0;
+    this.end = opts.end || function(){};
     this.chain = {
         parent: null,
         dom: this.output,
@@ -48,9 +50,15 @@ Typing.fn = Typing.prototype = {
         }, this.delay);
     },
     play: function(ele) {
-        if (!ele) return;
+        if (!ele) {
+          this.end();
+          return;
+        };
         if (!ele.val.length && ele.parent) this.play(ele.parent);
-        if (!ele.val.length) return;
+        if (!ele.val.length) {
+          this.end();
+          return;
+        }
 
         var curr = ele.val.shift();
         var that = this;
@@ -61,6 +69,8 @@ Typing.fn = Typing.prototype = {
                     that.play(ele);
                 } else if (ele.parent) {
                     that.play(ele.parent);
+                }else{
+                  that.end();
                 }
             });
         } else {
@@ -72,7 +82,13 @@ Typing.fn = Typing.prototype = {
             ele.dom.appendChild(dom);
             curr.parent = ele;
             curr.dom = dom;
-            this.play(curr.val.length ? curr : curr.parent);
+            if(curr.dom.nodeName.toLowerCase() == 'br'){
+              setTimeout(function(){
+                that.play(curr.val.length ? curr : curr.parent);
+              }, this.brDelay);
+            }else{
+              this.play(curr.val.length ? curr : curr.parent);
+            }
         }
     },
     start: function() {
@@ -82,9 +98,14 @@ Typing.fn = Typing.prototype = {
 }
 
 var typing = new Typing({
-    source: document.getElementById('source'),
-    output: document.getElementById('output'),
-    delay: 80,
-    done: function() {} //完成打印后的回调事件
-  });
-  typing.start();
+  source: document.getElementById('source'),
+  output: document.getElementById('output'),
+  delay: 80,
+  brDelay: 1000,
+  end: function() {
+    setTimeout(function(){
+      console.log('in end')
+    }, 300);
+  }
+});
+typing.start();
