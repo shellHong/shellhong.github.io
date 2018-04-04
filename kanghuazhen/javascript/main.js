@@ -403,17 +403,22 @@ function createFlowers() {
 }
 function createText() {
   return new Promise(function(resolve, reject){
-    document.getElementById('output-wrap').style.display = 'block';
-    var typing = new Typing({
-      source: document.getElementById('source'),
-      output: document.getElementById('output'),
-      delay: 80,
-      done: function() {
-        document.getElementById('typing-cursor').remove();
-        resolve();
-      }
-    });
-    typing.start();
+    setTimeout(function(){
+      document.getElementById('output-wrap').style.display = 'block';
+      var typing = new Typing({
+        source: document.getElementById('source'),
+        output: document.getElementById('output'),
+        delay: 80,
+        brDelay: 1000,
+        end: function() {
+          setTimeout(function(){
+            // document.getElementById('typing-cursor').remove();
+            resolve();
+          }, 300);
+        }
+      });
+      typing.start();
+    }, 1000);
   });
 }
 

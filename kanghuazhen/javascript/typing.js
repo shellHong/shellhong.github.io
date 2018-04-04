@@ -3,6 +3,8 @@ function Typing(opts) {
     this.source = opts.source;
     this.output = opts.output;
     this.delay = opts.delay || 120;
+    this.brDelay = opts.brDelay || 0;
+    this.end = opts.end || function(){};
     this.chain = {
         parent: null,
         dom: this.output,
@@ -48,9 +50,15 @@ Typing.fn = Typing.prototype = {
         }, this.delay);
     },
     play: function(ele) {
-        if (!ele) return;
+        if (!ele) {
+          this.end();
+          return;
+        };
         if (!ele.val.length && ele.parent) this.play(ele.parent);
-        if (!ele.val.length) return;
+        if (!ele.val.length) {
+          this.end();
+          return;
+        }
 
         var curr = ele.val.shift();
         var that = this;
@@ -72,7 +80,13 @@ Typing.fn = Typing.prototype = {
             ele.dom.appendChild(dom);
             curr.parent = ele;
             curr.dom = dom;
-            this.play(curr.val.length ? curr : curr.parent);
+            if(curr.dom.nodeName.toLowerCase() == 'br'){
+              setTimeout(function(){
+                that.play(curr.val.length ? curr : curr.parent);
+              }, this.brDelay);
+            }else{
+              this.play(curr.val.length ? curr : curr.parent);
+            }
         }
     },
     start: function() {
