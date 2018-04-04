@@ -422,4 +422,10 @@ function createText() {
   });
 }
 
-createHeart();
+if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+  var rate = Math.min(window.innerWidth/1000, window.innerHeight/800);
+  if(rate < 1){
+    document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=" + rate + ", maximum-scale=" + rate + ", user-scalable=no");
+  }
+}
+// createHeart();
