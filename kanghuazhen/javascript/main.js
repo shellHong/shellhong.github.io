@@ -1,5 +1,21 @@
 var winH = window.innerHeight,
-    winW = window.innerWidth;
+    winW = window.innerWidth,
+    HEIGHT = 1000,
+    WIDTH = 800;
+
+if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+  var rate = Math.min(window.innerWidth/HEIGHT, window.innerHeight/WIDTH);
+  if(winH < HEIGHT){
+    winH /= rate;
+  }
+  if(winW < WIDTH){
+    winW /= rate;
+  }
+  document.querySelector('.output-wrap').style.top = (200/rate) + 'px';
+  if(rate < 1){
+    document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=" + rate + ", maximum-scale=" + rate + ", user-scalable=no");
+  }
+}
 
 // Tree configuration
 var flowers = [];
@@ -422,10 +438,4 @@ function createText() {
   });
 }
 
-if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
-  var rate = Math.min(window.innerWidth/1000, window.innerHeight/800);
-  if(rate < 1){
-    document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=" + rate + ", maximum-scale=" + rate + ", user-scalable=no");
-  }
-}
 createHeart();
