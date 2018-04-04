@@ -428,4 +428,4 @@ if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
     document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=" + rate + ", maximum-scale=" + rate + ", user-scalable=no");
   }
 }
-// createHeart();
+createHeart();
