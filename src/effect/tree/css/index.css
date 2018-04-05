@@ -31,9 +31,9 @@ line, path {
   height: 100%
 }
 
-svg:first-of-type {
+.evn {
   position: absolute;
-  z-index: 2
+  z-index: 2;
 }
 
 .appearHeartPath {
@@ -62,10 +62,12 @@ svg:first-of-type {
 
 .people {
   width: 640px;
-  height: 480px;
+  /* height: 480px; */
   position: absolute;
-  bottom: -410px;
-  z-index: 1
+  /* bottom: -410px; */
+  bottom: 9px;
+  z-index: 1;
+  height: 61px;
 }
 
 .groundPath {
