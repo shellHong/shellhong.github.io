@@ -448,7 +448,7 @@ function createText() {
   return new Promise(function(resolve, reject){
     setTimeout(function(){
       var ele = document.getElementById('output-wrap');
-      ele.style.top = flowerMin + (flowerMax - flowerMin)/2 - (80 * scale) + 'px';
+      ele.style.top = winH - 510 + 'px';
       ele.style.display = 'block';
       var typing = new Typing({
         source: document.getElementById('source'),
