@@ -303,6 +303,8 @@ function createGround() {
   return new Promise(function(resolve, reject){
     mainSvg.append('path')
       .classed('groundPath', true)
+      .style('stroke-dasharray', winW * 1.1)
+      .style('stroke-dashoffset', winW * 1.1)
       .style('stroke', '#cacaca')
       .style('stroke-width', bottomH)
       .attr('d', 'm0,' + (winH - bottomH) + 'h' + halfW + 'c' + (halfW + halfW/6) + ',-65 ' + (halfW + halfW/4) + ',-45 ' + (winW) + ',0')
@@ -315,6 +317,7 @@ function createGround() {
       .duration(500)
       .attr('fill-opacity', 1)
       .on('end', function(){
+        document.getElementById('groundFill').style.display = 'block';
         resolve();
       });
   });
