@@ -2,18 +2,27 @@ var winH = window.innerHeight,
     winW = window.innerWidth,
     HEIGHT = 1000,
     WIDTH = 800,
+    treeRight = 360,
+    scale = 1,
     isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent);
 
 if(isMobile){
-  window.scale = Math.min(window.innerWidth/HEIGHT, window.innerHeight/WIDTH);
+  scale = Math.min(window.innerWidth/HEIGHT, window.innerHeight/WIDTH);
   if(winH < HEIGHT){
     winH /= scale;
+  }
+  if(winW < 400){
+    document.getElementById('output-wrap').style.left = '10%';
   }
   if(winW < WIDTH){
     winW /= scale;
   }
   if(scale < 1){
     document.querySelector('meta[name="viewport"]').setAttribute('content', "width=device-width, initial-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=no");
+  }
+  var temp = winW * .3;
+  if(treeRight > temp){
+    treeRight = temp;
   }
 }
 
@@ -26,7 +35,7 @@ var flowerMin = 600;
 var startH = winH - offsetH;
 var seed = {
   i: 0,
-  x: winW - 350,
+  x: winW - treeRight,
   y: startH,
   a: 0,
   l: 120,
@@ -50,7 +59,7 @@ function branch(b) {
 
   if (b.d === maxDepth) {
     flowerMax = Math.max(b.y, flowerMax);
-    flowerMin = Math.max(b.y, flowerMin);
+    flowerMin = Math.min(b.y, flowerMin);
     flowers.push(b);
     return;
   }
@@ -439,9 +448,7 @@ function createText() {
   return new Promise(function(resolve, reject){
     setTimeout(function(){
       var ele = document.getElementById('output-wrap');
-      if(isMobile){
-        ele.style.top = (flowerMax + (flowerMax - flowerMin)/2) + 'px';
-      }
+      ele.style.top = flowerMin + (flowerMax - flowerMin)/2 - (80 * scale) + 'px';
       ele.style.display = 'block';
       var typing = new Typing({
         source: document.getElementById('source'),
