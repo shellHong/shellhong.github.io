@@ -1,0 +1,114 @@
+{% extends "../_layout.html" %}
+
+{% block head_extend %}
+<style media="screen">
+  a{
+    color:#e65858;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>百分比单位</h1>
+
+<h2>left、top</h2>
+
+<ul>
+<li>left：相对于第一个定位父元素的宽度进行百分比换算</li>
+<li>top：相对于第一个定位父元素的高度进行百分比换算</li>
+</ul>
+
+<blockquote>
+  <div>是第一个定位父元素，而不是第一个父元素</div>
+</blockquote>
+
+<h2>translateX、translateY</h2>
+
+<ul>
+<li>translateX：相对于元素本身的宽度进行百分比换算</li>
+<li>translateY：相对于元素本身的高度进行百分比换算</li>
+</ul>
+
+<h2>width、height</h2>
+
+<ul>
+<li>width：相对于其父元素的宽度进行百分比换算</li>
+<li>height：相对于其父元素的高度进行百分比换算</li>
+</ul>
+
+<h2>margin-left、margin-top</h2>
+
+<ul>
+<li>margin-left：相对于其父元素的宽度进行百分比换算</li>
+<li>margin-top：相对于其父元素的宽度进行百分比换算</li>
+</ul>
+
+<blockquote>
+  <div>margin相关的百分比值，都是相对于其父元素的宽度进行百分比换算的</div>
+</blockquote>
+
+<h2>padding-left、padding-top</h2>
+
+<ul>
+<li>padding-left：相对于其父元素的宽度进行百分比换算</li>
+<li>padding-top：相对于其父元素的宽度进行百分比换算</li>
+</ul>
+
+<blockquote>
+  <div>padding相关的百分比值，和margin一样，都是相对于其父元素的宽度进行百分比换算的</div>
+</blockquote>
+
+<h2>应用场景</h2>
+
+<ul>
+<li>高度不确定的元素垂直居中（相对于其定位父元素）
+<pre class='editor'>
+div{
+  position: absolute;
+  top:50%;
+  transform: translateY(-50%);
+}
+</pre>
+</li>
+<li>宽高成比例的元素（例如1:1为正方形）
+<pre class='editor'>
+div{
+  width:0;
+  height:0;
+  padding-top:50%;
+  padding-left: 50%;
+}
+</pre>
+or
+<pre class='editor'>
+div{
+  height:0;
+  padding-top:50%;
+  width: 50%;
+}
+</pre>
+</li>
+</ul>
+<script src="../js/ace/ace.js" charset="utf-8"></script>
+<script src="../js/ace/ext-language_tools.js" charset="utf-8"></script>
+<script>
+  function createEditor(el, html){
+    var editor = ace.edit(el);
+    editor.setTheme("ace/theme/tomorrow");
+    editor.session.setMode("ace/mode/css");
+    editor.setReadOnly(true);
+    editor.setValue(html, 1);
+    editor.setOption("maxLines", 30);
+    return editor;
+  }
+  var nodes = document.querySelectorAll('.editor');
+  for(var i = 0, ilen = nodes.length; i < ilen; i++){
+    var one = nodes[i];
+    createEditor(one, one.innerText);
+  }
+</script>
+
+{% endblock %}
+
+{% block footer_extend %}
+{% endblock %}
