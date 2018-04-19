@@ -39,11 +39,15 @@
 </tbody></table>
 
 <p>304则表示：缓存到期情况下，浏览器发起头部询问，服务器返回未改动应答。这种情况下，虽然还是要进行网络请求，但是包体积很小，速度也比较快。</p>
+<div>
+  进行了缓存的情况下，重启浏览器打开页面，静态资源从硬盘加载（from disk cache）；不重启，普通刷新页面，js和图片从内存中加载（from memory cache），css则从硬盘中加载（from disk cache）。
+</div>
 
 <h2>协议缓存</h2>
 
 <div>通过在http协议头部添加特定字段，来实现的静态资源缓存。</div>
 <div>相关字段有：Expires，Cache-control，Last-Modified/If-Modified-Since，Etag/If-None-Match，max-age=0/no-cache等。</div>
+<div>其中，Expires，Cache-control属于强制缓存（直接使用缓存，不进行网络头部询问），其他属于协商缓存。</div>
 
 <ul>
 <li>Expires和Cache-control</li>
@@ -66,7 +70,12 @@
 </tr>
 </tbody></table>
 
-<p>Cache-control，拥有更多、更灵活的配置项，而且其优先级比Expires更高（如果其设置了max-age，则会覆盖Expires的设置）。</p>
+<div>
+  Expires是HTTP/1.0的字段，它的值是时间节点（绝对值），需进行服务器时间与客户端时间对比，但是万一两者存在一些差异性（不同时区、时间不准确之类的），则容易导致缓存时效异常。
+</div>
+<div>
+  Cache-control是HTTP/1.1的字段，用于替代Expires，所以其拥有更多、更灵活的配置项，而且其优先级比Expires更高（如果其设置了max-age，则会覆盖Expires的设置），同时也在一定程度上，规避了上面提到的问题（max-age的值是一个相对值，意思是这段时间内都强制使用缓存）。
+</div>
 
 <table class="table table-striped-white table-bordered">
 <thead>
@@ -85,7 +94,7 @@
 </tr>
 <tr>
  <td>no-cache</td>
- <td style="text-align:center;">必须先与服务器确认返回的响应是否被更改，然后才能使用该响应来满足后续对同一个网址的请求。因此，如果存在合适的验证令牌 (ETag)，no-cache 会发起往返通信来验证缓存的响应，如果资源未被更改，可以避免下载。</td>
+ <td style="text-align:center;">客户端缓存内容，但是是否使用缓存则需要经过协商缓存来验证决定</td>
 </tr>
 <tr>
  <td>no-store</td>
