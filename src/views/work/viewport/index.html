@@ -51,11 +51,57 @@
 <ul>
 <li>layout viewport：浏览器默认的viewport（固定宽度），未设置viewport宽度的情况下，宽度可以通过 document.documentElement.clientWidth 来获取</li>
 <li>visual viewport：浏览器可视区域，宽度可以通过window.innerWidth 来获取</li>
-<li>ideal viewport：移动设备的理想viewport，ideal viewport宽度不同设备不一样，例如：分辨率为1280*720px的2倍屏的device-width为：720/2=360px，这里的device-width便是ideal viewport的宽度</li>
+<li>ideal viewport：移动设备的理想viewport，ideal viewport宽度不同设备不一样，例如：分辨率为1280*720px的2倍屏的device-width为：720/2=360px，这里的device-width便是ideal viewport的宽度，可通过window.screen.availWidth获取</li>
 <li>移动端默认情况下，ideal viewport的宽度等于layout viewport（大部分为980,1024px），所以，理论上来说，如果分辨率为1334*750px的话，1个css像素 ＝ 750/980个设备像素（小于1或有小数，做软件处理）</li>
 </ul>
 
-<p><code>&lt;meta name="viewport" content="width=400, initial-scale=1"&gt;</code>中，<code>initial-scale=1</code>表示1倍ideal viewport的宽度，即device-width；而<code>width=400</code>又把宽度设置为400；这种冲突情况下，取大者。</p>
+<h2>initial-scale</h2>
+
+<ul>
+<li><code>&lt;meta name="viewport" content="width=400, initial-scale=1"&gt;</code>中，<code>initial-scale=1</code>表示1倍ideal viewport的宽度，即device-width；而<code>width=400</code>又把宽度设置为400；这种冲突情况下，取大者。</li>
+<li>当前缩放值 = ideal viewport宽度  / visual viewport宽度</li>
+<li>当initial-scale＝2，和默认情况比较，页面的显示变大2倍（横行来说，即1个css像素占位变大了两倍，或者说其对应的物理像素个数翻了一倍），visual viewport宽度变小2倍，window.innerWidth读取到的值也变小2倍，window.screen.availWidth不变</li>
+<li>当initial-scale＝0.5，则和上述描述的情况反过来</li>
+</ul>
+
+<!-- <h2>显示变大变小</h2>
+
+<div>在手机设置中，可调整手机显示大小，其实现原理大致是通过调整手机的`density`（例如`adb shell wm density 540`）。</div>
+<div>dp是一个相对单位，如果说默认情况下，｀1dp＝3px｀，`屏幕宽度＝360dp`；而`density`表示密度，把`density`从480变为540，那么｀1dp＝3＊540/480px｀，`屏幕宽度＝360＊480/540dp`。</div>
+<div>也就是说，随着密度增加／减小，1dp对应的物理像素个数按同样的比例增加／减小，而物理像素的尺寸是固定的，那么物理像素个数的增加／减小也等同于显示尺寸的增加／减小。</div>
+<div>而屏幕的总物理像素个数是固定的（即分辨率是固定的），密度的增加，1dp对应的物理像素个数的增加，意味着屏幕宽度对应的dp数反而减小了。</div> -->
+
+
+<h2>Flexible方案</h2>
+
+<h3>普通屏</h3>
+
+1倍屏下，通过rem和动态地对html元素的`font-size`进行设置，来实现对不同尺寸屏幕的适配。
+
+<ul>
+<li>首先，假设把屏幕平分为100块（block），那么1rem=1block＝window.innerWidth/100，所以为html元素的`font-size`设置这个值</li>
+<li>假设视觉提供的设计稿是1080px的，那么与其对应的，1block＝1080/100＝10.8，然后其中有一个元素（A），在设计稿中宽100px，那么A的宽度＝(100/10.8)block＝(100/10.8)rem。so，1080px宽度的设计稿下，对应元素转化成rem（或者说block）的代码如下</li>
+</ul>
+<pre>
+  <code>
+  funFixSize(v)
+    unit(v/10.8, 'rem')
+  </code>
+</pre>
+
+<h3>高倍屏</h3>
+
+通过设置viewport的scale来实现对不同尺寸屏幕的适配，基本思路就是以(window.screen.availWidth*window.devicePixelRatio)的宽度来进行布局，然后再进行对应倍数的缩放，以此来保证更加精细化的展示。
+
+<ul>
+<li>viewport通过js动态添加，不要提前在html中写入</li>
+<li>首先，假设把屏幕平分为100块（block），那么1rem=1block＝(window.screen.availWidth*window.devicePixelRatio)/100，所以为html元素的`font-size`设置这个值</li>
+<li>假设视觉提供的设计稿是1080px的，那么与其对应的，1block＝1080/100＝10.8，然后其中有一个元素（A），在设计稿中宽100px，那么A的宽度＝(100/10.8)block＝(100/10.8)rem。so，1080px宽度的设计稿下，对应元素转化成rem（或者说block）的代码如下</li>
+<li>相关的scale（initial-scale等），其值设置为（1/window.devicePixelRatio）</li>
+<li>无需设置viewport的width，设置小了无效，设置大了影响展示</li>
+</ul>
+
+该方案，因为机型（特别是android）各种参数、特性的不规范性（window.devicePixelRatio等值的异常等），难以保证完美的展示。
 
 <h2>参考</h2>
 
