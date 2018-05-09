@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+    <title>deeplink链接有效性验证</title>
+    <style media="screen">
+      .announcements{
+        color: #ef6f77;
+        margin-top: 20px;
+      }
+      body,ul{
+        margin: 0;
+      }
+      ul{
+        list-style-type: simp-chinese-informal;
+      }
+      body{
+        padding: 0;
+      }
+      textarea{
+        border: 2px solid #9191f1;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      button{
+        border: 2px solid #2196F3;
+        background-color: white;
+        border-radius: 4px;
+        width: 100%;
+        height: 30px;
+        line-height: 1;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      button:active{
+        background-color: #2196F3;
+        color: white;
+      }
+      li{
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id='input' name="name" rows="8" cols="80" placeholder='请输入deeplink路径,例如：mstore://xxxx?a=c&b=xxx'></textarea>
+    <br>
+    <button id='sure' type="button" name="button">跳转</button>
+    <div class="announcements">
+      注意事项：
+      <ul>
+        <li>
+          请确保你提供的deeplink路径针对已激活和首次激活的app均有效
+        </li>
+        <li>
+          请确保你的手机中已经安装了对应的app
+        </li>
+        <li>
+          此页面仅做正确性验证，体验效果和实际情况，可能存在一定差异
+        </li>
+        <li>
+          在手机浏览器（魅族手机和浏览器，效果更佳）中访问该网页，模拟测试你的deeplink链接是否能正常跳转
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript">
+      document.getElementById('sure').onclick = function(){
+        var val = document.getElementById('input').value;
+        if(!val){
+          alert('不能为空');
+          return false;
+        }
+        if(val.indexOf(':') == -1){
+          alert('不是合法的deeplink路径');
+          return false;
+        }
+        if(/^(http|https)/.test(val)){
+          alert('不是合法的协议');
+          return false;
+        }
+
+        location.href = val;
+      };
+    </script>
+  </body>
+</html>

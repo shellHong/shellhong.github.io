@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>deeplink流程模拟</title>
+    <style>
+      iframe{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      .w360-h574{
+        width: 360px;
+        height: 574px;
+      }
+      .item{
+        border: 5px solid gray;
+      }
+      .url-input{
+        width: 80%;
+        max-width: 800px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <p style='color:red;margin-bottom: 5px;'>请使用https</p>
+      <input id='url' class='url-input' type='text' placeholder='填入页面路径'/>
+      <button id='sure'>确定</button>
+    </p>
+    <div class='item w360-h574'>
+      <iframe id='myIframe' src="" frameborder="0"></iframe>
+    </div>
+    <script type="text/javascript">
+      document.getElementById('sure').onclick=function(){
+        var val = document.getElementById('url').value;
+        var iframes = document.querySelectorAll('iframe');
+        for(var i = 0, ilen = iframes.length; i < ilen; i++){
+          iframes[i].src=val;
+        }
+      };
+      var status = 'never',
+          pro = 0,
+          handle = null,
+          iframe = document.getElementById('myIframe');
+      var postMesageToIframe = function (msg) {
+        if (iframe.contentWindow) {
+          iframe.contentWindow.postMessage({
+            event: 'mzAppDownloadProgress',
+            text: msg
+          }, '*');
+        }
+      };
+      var getRandom = function(){
+        return parseInt(Math.random()*5 + 5);
+      };
+      var beginInstall = function(){
+        status = 'downloading';
+        if(handle){
+          return;
+        }
+        handle = setInterval(function(){
+          if(status == 'installing'){
+            postMesageToIframe('打开');
+            status = 'finish';
+            clearInterval(handle);
+            handle = null;
+            return;
+          }
+          if(pro == 99){
+            postMesageToIframe('安装中...');
+            status = 'installing';
+          }else if(status == 'downloading'){
+            pro += getRandom();
+            if(pro > 99){
+              pro = 99;
+            }
+            postMesageToIframe(pro + '%');
+          }
+        }, 700);
+      };
+      window.addEventListener('message', e => {
+        var data = e.data;
+        if(data.event == 'mzDownloadApp'){
+          switch (status) {
+            case 'never':
+              beginInstall();
+              postMesageToIframe('开始下载');
+              break;
+            case 'downloading':
+              status = 'stop';
+              postMesageToIframe('继续');
+              break;
+            case 'stop':
+              beginInstall();
+              break;
+            case 'finish':
+              alert('打开成功');
+              break;
+            default:
+
+          }
+        }else if(data.event == 'openScheme'){
+          if (!data.scheme) {
+            return alert('postMessage参数不正确，应该为：scheme');
+          }
+          if (status == 'finish') {
+            alert('成功跳转scheme页面:' + data.scheme);
+          } else {
+            alert('应用尚未安装成功，请稍后再试');
+          }
+        }else{
+          alert('postMessage事件名称不正确，应该为：mzDownloadApp');
+        }
+      }, false);
+    </script>
+  </body>
+</html>

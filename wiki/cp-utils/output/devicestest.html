@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      iframe{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      .appstore-wrap .w360-h574{
+        width: 360px;
+        height: 574px;
+      }
+      .appstore-wrap .w360-h654{
+        width: 360px;
+        height: 654px;
+      }
+      .appstore-wrap .w384-h519{
+        width: 384px;
+        height: 519px;
+      }
+      .appstore-wrap .w384-h571{
+        width: 384px;
+        height: 571px;
+      }
+      .appstore-wrap, .browser-wrap{
+        transform: scale(0.8);
+        transform-origin: top left;
+      }
+      .browser-wrap .w360-h570{
+        width: 360px;
+        height: 570px;
+      }
+      .browser-wrap .w360-h526{
+        width: 360px;
+        height: 526px;
+      }
+      .browser-wrap .w384-h519{
+        width: 384px;
+        height: 519px;
+      }
+
+      .item{
+        display: inline-block;
+        position: relative;
+        margin-right: 20px;
+        border: 5px solid gray;
+      }
+      .item:last-child{
+        margin-right: 0;
+      }
+      .tip{
+        position: absolute;
+        bottom: -40px;
+        left: 0;
+        right: 0;
+        text-align: center;
+      }
+      .url-input{
+        width: 80%;
+        max-width: 800px;
+      }
+      .sepWrap{
+        margin-bottom: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <input id='url' class='url-input' type='text' placeholder='填入页面路径'/>
+      <button id='sure'>确定</button>
+    </p>
+
+    <div id='appstore-wrap' class='appstore-wrap'>
+      <div class='item w360-h574'>
+        <span class='tip'>360 x 574(主流/商店/flyme6)</span>
+        <iframe src="" frameborder="0"></iframe>
+      </div>
+      <div class='item w360-h654'>
+        <span class='tip'>360 x 654(当前最大高度/商店/flyme6)</span>
+        <iframe src="" frameborder="0"></iframe>
+      </div>
+      <div class='item w384-h571'>
+        <span class='tip'>384 x 571(MX4 Pro/商店/flyme4 无smartbar)</span>
+        <iframe src="" frameborder="0"></iframe>
+      </div>
+      <div class='item w384-h519'>
+        <span class='tip'>384 x 519(MX4 Pro/商店/flyme4 smartbar)</span>
+        <iframe src="" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <div class='sepWrap'>
+      商店
+      <hr>
+      浏览器
+    </div>
+
+    <div id='browser-wrap' class='browser-wrap'>
+      <div class='item w360-h570'>
+        <span class='tip'>360 x 570(主流/浏览器/flyme6 无actionbar)</span>
+        <iframe src="" frameborder="0"></iframe>
+      </div>
+      <div class='item w360-h526'>
+        <span class='tip'>360 x 526(主流/浏览器/flyme6 actionbar)</span>
+        <iframe src="" frameborder="0"></iframe>
+      </div>
+      <div class='item w384-h519'>
+        <span class='tip'>384 x 519(MX4 Pro/商店/flyme4)</span>
+        <iframe src="" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      document.getElementById('appstore-wrap').style.width = (window.innerWidth * 1.25) + 'px';
+      document.getElementById('sure').onclick=function(){
+        var val = document.getElementById('url').value;
+        document.querySelectorAll('iframe').forEach(function(item){
+          item.src=val;
+        });
+      }
+    </script>
+  </body>
+</html>
