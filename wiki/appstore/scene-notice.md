@@ -2,7 +2,7 @@
 
 ## scene平台
 
-### 使用图片注意事项
+#### 使用图片注意事项
 
   * 优先级：jpg > png
   * 所有图片在上传到scene之前，先使用[tinypng](https://tinypng.com/)进行压缩
