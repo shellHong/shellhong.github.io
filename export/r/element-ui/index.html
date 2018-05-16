@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../src/css/common/font.css" type="text/css">
+    <link rel="stylesheet" href="../../../src/css/common/style.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="../../../src/css/common/print.css" media="print" type="text/css">
+    
+
+    <title>ShellHong's Blog</title>
+    <style media="screen">
+      div{
+        line-height: 1.6;
+        padding-bottom: 6px;
+      }
+      blockquote{
+        margin-left: 0;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="inner">
+        <a href="https://blog.shellhong.com">
+          <h1>ShellHong Blog</h1>
+        </a>
+        <a href="mailto:shellhong6@gmail.com" class="button">Send email to me</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+
+        <section id="main-content"><!--内容主体-->
+          
+<h1>ElementUi</h1>
+
+<h2>部署</h2>
+
+<ul>
+<li>拉取源码：<code>git clone git@github.com:ElemeFE/element.git</code></li>
+<li>安装依赖：<code>npm i</code></li>
+<li>启动服务：<code>npm run dev</code></li>
+</ul>
+
+<p>依次完成以上步骤后，便可以在本地访问了，访问地址在命令行消息中有。</p>
+<p><img src="../images/element-ui/a.png" alt="图片1" title="" /></p>
+
+<p>其他命令，可以查看<code>package.json</code>文件中<code>scripts</code>字段对应的命令，例如打包对应<code>npm run dist</code>.</p>
+
+<h2>工程化</h2>
+
+<ul>
+<li><a href="http://cookingjs.github.io/zh-cn/intro.html">cooking工具</a></li>
+</ul>
+
+<h2>目录结构</h2>
+
+<p>重点关注两个目录</p>
+
+<ul>
+<li>中文文档目录：<code>element/examples/docs/zh-CN</code></li>
+<li>组件源码目录：<code>element/packages</code></li>
+</ul>
+
+<p>想对element-ui中组件的使用进行实践，可以通过对<code>element/examples/docs/zh-CN</code>中md文件的demo例子源码进行修改来实现；
+想对element-ui中组件的源码进行调试，可以通过对<code>element/packages</code>中对应组件的文件进行修改来实现；</p>
+
+<blockquote>
+  <p>其实，<code>element/examples/docs/zh-CN</code>中的每个md就对应着element-ui网站上的一个页面（例如每个组件的使用说明页面）。这些md文件主要都是通过<code>element/build/cooking.demo.js</code>进行处理然后转化为最终的vue组件的。其中，通过<code>vue-markdown-loader</code>把常规的md转化为vue组件（如下图一），通过<code>markdown-it-container</code>（定制化render，把数据注入到<code>demo-block</code>组件）把带demo标识的模块转化为源码查看和运行效果展示模块（如下图二中红色框框部分）。</p>
+</blockquote>
+
+<p><img src="../images/element-ui/b.png" alt="图片2" title="" /></p>
+<p><img src="../images/element-ui/c.png" alt="图片3" title="" /></p>
+
+<h2>源码阅读</h2>
+
+<p>本文并不准备很详细地讲解相关源码，因为笔者认为只需要大致了解其整体框架以及本地调试的方法便可，其他的具体细节，可以在需要的时候再去阅读和借鉴便可。
+那么，接下来，就以loading组件为例，简单讲解一下。</p>
+
+<p>loading组件的使用文档中有一个例子，分别列举了该组件“指令方式”和“服务方式”两种调用方式。因此，对应的，你会看到loading的src下面有两套源码，<code>index.js</code>对应“服务方式”，<code>directive.js</code>对应“指令方式”（如下图），当然这两种实现方式都是居于其中的基础组件<code>loading.vue</code>进行的二次封装，然后也都同时别loading下的<code>index.js</code>引用。</p>
+
+<p><img src="../images/element-ui/d.png" alt="图片4" title="" /></p>
+
+<p>至于<code>fullscreen</code>、<code>body</code>、<code>lock</code>等之类的一些参数的实现，讲起来就比较繁琐了，源码也不是很复杂，可以在需要或有兴趣的时候进行查看。当然，官方文档，针对一些参数的说明比较简单，看完后，并不明白是什么意思的情况下，可以直接查看源码。</p>
+
+<p>组件基本框架讲解完成后，我们再把目光移到<code>element/src/index.js</code>，这个文件引入了大量的组件，通过其引入和使用组件的方式，我们也可以基本了解到对应组件的使用方式了。下面，把loading相关的引用方式，抽取如下</p>
+
+<pre class='editor'>
+import Loading from '../packages/loading/index.js';
+
+//插件安装与使用，至此，v-loading命令可以使用
+Vue.use(Loading.directive);
+
+//为Vue原型添加loading的对象获取方法，至此，可以在所有vue组件中直接用this.$loading访问
+Vue.prototype.$loading = Loading.service;
+
+//当然，你喜欢的话，也可以这样来获取
+let loadingInstance = Loading.service(options);
+</pre>
+
+<script src="../js/ace/ace.js" charset="utf-8"></script>
+<script src="../js/ace/ext-language_tools.js" charset="utf-8"></script>
+<script>
+  function createEditor(el, html){
+    var editor = ace.edit(el);
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/javascript");
+    editor.setReadOnly(true);
+    editor.setValue(html, 1);
+    editor.setOption("maxLines", 30);
+    return editor;
+  }
+  var nodes = document.querySelectorAll('.editor');
+  for(var i = 0, ilen = nodes.length; i < ilen; i++){
+    var one = nodes[i];
+    createEditor(one, one.innerText);
+  }
+</script>
+
+
+        </section>
+
+        <!-- <aside id="sidebar">
+          <p><a href="http://blog.shellhong.com/export/views/work_nav.html">工作</a></p>
+          <p><a href="http://blog.shellhong.com/export/views/life_nav.html">生活</a></p>
+        </aside> -->
+
+      </div>
+    </div>
+    
+
+  </body>
+</html>
