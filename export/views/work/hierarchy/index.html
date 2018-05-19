@@ -65,31 +65,31 @@
           </div><div>那么接下来，我们就从这个角度来审视一下上面描述的简单定制化类型活动，看能不能提取其共性。
           </div><div>先来看两个例子，如下图：</div>
 
-          <p><img src="../../../images/work/hierarchy/a.jpg" alt="图片" title="" /></p>
+          <p><img src="../../../images/work/hierarchy/a.png" alt="图片" title="" /></p>
 
-          <p><img src="../../../images/work/hierarchy/b.jpg" alt="图片" title="" /></p>
+          <p><img src="../../../images/work/hierarchy/b.png" alt="图片" title="" /></p>
 
           <div>这两个页面，看起来区别挺大的，那么其共性是什么呢。
           </div><div>我相信，每个部门或公司都有其核心的业务形态（盈利点或者价值），所以无论如何定制化，核心的业务形态往往都是固定的，即所谓的万变不离其宗。
           </div><div>笔者目前身在的部门，分发是核心（应用下载，第三方导流等），所以，需求方怎么天马行空，这一块总是不会变的。大致如下图：</div>
 
-          <p><img src="../../../images/work/hierarchy/c.jpg" alt="图片" title="" /></p>
+          <p><img src="../../../images/work/hierarchy/c.png" alt="图片" title="" /></p>
 
           <p>然后分发又可以分为几种类型</p>
 
-          <p><img src="../../../images/work/hierarchy/d.jpg" alt="图片" title="" /></p>
+          <p><img src="../../../images/work/hierarchy/d.png" alt="图片" title="" /></p>
 
           <div>每种类型的分发，其核心逻辑基本是固定的，例如传统的android App，其逻辑包括判断是否安装、进度反馈、暂停和继续、deeplink跳转以及埋点。至于图中的"某奇怪交互"和"某奇怪逻辑"其实就是指一些超越了常规活动流程的定制化需求，这一块后续会讲到。
           </div><div>而用户交互方面，基本是点击按钮。唯有界面展示上，是千变万化的。
           </div><div>针对这种情况，传统的做法是这样的：</div>
 
-          <p><img src="../../../images/work/hierarchy/e.jpg" alt="图片" title="" /></p>
+          <p><img src="../../../images/work/hierarchy/e.png" alt="图片" title="" /></p>
 
           <p>如上图，通过把公共的逻辑封装成内部仓库组件，然后通过<code>import</code>引入每个活动页面中，然后走测试和发布流程。</p>
 
           <p>而笔者的做法是</p>
 
-          <p><img src="../../../images/work/hierarchy/f.jpg" alt="图片" title="" /></p>
+          <p><img src="../../../images/work/hierarchy/f.png" alt="图片" title="" /></p>
 
           <p>如上图，采用服务化的思想，除了展示层每次都走发布流程，其它的层分离成单独的包，固化在服务端提供服务。具体实现的话，如图所示使用<code>iframe</code>+<code>post message</code>。
           这样，最大程度保障了核心逻辑和埋点的稳定，也把每次的改动点降到最低。</p>
@@ -103,7 +103,7 @@
 
           <h3>总体流程</h3>
 
-          <p><img src="../../../images/work/hierarchy/g.jpg" alt="图片" title="" /></p>
+          <p><img src="../../../images/work/hierarchy/g.png" alt="图片" title="" /></p>
 
           <p>以android App为例，大致的配置流程如上图。
           从图中，我们发现，还有挺多工具用于辅助完成这个流程的，例如：</p>
