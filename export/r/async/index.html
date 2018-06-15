@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../src/css/common/font.css" type="text/css">
+    <link rel="stylesheet" href="../../../src/css/common/style.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="../../../src/css/common/print.css" media="print" type="text/css">
+    
+
+    <title>ShellHong's Blog</title>
+    <style media="screen">
+      div{
+        line-height: 1.6;
+        padding-bottom: 6px;
+      }
+      blockquote{
+        margin-left: 0;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="inner">
+        <a href="https://blog.shellhong.com">
+          <h1>ShellHong Blog</h1>
+        </a>
+        <a href="mailto:shellhong6@gmail.com" class="button">Send email to me</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+
+        <section id="main-content"><!--内容主体-->
+          
+<h1>异步演进</h1>
+
+<h2>promise</h2>
+
+<p>略</p>
+
+<h2>iterable</h2>
+
+<blockquote>
+  <p>iterable objects (including the built-in String, Array, e.g. the Array-like arguments or NodeList objects, TypedArray, Map and Set, and user-defined iterables)</p>
+</blockquote>
+
+<p>以上是天生具备可迭代能力的对象，下面讲讲后天的。</p>
+
+<pre class='editor'>
+// 添加迭代器后，其便具备了迭代能力
+Object.prototype[Symbol.iterator] = function() {
+  let index = 0;
+  let propKeys = Reflect.ownKeys(obj);
+  // let propKeys = Object.keys(obj); //忽略Symbol类型键值
+  return {
+    next() {
+      if (index < propKeys.length) {
+        let key = propKeys[index++];
+        return {
+          value: {[key]: obj[key]},
+          done: false
+        };
+      } else {
+        return {
+          done: true
+        };
+      }
+    }
+  }
+}
+
+var obj = {
+  key1: 1,
+  key2: 2,
+  [Symbol('key3')]: 3
+};
+
+console.log([...obj]); //用Spread操作符展开iterable对象
+
+for(var v of obj){ //用for...of遍历iterable对象
+  console.log(v);
+}
+
+
+/**
+* [{key1: 1},{key2: 2},{Symbol(key3): 3}]
+* {key1: 1}
+* {key2: 2}
+* {Symbol(key3): 3}
+*/
+</pre>
+
+<h4>Symbol</h4>
+
+<blockquote>
+  <p>Every symbol value returned from Symbol() is unique.  A symbol value may be used as an identifier for object properties; </p>
+</blockquote>
+
+<p>Symbol类型的键值具备唯一性，可防止被覆盖，会被<code>Object.keys</code>和<code>for...in</code>忽略。</p>
+
+<pre class='editor'>
+var obj = {
+  a: 1,
+  b: 2,
+  [Symbol('c')]: 3, //唯一Symbol，用于局部
+  [Symbol.for('d')]: 4 //共享Symbol，用于全局作用
+}
+
+for(var p in obj){
+  console.log('p--', p);
+}
+
+console.log(Object.keys(obj));
+
+console.log(obj[Symbol.for('d')]);
+
+console.log(obj.hasOwnProperty(Symbol.for('d')));
+
+/**
+ * p-- a
+ * p-- b
+ * ["a", "b"]
+ * 4
+ * true
+ */
+</pre>
+
+
+<h2>Generator</h2>
+
+<blockquote>
+  <p>The Generator object is returned by a generator function and it conforms to both the iterable protocol and the iterator protocol.</p>
+</blockquote>
+
+<p>so，Generator对象也可被<code>for...of</code>遍历和<code>...</code>展开。</p>
+
+<pre class='editor'>
+function* input() {
+  let array = [];
+  var temp1 = yield array.join(',');
+  console.log('temp---', temp1);
+  array.push(temp1);
+  var temp2 = yield array.join(',');
+  console.log('temp---', temp1, temp2);
+  array.push(temp2);
+  return array.join(',');
+}
+var gen = input();
+console.log(gen.next("西"));
+console.log(gen.next("部"));
+console.log(gen.next("世"));
+
+/**
+*  {value: "", done: false}
+*  temp--- 部
+*  {value: "部", done: false}
+*  temp--- 部 世
+*  {value: "部,世", done: true}
+*/
+</pre>
+
+
+<p><code>Generator</code>的流程略显复制，上面的代码可以参考下图进行阅读。</p>
+
+<p><img src="../images/async/a.png" alt="图片1" title="" /></p>
+
+<h3>Generator与异步回调的关系</h3>
+
+<blockquote>
+  <p>Thunk 函数现在可以用于 Generator 函数的自动流程管理(<a href="http://www.ruanyifeng.com/blog/2015/05/thunk.html">了解更多</a>)</p>
+</blockquote>
+
+<p>js中的闭包，可为执行的函数，形成闭合的环境（or 空间），用于存储局部变量。Thunk 函数其实就是利用闭包，实现了多个参数的存储或者延迟执行。而其真正的作用，是配合<code>Generator</code>实现的自动流程管理(<a href="http://www.ruanyifeng.com/blog/2015/05/thunk.html">了解更多</a>)，可以较好解决异步回调嵌套的问题。</p>
+
+<p>但是，从"了解更多"博客中的实例来看，其实还不够优秀，因为其是通过回调函数递归的方式来实现的，这对回调有较大的限制（没办法定制化回调函数的逻辑，流程管理中涉及回调函数无法解耦）。</p>
+
+<p>借助<code>promise</code>，我们可以有更棒的实现。</p>
+
+<pre class='editor'>
+function* gen() {
+  var r1 =  yield new Promise(function(resolve){
+    setTimeout(function(){
+      resolve(1);
+    }, 1000);
+  });
+  console.log('r1--', r1);
+  var r2 =  yield new Promise(function(resolve){
+    setTimeout(function(){
+      resolve(2);
+    }, 1000);
+  });
+  console.log('r2--', r2);
+  var r3 =  yield new Promise(function(resolve){
+    setTimeout(function(){
+      resolve(3);
+    }, 1000);
+  });
+  console.log('r3--', r3);
+}
+
+function autoGen(fn) {
+  var genor = fn();
+  function run(data) {
+    var result = genor.next(data);
+    if(!result.done){
+      result.value.then(function(r){
+        run(r);
+      });
+    }
+  }
+  run();
+}
+
+autoGen(gen);
+
+/**
+ * r1-- 1
+ * r2-- 2
+ * r3-- 3
+ */
+</pre>
+
+<h2>async await</h2>
+
+<p>略</p>
+
+<h2>总结</h2>
+
+<blockquote>
+  <p>iterable -> Generator -> async await</p>
+</blockquote>
+
+<div>这就是语法糖的作用，按照上述顺序，后者在前值的基础上，可以很方便做到原本需要用较为复制的逻辑才能实现的功能。
+<div></div>例如上文最后一段代码实例，其实和<code>async await</code>的流程很接近（yield接收promise对象，自执行流程、以同步写法实现了异步嵌套的流程）。</div>
+
+<script src="../js/ace/ace.js" charset="utf-8"></script>
+<script src="../js/ace/ext-language_tools.js" charset="utf-8"></script>
+<script>
+  function createEditor(el, html){
+    var editor = ace.edit(el);
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/javascript");
+    editor.setReadOnly(true);
+    editor.setValue(html, 1);
+    editor.setOption("maxLines", 30);
+    return editor;
+  }
+  var nodes = document.querySelectorAll('.editor');
+  for(var i = 0, ilen = nodes.length; i < ilen; i++){
+    var one = nodes[i];
+    createEditor(one, one.innerText);
+  }
+</script>
+
+
+        </section>
+
+        <!-- <aside id="sidebar">
+          <p><a href="http://blog.shellhong.com/export/views/work_nav.html">工作</a></p>
+          <p><a href="http://blog.shellhong.com/export/views/life_nav.html">生活</a></p>
+        </aside> -->
+
+      </div>
+    </div>
+    
+
+  </body>
+</html>
