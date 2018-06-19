@@ -1,22 +1,26 @@
 # 外部应用-----跳转-----&gt;应用商店
 
-## 跳转应用详情页
-跳转应用详情有mstore和market两种方式
+## 一、跳转应用详情页
+跳转应用详情有mstore、market、http三种方式，根据不同的业务场景，选用不同的方式跳转：
 
-* 使用Java代码跳转时优先使用market，并指定intent.setPackage("com.meizu.mstore");
+* Java代码跳转：优先使用mstore方式，请先查询当前系统是否存在mstore协议：boolean hasMstoreScheme = Intent.resolveActivity(mContext.getPackageManager()) != null
+* Java代码跳转：mstore方式不可用时，使用market，并指定intent.setPackage("com.meizu.mstore");
+* H5 JS跳转：优先使用mstore方式，跳转后判断页面是否成功，不成功时再用http方式（这时以H5页面打开应用详情）。
 
-* 使用Java代码跳转且使用mstore方式时，请先查询当前系统是否存在mstore协议：boolean hasMstoreScheme = Intent.resolveActivity(mContext.getPackageManager()) != null
-
-* 使用H5超链接跳转时优先使用mstore方式，跳转后判断页面是否成功，不成功时再用market的方式。
-
-####   mstore方式打开应用详情 （版本限制：VersionCode >= 6002001 ）
-
+####  1.1 mstore方式打开应用详情 （版本限制：VersionCode >= 6002001 ）
 ```
 //例如跳转到微博的详情页面：
-mstore://details?package_name=com.sina.weibo【必填】&source_apkname=调用此接口的应用包名【必填】&source_info=预留的自定义信息【选填】&track_url=cpd上报数据请求url地址，服务端提供，仅cpd广告需要该字段【选填】
+mstore://details?package_name=com.sina.weibo【必填】&source_apkname=调用此接口的应用包名【必填】&source_info=预留的自定义信息【选填】&track_url=cpd上报数据请求url地址，服务端提供，仅cpd广告需要该字段【选填】&dplink=打开应用的deeplink链接【选填】
 ```
+###### 参数说明：
+* package_name 【必填】目标应用的名包
+* source_apkname 【必填】调用此接口的应用包名
+* track_url【选填】cpd上报数据请求url地址，服务端提供，仅cpd广告需要该字段
+* source_info 【选填】预留的自定义信息，会上报到大数据
+* dplink【选填】 打开应用的deeplink链接，需要经过UTF-8 Encode [在线Encode工具](http://tool.chinaz.com/tools/urlencode.aspx)，Java代码：String deepLink = URLEncoder.encode("这里就是你的URI","UTF-8");
 
-####  market方式打开应用详情 （Android标准方式：所有版本支持）
+
+#### 1.2 market方式打开应用详情 （Android标准方式：所有版本支持）
 ```java
 //market为Android标准方式，必须指定包名com.meizu.mstore才能100%保证跳转到魅族的应用商店，否则可能会弹出选择应用宝、google play、豌豆荚的提示框。
 String packageName = "com.sina.weibo";
@@ -29,8 +33,8 @@ intent.putExtra("track_url", "https://t-e.flyme.cn/api/v1/track?viewid=BC2FEB68C
 startActivity(intent);
 ```
 
-####   http方式打开应用详情 （不推荐使用，会被魅族浏览器拦截）
-
+####   1.3 http方式打开应用详情 （不管是否指定商店客户端的包名，都会被魅族浏览器拦截）
+Java打开
 ```java
 String packageName = "com.meizu.flyme.dayu";
 Uri uri = Uri.parse(String.format("http://app.meizu.com/apps/public/detail?package_name=%s",packageName));//详情页
@@ -42,14 +46,19 @@ intent.putExtra("track_url", "https://t-e.flyme.cn/api/v1/track?viewid=BC2FEB68C
 startActivity(intent);
 ```
 
-## 搜索应用
+JavaScript打开
+```
+http://app.meizu.com/apps/public/detail?package_name=目标包名
+```
 
-####   mstore方式 （Version &gt;= 6.2.1 VersionCode &gt;= 6002001）
+## 二、搜索应用
+
+####   2.1 mstore方式 （Version &gt;= 6.2.1 VersionCode &gt;= 6002001）
 
 ```
 mstore://search?q=关键字&source_apkname=来源包名,必填&source_info=来源渠道自定义信息，必填
 ```
-####  maket方式
+####  2.2 maket方式
 
 ```java
 String searchKey = "魅族";
@@ -60,15 +69,16 @@ intent.putExtra("source_info", "/version_code/home_page/...");//来源渠道自�
 startActivity(intent);
 ```
 
-## 下载应用(跳转到详情页面并下载)
+## 三、下载应用(跳转到详情页面并下载)
 
 发送 `com.meizu.flyme.appcenter.action.perform` 进行下载。
 
 ```java
-String pkgName="";//包名
-String appName="";//应用名
-boolean bSearch=true;//根据包名找不到应用时，是否要跳到搜索页搜索应用名
-Uri uri = Uri.parse(String.format("http://app.meizu.com/apps/public/detail?package_name=%s&app_name=%s&goto_search_page=%b", pkgName,appName,bSearch));
+String pkgName="";//【必填】包名
+String appName="";//【选填】应用名
+boolean bSearch=true;//【选填】根据包名找不到应用时，是否要跳到搜索页搜索应用名
+String deepLink = URLEncoder.encode("这里就是你的URI","UTF-8");//【选填】应用下载完成后点击打开按钮跳到指定页面，需要经过UTF-8[EnCode](http://http://tool.chinaz.com/tools/urlencode.aspx)
+Uri uri = Uri.parse(String.format("http://app.meizu.com/apps/public/detail?package_name=%s&app_name=%s&goto_search_page=%b&dplink=%s", pkgName,appName,bSearch,deepLink));
 intent = new Intent("com.meizu.flyme.appcenter.action.perform", uri);
 intent.setPackage("com.meizu.mstore");
 intent.putExtra("result_app_action","download");//download触发自动下载,force_download触发自动下载并强制重新安装
@@ -85,7 +95,7 @@ startActivity(intent);
 <uses-permission android:name="com.meizu.flyme.appcenter.permission.action.perform" />
 ```
 
-## 下载应用（无页面跳转）
+## 四、下载应用（无页面跳转）
 
 调用此接口只是发送广播，不会有任何回调信息
 
@@ -110,9 +120,9 @@ sendBroadcast(intent);
 com.meizu.flyme.appcenter.permission.EXTERNAL_INSTALL
 ```
 
-## 跳转活动页面
+## 五、跳转活动页面
 
-#### ACTION 方式
+#### 5.1 ACTION 方式
 
 ```
 //url：http://api-app.meizu.com/apps/public/activity/detail/1722(活动的id，根据实际情况修改，如需区分渠道来源，请添加?business=7)
@@ -127,7 +137,7 @@ intent.putExtras(bundle);
 activity.startActivity(intent);
 ```
 
-#### SCHEME方式
+#### 5.2 SCHEME方式
 
 ```
 //url：http://api-app.meizu.com/apps/public/activity/detail/1722(活动的id，根据实际情况修改，如需区分渠道来源，请添加?business=7)
@@ -135,8 +145,6 @@ activity.startActivity(intent);
 
 mstore://goto/activity?url=【活动的详情地址】&source_apkname=【来源包名】&source_info=【来源附加信息】
 ```
-
-
 ##### 支持版本
 
 *   5.4.0(VersionCode：312)
@@ -147,7 +155,7 @@ mstore://goto/activity?url=【活动的详情地址】&source_apkname=【来源�
 
 *   <span style="color:#FF0000;">**url 活动详情的地址，并不是H5页面的地址**</span>，注意url里有://$=等特殊符号时，要对 URL 进行转码（Encode with UTF-8），仅仅是url转码，不是整个URI转。这里附带一个[在线Encode工具](http://tool.chinaz.com/tools/urlencode.aspx)
 
-## 跳转通用H5页面(福利、评测、红包等)
+## 六、跳转通用H5页面(福利、评测、红包等)
 
 福利、评测使用的是通用H5页面，使用标准scheme方式。例如跳转到评测列表：
 
@@ -167,7 +175,7 @@ mstore://goto/h5_ext?url=http%3A%2F%2Fi3.res.meizu.com%2Fresources%2FappStore%2F
 *   source_apkname 来源渠道应用包名,必填
 *   source_info 来源渠道自定义信息，选填
 
-## 跳转标签列表页
+## 七、跳转标签列表页
 
 如点击应用详情里的标签，能跳转到所属标签的排行页，需要的参数有：url，标题，来源包名（用于统计）：
 
