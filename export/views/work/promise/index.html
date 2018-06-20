@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../css/common/font_92a0e396.css" type="text/css">
+    <link rel="stylesheet" href="../../../css/common/style_1f6aed7d.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="../../../css/common/print_9fc78c3d.css" media="print" type="text/css">
+    
+
+    <title>ShellHong's Blog</title>
+    <style media="screen">
+      div{
+        line-height: 1.6;
+        padding-bottom: 6px;
+      }
+      blockquote{
+        margin-left: 0;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="inner">
+        <a href="https://blog.shellhong.com">
+          <h1>ShellHong Blog</h1>
+        </a>
+        <a href="mailto:shellhong6@gmail.com" class="button">Send email to me</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+
+        <section id="main-content"><!--内容主体-->
+          
+<h1>Promise原理浅析</h1>
+
+<h2>流程图</h2>
+<p><img src="../../../images/work/promise/flow1_ed908ede.png" alt="图片1" title="" /></p>
+<p><img src="../../../images/work/promise/flow2_b9a1e9e8.png" alt="图片2" title="" /></p>
+<div>
+  图片1描述了`promise`的内部基本流程，图片2描述`promise`链式调用的基本流程（以成功为例），而其他api都是基于这个简单的流程拓展出来的。
+</div>
+<div>
+  由于状态不可逆，所以`then`必须返回新的`promise`，来实现链式调用中，下一个`then`的状态重新从`PENDING`到`FULFILLED`or`REJECTED`的流程重走。
+</div>
+<div>
+  `PENDING`状态下，`then`方法中的回调任务会被加到微任务队列中，直到该`promise`进行`resolve`的时候，会把刚刚加入微任务队列中所有的任务拿出来依次执行，并触发下一个`promise`的`resolve`。
+</div>
+<div>
+  每执行一个宏任务（主流程、`setTimeout`、`setInterval`等），都会把所有的微任务（promise）执行完，然后依此重复。
+</div>
+<div>
+  `FULFILLED`或`REJECTED`状态下，`then`方法中，对应的回调会马上执行。
+</div>
+<h2>Promise模拟实现</h2>
+<a href="https://github.com/huanshen/Promise/tree/master">点击查看源码</a>
+
+        </section>
+
+        <!-- <aside id="sidebar">
+          <p><a href="http://blog.shellhong.com/export/views/work_nav.html">工作</a></p>
+          <p><a href="http://blog.shellhong.com/export/views/life_nav.html">生活</a></p>
+        </aside> -->
+
+      </div>
+    </div>
+    
+
+  </body>
+</html>
