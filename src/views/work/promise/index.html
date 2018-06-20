@@ -22,7 +22,7 @@
   每执行一个宏任务（主流程、`setTimeout`、`setInterval`等），都会把所有的微任务（promise）执行完，然后依此重复。
 </div>
 <div>
-  `FULFILLED`或`REJECTED`状态下，`then`方法中，对应的回调会马上执行。
+  `FULFILLED`或`REJECTED`状态下，`then`方法中，对应的回调会马上触发（把添加到微任务队列中的任务拿出来执行）。
 </div>
 <h2>Promise模拟实现</h2>
 <a href="https://github.com/huanshen/Promise/tree/master">点击查看源码</a>
