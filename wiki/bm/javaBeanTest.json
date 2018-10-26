@@ -1,0 +1,155 @@
+{
+  "templateName": "javaBeanTest",
+  "templateTitle": "页面标题",
+  "tableFields": [
+    {
+      "name": "id",
+      "inputType": "hidden",
+      "javaType": "long",
+      "comment": "id"
+    },
+    {
+      "name": "name",
+      "inputType": "text",
+      "javaType": "String",
+      "comment": "名称"
+    },
+    {
+      "name": "age",
+      "inputType": "number",
+      "javaType": "number",
+      "comment": "年龄"
+    },
+    {
+      "name": "password",
+      "inputType": "password",
+      "javaType": "String",
+      "comment": "密码",
+      "canSearch":false,
+      "isShowInTable": false
+    },
+    {
+      "name": "sex",
+      "inputType": "dropdown",
+      "javaType": "enum",
+      "comment": "性别",
+      "options": {
+        "maps": {
+          "1": "男",
+          "2": "女"
+        }
+      }
+    },{
+      "name": "position",
+      "inputType": "asyncDropdown",
+      "javaType": "asyncEnum",
+      "comment": "职位",
+      "remoteUrl": "/json/position.json"
+    },{
+      "name": "station",
+      "inputType": "cascader",
+      "javaType": "cascader",
+      "comment": "岗位细节",
+      "remoteUrl": "/json/cascade.json"
+    },{
+      "name": "remark",
+      "inputType": "textarea",
+      "javaType": "String",
+      "comment": "备注",
+      "canSearch": false
+    },{
+      "name": "photo",
+      "inputType": "upload",
+      "javaType": "image",
+      "comment": "头像",
+      "remoteUrl": "/json/uploadImage.json"
+    },{
+      "name": "infoZip",
+      "inputType": "upload",
+      "javaType": "String",
+      "comment": "资料",
+      "remoteUrl": "/json/uploadFile.json"
+    },{
+      "name": "birthday",
+      "inputType": "date",
+      "javaType": "date",
+      "comment": "出生日期",
+      "searchRange": "birthdayStart,birthdayEnd"
+    },{
+      "name": "breakfastTime",
+      "inputType": "datetime",
+      "javaType": "time",
+      "comment": "早饭时间",
+      "searchRange": "breakfastTimeStart,breakfastTimeEnd"
+    },{
+      "name": "startDate",
+      "inputType": "daterange",
+      "javaType": "date",
+      "comment": "入学日期",
+      "group": "上学区间"
+    },{
+      "name": "endDate",
+      "inputType": "daterange",
+      "javaType": "date",
+      "comment": "毕业日期",
+      "group": "上学区间"
+    },{
+      "name": "checkin",
+      "inputType": "datetimerange",
+      "javaType": "time",
+      "comment": "入住时间",
+      "group": "住店区间"
+    },{
+      "name": "checkout",
+      "inputType": "datetimerange",
+      "javaType": "time",
+      "comment": "离店时间",
+      "group": "住店区间"
+    },{
+      "name": "skinColor",
+      "inputType": "color",
+      "javaType": "color",
+      "comment": "肤色",
+      "canSearch": false
+    },{
+      "name": "isHandsome",
+      "inputType": "switch",
+      "javaType": "switch",
+      "comment": "帅吗"
+    },{
+      "name": "schoolName",
+      "inputType": "search-input",
+      "javaType": "search-input",
+      "comment": "心仪学校",
+      "remoteUrl": "/json/schoolList.json"
+    },{
+      "name": "fav",
+      "inputType": "checkbox-group",
+      "javaType": "checkbox-group",
+      "comment": "喜好",
+      "remoteUrl": "/json/favList.json"
+    },{
+      "name": "height",
+      "inputType": "radio-group",
+      "javaType": "radio-group",
+      "comment": "身高",
+      "remoteUrl": "/json/height.json"
+    },{
+      "name": "des",
+      "inputType": "rich-text",
+      "javaType": "rich-text",
+      "comment": "简介"
+    },{
+      "name": "otherStation",
+      "inputType": "dialogCascade",
+      "javaType": "columnCascade",
+      "isOther": true,
+      "comment": "岗位细则",
+      "remoteUrl": "/json/cascade0.json"
+    }
+  ],
+  "delHttpmethod": "/json/delsuccess.json",
+  "listHttpmethod": "/json/getList.json",
+  "addHttpmethod": "/json/addsuccess.json",
+  "updateHttpmethod": "/json/updatesuccess.json"
+}
