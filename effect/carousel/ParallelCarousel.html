@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <head>
-  <meta charset="UTF-8" />
   <style media="screen">
     body{
       margin: 0;
@@ -10,16 +9,23 @@
       width: 100%;
       height: 450px;
       position: relative;
+      background: white;
       overflow: hidden;
+      margin: 0 auto;
+    }
+    li{
+      box-sizing: border-box;
+      border: 1px solid blue;
     }
   </style>
-  <script type="text/javascript" src="./index_b21f378b.js"></script>
+  <script type="text/javascript" src="./ParallelCarousel_aec89a85.js"></script>
 </head>
 <body>
 		<div class="sky-carousel"></div>
-    <div style='color:red;text-align:center;font-size:60px;margin-top:100px;'>仅支持移动端</div>
     <script type="text/javascript">
-    		carousel.init(document.querySelector('.sky-carousel'), [
+      var carouselObj = new ParallelCarousel({
+        container: document.querySelector('.sky-carousel'),
+        data: [
           './img/1_14731692.jpg',
           './img/2_6314aecb.jpg',
           './img/3_105dba92.jpg',
@@ -27,18 +33,14 @@
           './img/5_e841a8a7.jpg',
           './img/6_3d7b784c.jpg',
           './img/7_a404afb4.jpg'
-        ], {
-          type: 'parallel',
-          width: '70%',
-          marginR: 10,
-          isAutoCarousel: false,
-          animateTime: .2,
-          autoCarouselTime: 5000,
-          startX: 30,
-          dragHolder: 120,
-          effectDistance: 20,
-          isSort: true
-        });
+        ],
+        isSort: true,
+        auto: false,
+        liWidth: window.innerWidth * .7,
+        maxMarginL: 40,
+        marginR: 15
+      })
+      carouselObj.init()
     </script>
 </body>
 </html>

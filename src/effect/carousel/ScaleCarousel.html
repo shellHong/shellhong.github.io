@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+  <style media="screen">
+    body{
+      margin: 0;
+      padding: 0;
+    }
+    .sky-carousel {
+      width: 100%;
+      height: 450px;
+      position: relative;
+      background: white;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+    li{
+      box-sizing: border-box;
+      border: 1px solid blue;
+    }
+  </style>
+  <script type="text/javascript" src="./ScaleCarousel.js"></script>
+</head>
+<body>
+		<div class="sky-carousel"></div>
+    <script type="text/javascript">
+      var carouselObj = new ScaleCarousel({
+        container: document.querySelector('.sky-carousel'),
+        data: [
+          './img/1.jpg',
+          './img/2.jpg',
+          './img/3.jpg',
+          './img/4.jpg',
+          './img/5.jpg',
+          './img/6.jpg',
+          './img/7.jpg'
+        ],
+        rate: .8,
+        maxRate: 1,
+        liWidth: window.innerWidth * .8
+      })
+      carouselObj.init()
+    </script>
+</body>
+</html>
