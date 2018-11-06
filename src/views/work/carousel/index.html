@@ -49,16 +49,21 @@
 <li>边界处理：只移动一个元素，便可实现循环，性价比更高</li>
 </ul>
 
-<h2>原创demo</h2>
+<h2>demo</h2>
 
 只处理了移动端事件（touch系列），所以要体验完整功能，请使用移动端浏览器打开以下实例。
 
 <ul>
-<li><a href="../../../../effect/carousel/index-base.html">base模式</a></li>
-<li><a href="../../../../effect/carousel/index-scale.html">scale模式</a></li>
-<li><a href="../../../../effect/carousel/index-parallel.html">parallel模式</a></li>
-<li><a href="../../../../effect/carousel/index-parallel-simple.html">parallel-simple模式</a></li>
+<li><a href="../../../../effect/carousel/BaseCarousel.html">base模式</a></li>
+<li><a href="../../../../effect/carousel/ScaleCarousel.html">scale模式</a></li>
+<li><a href="../../../../effect/carousel/ParallelCarousel.html">parallel模式</a></li>
 </ul>
+
+<h2>代码架构</h2>
+
+<p>上述三个demo代表了三种图片轮播模式，其中`BaseCarousel`是另外两种模式的基础，也可以说是一切拓展模式的基础。其他类型的banner轮播图模式，都是继承于`BaseCarousel`，然后通过重写、新增自定义逻辑等方式拓展。</p>
+
+<p><img src="../../../images/work/carousel/4.png" alt="流程四" title="" /></p>
 
 <h2>github项目</h2>
 
