@@ -28,7 +28,7 @@
 
 ![页面引用例子](images/1.png)
 
-如上图所示，`{\%`和`%\}`（忽略中间斜杆，加斜杆是为了避免后台模版解析异常）包裹着的组件路径，会通过`swig`注入到主页面的html中，而其中的`data-source-inline=1`标识表示该外链的`js`或`css`会通过`html-webpack-inlinesource-plugin`插件实现内联到该页面中
+如上图所示，`{\%`和`%\}`（此处忽略中间斜杆，加斜杆是为了避免后台模版解析异常）包裹着的组件路径，会通过`swig`注入到主页面的html中，而其中的`data-source-inline=1`标识表示该外链的`js`或`css`会通过`html-webpack-inlinesource-plugin`插件实现内联到该页面中
 
 * `html`类型组件例子
 
