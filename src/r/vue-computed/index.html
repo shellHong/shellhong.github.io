@@ -1,0 +1,188 @@
+{% extends "../_layout.html" %}
+
+{% block head_extend %}
+{% endblock %}
+
+{% block content %}
+<h1>Vue依赖收集与更新</h1>
+
+<h2>实例</h2>
+
+先出个小题，你是否能准确、清晰地判断出，下边代码尾部的几个`console.log`的打印结果呢？
+
+<pre class='editor'>
+  var vm = new Vue({
+    el: '#test',
+    data() {
+      return {
+        info: {
+          year: '2018',
+          month: '12'
+        }
+      }
+    },
+    computed: {
+      dateStr: function () {
+        return `${this.info.year}-${this.info.month}-${this.info.date}`
+      }
+    },
+    methods: {
+      getStr() {
+        return `${this.dateStr}/${document.getElementById('test').getAttribute('data-str')}`
+      },
+      waitNextTick() {
+        return new Promise((resolve) => {
+          this.$nextTick(function(){
+            resolve()
+          })
+        })
+      },
+      async doTest() {
+        console.log(this.getStr())
+        this.info.date = '5'
+        console.log(this.getStr())
+
+        await this.waitNextTick()
+        console.log(this.getStr())
+        this.$set(this.info, 'date', '6')
+
+        await this.waitNextTick()
+        console.log(this.getStr())
+        this.info.year = '2019'
+        console.log(this.getStr())
+
+        await this.waitNextTick()
+        console.log(this.getStr())
+        this.info.date = '7'
+        this.info = Object.assign({}, this.info)
+        console.log(this.getStr())
+
+        await this.waitNextTick()
+        console.log(this.getStr())
+      }
+    },
+    mounted() {
+      this.doTest()
+    }
+  })
+
+  // 模版结构：
+  // &lt;div :data-str="dateStr" id="test"&gt;
+  // &lt;/div&gt;
+
+
+
+
+
+
+
+
+
+</pre>
+
+<h2>依赖收集</h2>
+
+<img src="../images/vue-computed/1.png" alt="">
+
+<p>如上图，以`data`中的`a`属性与`computed`中的`b`属性的为例，`b`属性的方法会映射为其对应的`getter`，在执行该方法时
+</p>
+
+<ul>
+<li>`Dep.target`指向`b`属性的`watcher`</li>
+<li>依次调用方法中相关属性（`a`）的`getter`，通过每个`getter`把`Dep.target`加入到自己的依赖队列中</li>
+<li>相关属性（`a`）值发送变化时，会通知（`notify`）依赖队列中的所有`watcher`</li>
+</ul>
+
+<img src="../images/vue-computed/2.png" alt="">
+
+<p>从上图可以看出，`notify`后，相关的计算属性并不是马上执行对应的计算方法（此处以异步更新为例），而是将`dirty`设置为`true`，以此标识依赖有变。</p>
+<p>当然，在首次初始化的时候，`dirty`的默认值也是`true`。如此，渲染初始化界面时，会需要马上用到该计算属性，引发计算方法的执行。</p>
+
+so，我们还可以得出如下结论
+
+<ul>
+<li>依赖变了，computed不一定会执行，也不一定会马上执行</li>
+<li>啥时候和会不会执行，取决于会不会和啥时候被使用到（即getter被调用到）</li>
+<li>而`Vue`中的`watch`是没方法实现类似的按需计算的，这也是两者性能上的区别</li>
+</ul>
+
+<h2>使用场景</h2>
+
+<ul>
+<li>计算属性如果没使用到（即getter未被调用），那就完全不会执行</li>
+<li>计算属性如果被使用到（即getter被调用到），计算方法会马上执行，值被更新</li>
+</ul>
+
+<img src="../images/vue-computed/3.png" alt="">
+
+<p>如果是在模版中被用到，那么出于dom更新的性能优化原因，其流程分为两个步骤</p>
+
+<ul>
+<li>依赖的属性修改后，`dirty`设置为true，标识下次使用计算属性变量，需要重新计算</li>
+<li>在下一个tick中，重新计算，并更新界面</li>
+</ul>
+
+<img src="../images/vue-computed/4.png" alt="">
+
+<h2>疑问解答</h2>
+
+<pre class='editor'>
+  async doTest() {
+    console.log(this.getStr()) // 打印：2018-12-undefined/2018-12-undefined
+    this.info.date = '5'       // 依赖收集已完成，新增的属性并不在observer跟踪范围内，其改动，无法引发计算属性变量值的更新
+    console.log(this.getStr()) // 打印：2018-12-undefined/2018-12-undefined
+
+    await this.waitNextTick()
+    console.log(this.getStr()) // 打印：2018-12-undefined/2018-12-undefined
+    this.$set(this.info, 'date', '6') // 依赖收集已完成，新增的属性并不在observer跟踪范围内，其改动，无法引发计算属性变量值的更新
+
+    await this.waitNextTick()
+    console.log(this.getStr()) // 打印：2018-12-undefined/2018-12-undefined
+    this.info.year = '2019'    // 1.year是参与了依赖收集的，其变化会引发计算属性变量值的更新；2.之前的date值变化虽然没引起计算属性变量重新计算，但是date自身的值变化却是实打实的
+    console.log(this.getStr()) // 打印：2018-12-6/2018-12-undefined，dirty为true，一旦使用到，会马上进行计算，以保证计算属性变量的值是最新的
+
+    await this.waitNextTick()
+    console.log(this.getStr()) // 打印：2018-12-6/2018-12-6，出于性能考虑，view会在下一个tick集中更新，这一次其会使用到上次新计算出来的计算属性变量的新值来更新dom
+    this.info.date = '7'
+    this.info = Object.assign({}, this.info) // info是参与了依赖收集的，其变化会引发计算属性变量值的更新，所以对于依赖收集以后的新增属性，可以考虑采用该方式来修改，以触发计算属性变量更新
+    console.log(this.getStr()) // 打印：2018-12-7/2018-12-6
+
+    await this.waitNextTick() // 出于性能考虑，view会在下一个tick集中更新，这一次其会使用到上次新计算出来的计算属性变量的新值来更新dom
+    console.log(this.getStr()) // 打印：2018-12-7/2018-12-7
+  }
+
+
+
+
+</pre>
+
+<h2>拓展</h2>
+
+<ul>
+<li>https://www.jianshu.com/p/d95a7b8afa06</li>
+<li>https://github.com/answershuto/learnVue</li>
+</ul>
+
+<script src="../js/ace/ace.js" charset="utf-8"></script>
+<script src="../js/ace/ext-language_tools.js" charset="utf-8"></script>
+<script>
+  function createEditor(el, html){
+    var editor = ace.edit(el);
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/javascript");
+    //editor.setReadOnly(true);
+    editor.setValue(html, 1);
+    editor.setOption("maxLines", 50);
+    return editor;
+  }
+  var nodes = document.querySelectorAll('.editor');
+  for(var i = 0, ilen = nodes.length; i < ilen; i++){
+    var one = nodes[i];
+    createEditor(one, one.innerText);
+  }
+</script>
+
+{% endblock %}
+
+{% block footer_extend %}
+{% endblock %}

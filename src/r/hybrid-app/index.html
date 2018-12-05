@@ -174,7 +174,7 @@
   function createEditor(el, html){
     var editor = ace.edit(el);
     editor.setTheme("ace/theme/monokai");
-    editor.session.setMode("ace/mode/html");
+    editor.session.setMode("ace/mode/js");
     editor.setReadOnly(true);
     editor.setValue(html, 1);
     editor.setOption("maxLines", 50);
