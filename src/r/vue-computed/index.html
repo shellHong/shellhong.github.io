@@ -8,9 +8,13 @@
 
 <h2>实例</h2>
 
-先出个小题，你是否能准确、清晰地判断出，下边代码尾部的几个`console.log`的打印结果呢？
+先出个小题，你是否能准确、清晰地判断出，下边代码，<code>doTest</code>方法中所有`console.log`的打印结果呢？
 
 <pre class='editor'>
+  // 模版结构：
+  // &lt;div :data-str="dateStr" id="test"&gt;
+  // &lt;/div&gt;
+
   var vm = new Vue({
     el: '#test',
     data() {
@@ -66,10 +70,6 @@
     }
   })
 
-  // 模版结构：
-  // &lt;div :data-str="dateStr" id="test"&gt;
-  // &lt;/div&gt;
-
 
 
 
@@ -84,26 +84,26 @@
 
 <img src="../images/vue-computed/1.png" alt="">
 
-<p>如上图，以`data`中的`a`属性与`computed`中的`b`属性的为例，`b`属性的方法会映射为其对应的`getter`，在执行该方法时
+<p>如上图，以<code>data</code>中的<code>a</code>属性与<code>computed</code>中的<code>b</code>属性的为例，<code>b</code>属性的方法会映射为其对应的<code>getter</code>，在执行该方法时
 </p>
 
 <ul>
-<li>`Dep.target`指向`b`属性的`watcher`</li>
-<li>依次调用方法中相关属性（`a`）的`getter`，通过每个`getter`把`Dep.target`加入到自己的依赖队列中</li>
-<li>相关属性（`a`）值发送变化时，会通知（`notify`）依赖队列中的所有`watcher`</li>
+<li>`Dep.target`指向<code>b</code>属性的<code>watcher</code></li>
+<li>依次调用方法中相关属性（<code>a</code>）的<code>getter</code>，通过每个<code>getter</code>把`Dep.target`加入到自己的依赖队列中</li>
+<li>相关属性（<code>a</code>）值发送变化时，会通知（<code>notify</code>）依赖队列中的所有<code>watcher</code></li>
 </ul>
 
 <img src="../images/vue-computed/2.png" alt="">
 
-<p>从上图可以看出，`notify`后，相关的计算属性并不是马上执行对应的计算方法（此处以异步更新为例），而是将`dirty`设置为`true`，以此标识依赖有变。</p>
-<p>当然，在首次初始化的时候，`dirty`的默认值也是`true`。如此，渲染初始化界面时，会需要马上用到该计算属性，引发计算方法的执行。</p>
+<p>从上图可以看出，<code>notify</code>后，相关的计算属性并不是马上执行对应的计算方法（此处以异步更新为例），而是将<code>dirty</code>设置为<code>true</code>，以此标识依赖有变。</p>
+<p>当然，在首次初始化的时候，<code>dirty</code>的默认值也是<code>true</code>。如此，渲染初始化界面时，会需要马上用到该计算属性，引发计算方法的执行。</p>
 
 so，我们还可以得出如下结论
 
 <ul>
 <li>依赖变了，computed不一定会执行，也不一定会马上执行</li>
 <li>啥时候和会不会执行，取决于会不会和啥时候被使用到（即getter被调用到）</li>
-<li>而`Vue`中的`watch`是没方法实现类似的按需计算的，这也是两者性能上的区别</li>
+<li>而<code>Vue</code>中的<code>watch</code>是没方法实现类似的按需计算的，这也是两者性能上的区别</li>
 </ul>
 
 <h2>使用场景</h2>
@@ -118,7 +118,7 @@ so，我们还可以得出如下结论
 <p>如果是在模版中被用到，那么出于dom更新的性能优化原因，其流程分为两个步骤</p>
 
 <ul>
-<li>依赖的属性修改后，`dirty`设置为true，标识下次使用计算属性变量，需要重新计算</li>
+<li>依赖的属性修改后，<code>dirty</code>设置为true，标识下次使用计算属性变量，需要重新计算</li>
 <li>在下一个tick中，重新计算，并更新界面</li>
 </ul>
 
