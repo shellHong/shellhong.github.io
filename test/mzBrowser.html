@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>魅族浏览器接口测试</title>
+    <style media="screen">
+      button{
+        margin-right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id='netBtn1' type="button" name="button">方式一</button>
+    <span id='netCon1'></span>
+    <br>
+    <br>
+    <button id='netBtn2' type="button" name="button">方式二</button>
+    <span id='netCon2'></span>
+    <script type="text/javascript">
+      var btn1 = document.querySelector('#netBtn1')
+      var btn2 = document.querySelector('#netBtn2')
+      btn1.addEventListener('click', function () {
+        var netCon1 = document.querySelector('#netCon1')
+        if (!window.MzJavascriptInterface) {
+          netCon1.innerHTML = 'window.MzJavascriptInterface&nbsp;--&nbsp;' + window.MzJavascriptInterface
+        } else
+        if (!window.MzJavascriptInterface.getNetworkType) {
+          netCon1.innerHTML = 'window.MzJavascriptInterface.getNetworkType&nbsp;--&nbsp;' + window.MzJavascriptInterface.getNetworkType
+        } else {
+          netCon1.innerHTML = 'window.MzJavascriptInterface.getNetworkType()&nbsp;--&nbsp;' + window.MzJavascriptInterface.getNetworkType()
+        }
+      })
+      btn2.addEventListener('click', function () {
+        document.querySelector('#netCon2').innerHTML = 'navigator.connection.type&nbsp;--&nbsp;' + navigator.connection.type
+      })
+      btn1.click()
+      btn2.click()
+    </script>
+    <div style="margin-top:50px;">
+      wifi状态下，切换到流量状态，点击按钮调用客户端接口，获取到的值异常
+    </div>
+  </body>
+</html>
