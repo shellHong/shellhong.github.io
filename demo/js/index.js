@@ -87,7 +87,7 @@ new VPromise(function (resolve) {
 })
 
 /**
- * 斐波那契函数
+ * 斐波那契函数(台阶问题)
  */
 function iterFib (n) {
   let last = 1;
