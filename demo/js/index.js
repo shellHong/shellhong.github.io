@@ -111,13 +111,13 @@ function dealMaxValue (value, weight, maxWeight) {
   var n = value.length;
   var result = [];
   var use = [];
-  
+
   use = Array.from({length: n + 1}, () => 0)
   result = Array.from({length: n + 1}, () => [0])
   result[0] = Array.from({length: maxWeight + 1}, () => 0)
   value.unshift(0); //第0件物品，价值为0
   weight.unshift(0); //第0件物品，重量为0
-  
+
   for (var i = 1; i <= n; i++) {
     for (var j = 1; j <= maxWeight; j++) {
       if (j < weight[i]) {
@@ -141,3 +141,83 @@ function dealMaxValue (value, weight, maxWeight) {
 }
 
 dealMaxValue([6, 3, 5, 4, 6], [2, 5, 4, 2, 3], 10)
+
+/**
+ * 冒泡排序，不稳定，时间复杂度（O(n^2)）
+ */
+function bubbleSort (arr) {
+  var period = 0
+  for (var i = 1, ilen = arr.length; i < ilen; i++) {
+    for (var n = 0, nlen = arr.length - period - 1; n < nlen; n++) {
+      if (arr[n] < arr[n + 1]) {
+        arr.splice(n, 2, arr[n + 1], arr[n])
+      }
+    }
+    period++
+  }
+  return arr
+}
+
+bubbleSort([3,1,4,2,5])
+
+/**
+ * 归并排序，稳定，时间复杂度（O(n log n)）
+ */
+function merge (left, right) {
+  var result = []
+  while (left.length > 0 && right.length > 0) {
+    if (left[0] < right[0]) {
+      result.push(left.shift())
+    } else {
+      result.push(right.shift())
+    }
+  }
+  return result.concat(left).concat(right)
+}
+
+function mergeSort (arr) {
+  if (arr.length == 1) {
+    return arr
+  }
+  var mid = Math.floor(arr.length / 2)
+  var left_arr = arr.slice(0, mid),
+      right_arr = arr.slice(mid)
+  return merge(mergeSort(left_arr), mergeSort(right_arr))
+}
+
+mergeSort([3,1,4,2,5])
+
+
+/**
+ * 快速排序，不稳定，时间复杂度（O(n log n)）
+ */
+function quickSort (arr, from, to) {
+  var i = from
+  var j = to
+  var standard = arr[from]
+  if (from >= to) {
+   return
+  }
+  while (i < j) {
+   while (arr[j] > standard && i < j) {
+     j--
+   }
+   while (arr[i] <= standard && i < j) {
+     i++
+   }
+   if (i < j) {
+     var temp = arr[i]
+     arr[i] = arr[j]
+     arr[j] = temp
+
+   }
+  }
+  arr[from] = arr[i]
+  arr[i] = standard
+  quickSort(arr, from, i - 1)
+  quickSort(arr, i + 1, to)
+  return arr
+}
+
+var arr = [3,1,4,2,5]
+quickSort(arr, 0, arr.length - 1)
