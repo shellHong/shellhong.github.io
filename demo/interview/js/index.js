@@ -1,7 +1,7 @@
 /**
  * 全排序
  */
-function getSubOrder (arr, num) {
+function getSubOrder(arr, num) {
   var result = []
   var temp = null
   for (var i = 0, ilen = arr.length; i <= ilen; i++) {
@@ -11,31 +11,35 @@ function getSubOrder (arr, num) {
   }
   return result
 }
-function handleReduce (arr, cur) {
+
+function handleReduce(arr, cur) {
   var result = []
   for (var i = 0, ilen = arr.length; i < ilen; i++) {
     result = result.concat(getSubOrder(arr[i], cur))
   }
   return result
 }
-function getTotalOrder (arr) {
-  arr.splice(0, 1, [[arr[0]]])
+
+function getTotalOrder(arr) {
+  arr.splice(0, 1, [
+    [arr[0]]
+  ])
   return arr.reduce(handleReduce)
 }
 
-getTotalOrder([1,2,3,4])
+getTotalOrder([1, 2, 3, 4])
 
 /**
  * promise模拟
  */
-class VPromise{
-  constructor (fn) {
+class VPromise {
+  constructor(fn) {
     this.result = null
     this.fns = []
     this.status = 'pending'
     fn && fn(this.resolve.bind(this))
   }
-  then (fn) {
+  then(fn) {
     switch (this.status) {
       case 'pending':
         this.fns.push(fn)
@@ -46,7 +50,7 @@ class VPromise{
     }
     return this
   }
-  resolve (result) {
+  resolve(result) {
     this.status = 'fulfilled'
     if (!this.fns.length) {
       return
@@ -61,35 +65,35 @@ class VPromise{
   }
 }
 
-new VPromise(function (resolve) {
-  setTimeout(function () {
+new VPromise(function(resolve) {
+  setTimeout(function() {
     resolve(1)
   }, 1000)
-}).then(function (res) {
+}).then(function(res) {
   return ++res
-}).then(function (res) {
+}).then(function(res) {
   console.log(res)
   return res
-}).then(function (res) {
-  return new VPromise(function (resolve) {
-    setTimeout(function () {
+}).then(function(res) {
+  return new VPromise(function(resolve) {
+    setTimeout(function() {
       resolve(++res)
     }, 1000)
   })
-}).then(function (res) {
-  return new VPromise(function (resolve) {
-    setTimeout(function () {
+}).then(function(res) {
+  return new VPromise(function(resolve) {
+    setTimeout(function() {
       resolve(++res)
     }, 1000)
   })
-}).then(function (res) {
+}).then(function(res) {
   console.log(res)
 })
 
 /**
  * 斐波那契函数(台阶问题)
  */
-function iterFib (n) {
+function iterFib(n) {
   let last = 1;
   let nextLast = 1;
   let result = 1;
@@ -101,20 +105,37 @@ function iterFib (n) {
   return result;
 }
 
+function fib(max) {
+  var a = 0,
+      b = 1,
+      arr = [0, 1];
+  while (arr.length < max) {
+    [a, b] = [b, a + b];
+    arr.push(b);
+  }
+  return arr;
+}
+
 iterFib(55)
 
 /**
  * 动态规划背包问题
  * 状态转移方程：result[i][w] = result[i-1][w] or max{result[i-1][w], result[i-1][j-weights[i]]+values[i]}
  */
-function dealMaxValue (value, weight, maxWeight) {
+function dealMaxValue(value, weight, maxWeight) {
   var n = value.length;
   var result = [];
   var use = [];
 
-  use = Array.from({length: n + 1}, () => 0)
-  result = Array.from({length: n + 1}, () => [0])
-  result[0] = Array.from({length: maxWeight + 1}, () => 0)
+  use = Array.from({
+    length: n + 1
+  }, () => 0)
+  result = Array.from({
+    length: n + 1
+  }, () => [0])
+  result[0] = Array.from({
+    length: maxWeight + 1
+  }, () => 0)
   value.unshift(0); //第0件物品，价值为0
   weight.unshift(0); //第0件物品，重量为0
 
@@ -145,7 +166,7 @@ dealMaxValue([6, 3, 5, 4, 6], [2, 5, 4, 2, 3], 10)
 /**
  * 冒泡排序，不稳定，时间复杂度（O(n^2)）
  */
-function bubbleSort (arr) {
+function bubbleSort(arr) {
   var period = 0
   for (var i = 1, ilen = arr.length; i < ilen; i++) {
     for (var n = 0, nlen = arr.length - period - 1; n < nlen; n++) {
@@ -158,12 +179,12 @@ function bubbleSort (arr) {
   return arr
 }
 
-bubbleSort([3,1,4,2,5])
+bubbleSort([3, 1, 4, 2, 5])
 
 /**
  * 归并排序，稳定，时间复杂度（O(n log n)）
  */
-function merge (left, right) {
+function merge(left, right) {
   var result = []
   while (left.length > 0 && right.length > 0) {
     if (left[0] < right[0]) {
@@ -175,42 +196,42 @@ function merge (left, right) {
   return result.concat(left).concat(right)
 }
 
-function mergeSort (arr) {
+function mergeSort(arr) {
   if (arr.length == 1) {
     return arr
   }
   var mid = Math.floor(arr.length / 2)
   var left_arr = arr.slice(0, mid),
-      right_arr = arr.slice(mid)
+    right_arr = arr.slice(mid)
   return merge(mergeSort(left_arr), mergeSort(right_arr))
 }
 
-mergeSort([3,1,4,2,5])
+mergeSort([3, 1, 4, 2, 5])
 
 
 /**
  * 快速排序，不稳定，时间复杂度（O(n log n)）
  */
-function quickSort (arr, from, to) {
+function quickSort(arr, from, to) {
   var i = from
   var j = to
   var standard = arr[from]
   if (from >= to) {
-   return
+    return
   }
   while (i < j) {
-   while (arr[j] > standard && i < j) {
-     j--
-   }
-   while (arr[i] <= standard && i < j) {
-     i++
-   }
-   if (i < j) {
-     var temp = arr[i]
-     arr[i] = arr[j]
-     arr[j] = temp
+    while (arr[j] > standard && i < j) {
+      j--
+    }
+    while (arr[i] <= standard && i < j) {
+      i++
+    }
+    if (i < j) {
+      var temp = arr[i]
+      arr[i] = arr[j]
+      arr[j] = temp
 
-   }
+    }
   }
   arr[from] = arr[i]
   arr[i] = standard
@@ -219,5 +240,15 @@ function quickSort (arr, from, to) {
   return arr
 }
 
-var arr = [3,1,4,2,5]
+var arr = [3, 1, 4, 2, 5]
 quickSort(arr, 0, arr.length - 1)
+
+/**
+ * 数组中，只有一个数字是单个的，其他都是成对的；求单身数字
+ */
+ function findSingleNum (arr) {
+   return arr.reduce(function (a, b) {
+     return a ^ b
+   })
+ }
+ findSingleNum([1,2,3,1,5,3,2])
