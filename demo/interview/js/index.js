@@ -120,7 +120,7 @@ iterFib(55)
 
 /**
  * 动态规划背包问题
- * 状态转移方程：result[i][w] = result[i-1][w] or max{result[i-1][w], result[i-1][j-weights[i]]+values[i]}
+ * 状态转移方程：result[i][w] = result[i-1][w] or max{result[i-1][w], result[i-1][w-weights[i]]+values[i]}
  */
 function dealMaxValue(value, weight, maxWeight) {
   var n = value.length;
@@ -252,3 +252,45 @@ quickSort(arr, 0, arr.length - 1)
    })
  }
  findSingleNum([1,2,3,1,5,3,2])
+
+ /**
+  *	从一个数组中找出 N 个数，其和为 M 的所有可能
+  * 参考：https://mp.weixin.qq.com/s/7PioUmjqF_52cE6iadyzHw
+  */
+function search (arr, count, amount) {
+  var total = 1 << arr.length
+  var len = 0
+  var result = []
+
+  var getOneAmount = function (num) {
+    var count = 0
+    while (num !== 0) {
+      num = num & (num - 1)
+      count++
+    }
+    return count
+  }
+
+  for (var i = 0; i < total; i++) {
+    // len =  i.toString(2).replace(/0/g, '').length
+    len = getOneAmount(i)
+    if (len === count) {
+      var subResult = []
+      var innerAmount = 0
+      for (var n = 0, nlen = arr.length; n < nlen; n ++) {
+        if (((1 << n) & i) !== 0) {
+          subResult.push({
+            [n]: arr[n]
+          })
+          innerAmount += arr[n]
+        }
+      }
+      if (innerAmount === amount) {
+        result.push(subResult)
+      }
+    }
+  }
+  return result
+}
+
+console.log(search([1,2,3,4,5,1,2,3,4], 4, 10))
