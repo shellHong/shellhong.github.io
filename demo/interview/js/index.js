@@ -107,8 +107,8 @@ function iterFib(n) {
 
 function fib(max) {
   var a = 0,
-      b = 1,
-      arr = [0, 1];
+    b = 1,
+    arr = [0, 1];
   while (arr.length < max) {
     [a, b] = [b, a + b];
     arr.push(b);
@@ -246,23 +246,23 @@ quickSort(arr, 0, arr.length - 1)
 /**
  * 数组中，只有一个数字是单个的，其他都是成对的；求单身数字
  */
- function findSingleNum (arr) {
-   return arr.reduce(function (a, b) {
-     return a ^ b
-   })
- }
- findSingleNum([1,2,3,1,5,3,2])
+function findSingleNum(arr) {
+  return arr.reduce(function(a, b) {
+    return a ^ b
+  })
+}
+findSingleNum([1, 2, 3, 1, 5, 3, 2])
 
- /**
-  *	从一个数组中找出 N 个数，其和为 M 的所有可能
-  * 参考：https://mp.weixin.qq.com/s/7PioUmjqF_52cE6iadyzHw
-  */
-function search (arr, count, amount) {
+/**
+ *	从一个数组中找出 N 个数，其和为 M 的所有可能
+ * 参考：https://mp.weixin.qq.com/s/7PioUmjqF_52cE6iadyzHw
+ */
+function search(arr, count, amount) {
   var total = 1 << arr.length
   var len = 0
   var result = []
 
-  var getOneAmount = function (num) {
+  var getOneAmount = function(num) {
     var count = 0
     while (num !== 0) {
       num = num & (num - 1)
@@ -277,7 +277,7 @@ function search (arr, count, amount) {
     if (len === count) {
       var subResult = []
       var innerAmount = 0
-      for (var n = 0, nlen = arr.length; n < nlen; n ++) {
+      for (var n = 0, nlen = arr.length; n < nlen; n++) {
         if (((1 << n) & i) !== 0) {
           subResult.push({
             [n]: arr[n]
@@ -293,4 +293,77 @@ function search (arr, count, amount) {
   return result
 }
 
-console.log(search([1,2,3,4,5,1,2,3,4], 4, 10))
+console.log(search([1, 2, 3, 4, 5, 1, 2, 3, 4], 4, 10))
+
+/**
+ * 防抖
+ */
+function debounce(idle, fn) {
+  var timeoutHandle = null
+  return function(...p) {
+    clearTimeout(timeoutHandle)
+    timeoutHandle = setTimeout(function() {
+      fn && fn(...p)
+    }, idle)
+  }
+}
+
+var fn = debounce(500, function(p) {
+  console.log('debounce', p)
+})
+fn(1)
+fn(2)
+fn(3)
+setTimeout(function() {
+  fn(4)
+}, 1000)
+
+/**
+ * 节流
+ */
+function throttle(delay, fn) {
+  var last = 0
+  return function(...p) {
+    var cur = Date.now()
+    if (cur - last > delay) {
+      last = cur
+      fn && fn(...p)
+    }
+  }
+}
+
+var fn = throttle(500, function(p) {
+  console.log('throttle', p)
+})
+fn(1)
+fn(2)
+setTimeout(function() {
+  fn(3)
+}, 500)
+setTimeout(function() {
+  fn(4)
+}, 600)
+setTimeout(function() {
+  fn(5)
+}, 1050)
+
+/**
+ * 函数柯里化
+ */
+ function add (...p) {
+   var _args = []
+   function _add(...a) {
+     _args = _args.concat(...a)
+     return _add
+   }
+   _add.toString = function () {
+     return _args.reduce(function (a, b) {
+       return a + b
+     })
+   }
+   return _add(...p)
+ }
+
+ console.log(add(1, 2, 3, 4, 5)); // 15
+ console.log(add(1, 2, 3, 4)(5)); // 15
+ console.log(add(1)(2)(3)(4)(5)); // 15
