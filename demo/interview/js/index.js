@@ -164,7 +164,7 @@ function dealMaxValue(value, weight, maxWeight) {
 dealMaxValue([6, 3, 5, 4, 6], [2, 5, 4, 2, 3], 10)
 
 /**
- * 冒泡排序，不稳定，时间复杂度（O(n^2)）
+ * 冒泡排序，时间复杂度（O(n^2)）
  */
 function bubbleSort(arr) {
   var period = 0
@@ -182,7 +182,46 @@ function bubbleSort(arr) {
 bubbleSort([3, 1, 4, 2, 5])
 
 /**
- * 归并排序，稳定，时间复杂度（O(n log n)）
+ * 选择排序，时间复杂度（O(n^2)）
+ * 每轮遍历都会标记出最小的数，然后在每轮结束的时候，把这个数放到较左边
+ */
+function selectionSort(arr) {
+  var len = arr.length
+  var minIndex
+  for (var i = 0; i < len - 1; i++) {
+    minIndex = i
+    for (var j = i + 1; j < len; j++) {
+      if (arr[j] < arr[minIndex]) { // 寻找最小的数
+        minIndex = j // 将最小数的索引保存
+      }
+    }
+    [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]]
+  }
+  return arr
+}
+var arr = [3, 1, 4, 2, 5]
+selectionSort(arr)
+
+
+/**
+ * 插入排序，时间复杂度（O(n^2)）
+ * 从第一个数开始，默认其最大。然后每一轮前i个数进行排位，比它大的往右边，一轮结束后，它插入到适合它的位置（即比它小的数的右手边）
+ */
+function insertionSort(array) {
+  for (var i = 1; i < array.length; i++) {
+    var key = array[i]
+    var j = i - 1
+    while (array[j] > key) {
+      array[j + 1] = array[j]
+      j--
+    }
+    array[j + 1] = key
+  }
+  return array
+}
+
+/**
+ * 归并排序，时间复杂度（O(n log n)）
  */
 function merge(left, right) {
   var result = []
@@ -350,20 +389,21 @@ setTimeout(function() {
 /**
  * 函数柯里化
  */
- function add (...p) {
-   var _args = []
-   function _add(...a) {
-     _args = _args.concat(...a)
-     return _add
-   }
-   _add.toString = function () {
-     return _args.reduce(function (a, b) {
-       return a + b
-     })
-   }
-   return _add(...p)
- }
+function add(...p) {
+  var _args = []
 
- console.log(add(1, 2, 3, 4, 5)); // 15
- console.log(add(1, 2, 3, 4)(5)); // 15
- console.log(add(1)(2)(3)(4)(5)); // 15
+  function _add(...a) {
+    _args = _args.concat(...a)
+    return _add
+  }
+  _add.toString = function() {
+    return _args.reduce(function(a, b) {
+      return a + b
+    })
+  }
+  return _add(...p)
+}
+
+console.log(add(1, 2, 3, 4, 5)); // 15
+console.log(add(1, 2, 3, 4)(5)); // 15
+console.log(add(1)(2)(3)(4)(5)); // 15
