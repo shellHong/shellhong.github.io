@@ -120,9 +120,10 @@ iterFib(55)
 
 /**
  * 动态规划背包问题
+ * https://www.cnblogs.com/Christal-R/p/Dynamic_programming.html
  * 状态转移方程：result[i][w] = result[i-1][w] or max{result[i-1][w], result[i-1][w-weights[i]]+values[i]}
  */
-function dealMaxValue(value, weight, maxWeight) {
+function dealMaxValue (value, weight, maxWeight) {
   var n = value.length;
   var result = [];
   var use = [];
@@ -162,6 +163,34 @@ function dealMaxValue(value, weight, maxWeight) {
 }
 
 dealMaxValue([6, 3, 5, 4, 6], [2, 5, 4, 2, 3], 10)
+
+/**
+ * 动态规划之最短编辑距离问题
+ * https://www.cnblogs.com/sumuncle/p/5632032.html
+ */
+
+function dealMinPath (srcArr, toArr) {
+  var table = Array.from({length: srcArr.length + 1}, function (item, index) {
+    if (index === 0) {
+      return Array.from({length: toArr.length + 1}, function (item, index) {
+        return index
+      })
+    }
+    return [index]
+  })
+  for (var i = 1, ilen = srcArr.length; i <= ilen; i++) {
+    for (var j = 1, jlen = toArr.length; j <= jlen; j++) {
+      table[i][j] = Math.min(
+        table[i - 1][j] + 1,
+        table[i][j - 1] + 1,
+        table[i - 1][j - 1] + (srcArr[i - 1] === toArr[j - 1] ? 0 : 1)
+      )
+    }
+  }
+  return table[ilen][jlen]
+}
+
+dealMinPath('jerry'.split(''), 'jary'.split(''))
 
 /**
  * 冒泡排序，时间复杂度（O(n^2)）
