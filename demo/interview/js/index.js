@@ -95,11 +95,11 @@ new VPromise(function(resolve) {
  */
 function iterFib(n) {
   let last = 1;
-  let nextLast = 1;
+  let prevLast = 1;
   let result = 1;
   for (let i = 2; i < n; ++i) {
-    result = last + nextLast;
-    nextLast = last;
+    result = last + prevLast;
+    prevLast = last;
     last = result;
   }
   return result;
@@ -276,9 +276,8 @@ function mergeSort(arr) {
 
 mergeSort([3, 1, 4, 2, 5])
 
-
 /**
- * 快速排序，不稳定，时间复杂度（O(n log n)）
+ * 快速排序，时间复杂度（O(n log n)）
  */
 function quickSort(arr, from, to) {
   var i = from
@@ -298,7 +297,6 @@ function quickSort(arr, from, to) {
       var temp = arr[i]
       arr[i] = arr[j]
       arr[j] = temp
-
     }
   }
   arr[from] = arr[i]
@@ -436,3 +434,39 @@ function add(...p) {
 console.log(add(1, 2, 3, 4, 5)); // 15
 console.log(add(1, 2, 3, 4)(5)); // 15
 console.log(add(1)(2)(3)(4)(5)); // 15
+
+/**
+ * Math.round(num)
+ */
+
+function getRound (num) {
+  return (0.5 + num) | 0
+}
+
+/**
+ * generator 模拟 async/await
+ */
+ function* aysncFn () {
+   var one = yield packFn(1)
+   console.log(one)
+   var two = yield packFn(2)
+   console.log(two)
+   var three = yield packFn(3)
+   console.log(three)
+ }
+
+ function reqFn (num) {
+   return new Promise(function (resolve, reject) {
+     setTimeout(function () {
+       resolve(`delay-${num}`)
+     }, 1000 * num)
+   })
+ }
+ function packFn (num) {
+   reqFn(num).then(function (res) {
+     gen.next(res)
+   })
+ }
+
+ var gen = aysncFn()
+ gen.next()
