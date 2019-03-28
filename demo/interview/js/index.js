@@ -470,3 +470,48 @@ function getRound (num) {
 
  var gen = aysncFn()
  gen.next()
+
+/**
+ * Event Loop
+ * http://www.cnblogs.com/jiasm/p/9482443.html
+ */
+
+async function test() {
+  console.log('1')
+  await test1()
+  console.log('5')
+  await test2()
+  console.log('8')
+}
+async function test1() {
+  console.log('2')
+}
+async function test2() {
+  console.log('6')
+}
+test()
+setTimeout(function () {
+  console.log('setTimeout')
+}, 0)
+new Promise(function (resolve, reject) {
+  console.log('3')
+  resolve()
+}).then(function () {
+  console.log('7')
+})
+console.log('4')
+
+/**
+ * 解构、rest运算符、扩展运算符
+ */
+
+var {a1, b1} = {a1: 1, b1: {c1: 2}}
+var {a2, ...b2} = {a2: 1, b2: {c2: 2}, d2: 3}
+var [a3, b3] = [1, 2]
+var [a4, ...b4] = [1, 2, 3]
+
+console.log(a1, b1) // 1 {c1: 2}
+console.log(a2, b2) // 1 {b2: {c2: 2}, d2: 3}
+console.log(a3, b3) // 1 2
+console.log(a4, b4) // 1 [2, 3]
+console.log(...b4) // 2 3
