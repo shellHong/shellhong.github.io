@@ -515,3 +515,16 @@ console.log(a2, b2) // 1 {b2: {c2: 2}, d2: 3}
 console.log(a3, b3) // 1 2
 console.log(a4, b4) // 1 [2, 3]
 console.log(...b4) // 2 3
+
+/**
+ * 15000000 -> 15,000,000
+ */
+
+function formatNum (num, range) {
+  var arr = (num + '').split('')
+  for(var i = arr.length - range; i > 0; i -= range){
+    arr.splice(i, 0, ',')
+  }
+  return arr.join('')
+}
+console.log(formatNum(15023203020, 3))
