@@ -528,3 +528,33 @@ function formatNum (num, range) {
   return arr.join('')
 }
 console.log(formatNum(15023203020, 3))
+
+
+/**
+ * 寄生组合继承
+ */
+function Animal (name) {
+ this.name = name || 'Animal'
+ this.sleep = function () {
+   console.log(this.name + '正在睡觉！')
+ }
+}
+Animal.prototype.eat = function (food) {
+ console.log(this.name + '正在吃：' + food)
+}
+
+function Cat(name){
+  Animal.call(this)
+  this.name = name || 'Tom'
+}
+var Super = function(){}
+Super.prototype = Animal.prototype
+Cat.prototype = new Super()
+
+Cat.prototype.constructor = Cat
+
+var cat = new Cat()
+console.log(cat.name)
+console.log(cat.sleep())
+console.log(cat instanceof Animal) // true
+console.log(cat instanceof Cat) //true
