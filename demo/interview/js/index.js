@@ -558,3 +558,15 @@ console.log(cat.name)
 console.log(cat.sleep())
 console.log(cat instanceof Animal) // true
 console.log(cat instanceof Cat) //true
+
+/**
+ * 获取url参数
+ */
+function getParams (key) {
+  var result = location.search.match(new RegExp(`${key}=([^?&#=]*)`))
+  if (result && result.length > 1) {
+    return result[1]
+  }
+  return null
+}
+console.log(getParams('tn'))
