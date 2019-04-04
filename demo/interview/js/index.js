@@ -516,6 +516,17 @@ console.log(a3, b3) // 1 2
 console.log(a4, b4) // 1 [2, 3]
 console.log(...b4) // 2 3
 
+var obj = {
+  a: 1,
+  b: 2
+}
+var arr = [1, 2]
+
+console.log({...obj}) // {...obj}方式，无需可迭代
+console.log({...arr})
+console.log(...arr) // ...obj方式，需可迭代
+console.log([...arr]) // [...obj]方式，需可迭代
+
 /**
  * 15000000 -> 15,000,000
  */
@@ -570,3 +581,48 @@ function getParams (key) {
   return null
 }
 console.log(getParams('tn'))
+
+/**
+ * 获取出现次数最多的单词
+ */
+
+
+/**
+ * 大数相加
+ */
+ function add (str1, str2) {
+   var arr1 = Array.from(str1)
+   var arr2 = Array.from(str2)
+
+   if (arr1.length < arr2.length) {
+     [arr1, arr2] = [arr2, arr1]
+   }
+
+   var carry = 0
+   var amount = 0
+   var result = []
+   debugger
+   for (var i = arr1.length - 1, n = arr2.length - 1; i >= 0; i--, n--) {
+     amount = parseInt(arr1[i]) + carry
+     if (n >= 0) {
+       amount += parseInt(arr2[n])
+     }
+     if (amount >= 10) {
+       carry = 1
+       amount -= 10
+     } else {
+       carry = 0
+     }
+     result.unshift(amount)
+   }
+   if (carry === 1) {
+     result.unshift(1)
+   }
+   return result.join('')
+ }
+
+ console.log(parseInt(add('111', '222')) === 111 + 222)
+ console.log(parseInt(add('1', '9')) === 1 + 9)
+ console.log(parseInt(add('111', '999')) === 111 + 999)
+ console.log(parseInt(add('1111111', '999')) === 1111111 + 999)
+ console.log(parseInt(add('1232', '999999')) === 1232 + 999999)
