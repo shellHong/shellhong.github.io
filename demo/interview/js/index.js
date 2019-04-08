@@ -585,7 +585,23 @@ console.log(getParams('tn'))
 /**
  * 获取出现次数最多的单词
  */
+ function getMaxLenWord (arr) {
+   var map = {}
+   var max = 0
+   var maxWord = null
+   var one = null
+   for (var i = 0, ilen = arr.length; i < ilen; i++) {
+     one = arr[i]
+     map[one] = 1 + map[one] || 1
+     if (max < map[one]) {
+       max = map[one]
+       maxWord = one
+     }
+   }
+   return maxWord
+ }
 
+ getMaxLenWord(['a', 'b', 'abc', 'cd', 'abc', 'ee', 'cd', 'cd', '1'])
 
 /**
  * 大数相加
