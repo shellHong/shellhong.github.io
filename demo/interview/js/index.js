@@ -642,3 +642,16 @@ console.log(getParams('tn'))
  console.log(parseInt(add('111', '999')) === 111 + 999)
  console.log(parseInt(add('1111111', '999')) === 1111111 + 999)
  console.log(parseInt(add('1232', '999999')) === 1232 + 999999)
+
+ /**
+  * Stack 整数栈
+  * pop
+  * push
+  * max // 栈内最大值
+  * 平均时间复杂度O（1）
+  */
+
+
+  /**
+   * xmlHttpRequest重写，实现所有请求的耗时统计
+   */
