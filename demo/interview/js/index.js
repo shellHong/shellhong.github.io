@@ -643,15 +643,99 @@ console.log(getParams('tn'))
  console.log(parseInt(add('1111111', '999')) === 1111111 + 999)
  console.log(parseInt(add('1232', '999999')) === 1232 + 999999)
 
- /**
-  * Stack 整数栈
-  * pop
-  * push
-  * max // 栈内最大值
-  * 平均时间复杂度O（1）
-  */
+/**
+ * Stack 整数栈
+ * pop
+ * push
+ * max // 栈内最大值，平均时间复杂度O（1）
+ */
 
 
-  /**
-   * xmlHttpRequest重写，实现所有请求的耗时统计
-   */
+/**
+ * xmlHttpRequest重写，实现所有请求的耗时统计
+ */
+
+
+/**
+ * v-model实现
+ */
+var obj = {}
+var temp = undefined
+Object.defineProperties(obj, {
+  key1: {
+    set (val) {
+      inputEl.value = val
+      temp = val
+    },
+    get () {
+      return temp
+    }
+  }
+})
+
+var inputEl = document.createElement('input')
+inputEl.style = 'position:absolute;top:0;left:0;width:200px;height:30px;border:1px solid red;'
+document.body.appendChild(inputEl)
+inputEl.oninput = function () {
+  obj.key1 = this.value
+}
+
+/**
+ * 深度克隆
+ */
+function getType (obj) {
+ return Object.prototype.toString.call(obj).match(/\[object (\w+)\]/)[1]
+}
+
+function cloneArr (arr) {
+ return arr.map(function (item) {
+   return clone(item)
+ })
+}
+
+function cloneObj (obj) {
+ var result = {}
+ var arr = Object.keys(obj)
+ arr.forEach(function (key) {
+   result[key] = clone(obj[key])
+ })
+ return result
+}
+
+function clone (obj) {
+ var type = getType(obj)
+ switch (type) {
+   case 'Array':
+     return cloneArr(obj)
+   case 'Object':
+     return cloneObj(obj)
+   default:
+     return obj
+ }
+}
+
+var obj1 = [{
+ a: {
+   b: 1
+ }
+}]
+var obj2 = {
+ a: [1, {
+   b: 2
+ }]
+}
+var cobj1 = clone(obj1)
+var cobj2 = clone(obj2)
+
+var obj3 = obj1
+var obj4 = obj2
+
+obj1[0].a.b = 'a.b'
+obj2.a[1].d = 'd'
+
+console.log('obj1--', obj1)
+console.log('obj2--', obj2)
+console.log('obj3--', obj3)
+console.log('obj4--', obj4)
+console.log('cobj1--', cobj1)
+console.log('cobj2--', cobj2)
