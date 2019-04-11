@@ -649,10 +649,44 @@ console.log(getParams('tn'))
  * push
  * max // 栈内最大值，平均时间复杂度O（1）
  */
+ class Stack {
+     constructor () {
+       this.data = []
+       this.maxData = []
+     }
+     push(value) {
+         this.data.push(value)
+         this.maxData.push(this.maxData.length > 0 ?
+             Math.max(this.maxData[this.maxData.length - 1], value) :
+             value)
+     }
+     pop() {
+         this.maxData.pop()
+         return this.data.pop()
+     }
+     max() {
+         return this.maxData[this.maxData.length - 1]
+     }
+ }
+
+ var stack = new Stack()
+ stack.push(5)
+ stack.push(4)
+ stack.push(3)
+ stack.push(6)
+ console.log(stack.max())
+ stack.pop()
+ console.log(stack.max())
+ stack.pop()
+ console.log(stack.max())
+ stack.pop()
+ console.log(stack.max())
+ stack.pop()
+ console.log(stack.max())
 
 
 /**
- * xmlHttpRequest重写，实现所有请求的耗时统计
+ * 实现所有请求的耗时统计
  */
 
 
