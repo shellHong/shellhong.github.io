@@ -12,6 +12,7 @@
 
 * 页面中引入：`<script src="https://zxbook-res.zhaoxitech.com/common/js/gamecpsdk.js" charset="utf-8"></script>`
 * 付费接口调用
+
 ```
 BuyUtil.init({
   lockFn: function () {
