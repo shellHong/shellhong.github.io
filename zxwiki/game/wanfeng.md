@@ -22,3 +22,7 @@ function recharge () { // 充值调用
     location.href = 'sanctpalace://com.meizu.compaign/recharge'
 }
 ```
+
+## 交互流程
+
+![交互流程](images/wanfeng.png)
