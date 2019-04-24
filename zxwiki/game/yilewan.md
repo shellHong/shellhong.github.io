@@ -6,7 +6,21 @@
 
 ##服务端查询接口
 
-。。。
+https://dido.zhaoxitech.com/system/code/info.do
+
+```
+// 接口返回结果
+{
+  "code": 2000,
+  "message": null,
+  "value": {
+    "nickName": "123456",
+    "headImg": "123456"
+  },
+  "logLevel": null,
+  "desc": null
+}
+```
 
 ## 付费
 
@@ -47,3 +61,7 @@ BuyUtil.buy(params).then(function (res) {
   console.log('buy,res--', res)
 })
 ```
+
+## 交互流程
+
+![交互流程](images/yilewan.png)
