@@ -6,7 +6,7 @@
 
 ## 付费
 
-* 页面中引入：`<script src="https://cdn.dido.zhaoxitech.com/static/sdk/gamecpsdk.js" charset="utf-8"></script>`
+* 页面中引入：`<script src="https://dido-h5-cdn.zhaoxitech.com/static/sdk/gamecpsdk.js" charset="utf-8"></script>`
 * 付费接口调用
 
 ```
