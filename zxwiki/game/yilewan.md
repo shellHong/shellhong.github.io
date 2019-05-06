@@ -4,10 +4,11 @@
 
 关键参数会拼接到游戏页面路径中，例如：`https://cp.com/game1.html?userId=123456&code=eyJ1c2VySWQiOjEyMzQ1NiwicGFydG5lciI6InlpbGV3YW4iLCJyYW5kb20iOiI4NzQ2OWU0YS1hNWM0LTRjYWQtYWU2MS1hZTE1NDgxNDE2MzAifQ==`
 
-## 付费
+## jssdk引入
 
 * 页面中引入：`<script src="https://dido-h5-cdn.zhaoxitech.com/static/sdk/gamecpsdk.js" charset="utf-8"></script>`
-* 付费接口调用
+
+## 付费接口调用
 
 ```
 if (window.ZXUtil) {
@@ -56,6 +57,12 @@ if (window.ZXUtil) {
       console.log('buy,message--', result.message)
     }
   })
+}
+```
+## 回退
+```
+if (window.ZXUtil) {
+  ZXUtil.default.back()
 }
 ```
 

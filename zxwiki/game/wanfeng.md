@@ -4,6 +4,16 @@
 
 关键参数会拼接到游戏页面路径中，例如：`https://cp.com/game1.html?userPin=123456&token=eyJ1c2VySWQiOjEyMzQ1NiwicGFydG5lciI6IndhbmZlbmciLCJyYW5kb20iOiJlYzNiMmI4OC1jNzAxLTRhOTktODViYy1hYzIyNDdiNDY2OWYifQ==`
 
+## jssdk引入
+
+* 页面中引入：`<script src="https://dido-h5-cdn.zhaoxitech.com/static/sdk/gamecpsdk.js" charset="utf-8"></script>`
+
+## 回退
+```
+if (window.ZXUtil) {
+  ZXUtil.default.back()
+}
+```
 
 ## 充值
 
@@ -19,7 +29,9 @@ window.addEventListener('visibilitychange', () => {
 
 function recharge () { // 充值调用
     beginRecharge = true
-    location.href = 'sanctpalace://com.meizu.compaign/recharge'
+    if (window.ZXUtil) {
+      ZXUtil.default.toRecharge()
+    }
 }
 ```
 
