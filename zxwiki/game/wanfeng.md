@@ -27,10 +27,10 @@ window.addEventListener('visibilitychange', () => {
     }
 })
 
-function recharge () { // 充值调用
+function recharge (gameId) { // 充值调用
     beginRecharge = true
     if (window.ZXUtil) {
-      ZXUtil.default.toRecharge()
+      ZXUtil.default.toRecharge(gameId) // 
     }
 }
 ```
