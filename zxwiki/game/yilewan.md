@@ -124,7 +124,7 @@ if (window.ZXUtil) {
   ZXUtil = ZXUtil.default
   ZXUtil.getUserUniqueSign('yilewan').then(function (result) {
     if (result.status === 1) { // 成功
-      console.log('result--', result) // 结果中的字符串与拼在路径上的search一样
+      console.log('result.res.query--', result.res.query) // 此处打印结果与拼在路径上的参数一样
     } else { // 失败
       console.log('getUserUniqueSign,message--', ZXUtil.getMessage(result))
     }
