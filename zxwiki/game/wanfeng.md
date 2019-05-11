@@ -41,7 +41,11 @@ function recharge (gameId) { // 充值调用
 if (window.ZXUtil) {
   ZXUtil = ZXUtil.default
   ZXUtil.getUserUniqueSign('wanfeng').then(function (result) {
-    console.log('result--', result) // 该字符串与拼在路径上的search一样
+    if (result.status === 1) { // 成功
+      console.log('result--', result) // 结果中的字符串与拼在路径上的search一样
+    } else { // 失败
+      console.log('getUserUniqueSign,message--', ZXUtil.getMessage(result))
+    }
   })
 }
 ```
