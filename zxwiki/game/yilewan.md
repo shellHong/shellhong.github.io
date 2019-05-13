@@ -132,6 +132,11 @@ if (window.ZXUtil) {
 }
 ```
 
+## 信息提示
+
+```
+ZXUtil.default.toast('toast message!')
+```
 
 ## 交互流程
 
