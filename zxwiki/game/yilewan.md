@@ -138,6 +138,12 @@ if (window.ZXUtil) {
 ZXUtil.default.toast('toast message!')
 ```
 
+## 下架游戏联调
+
+* 在魅族浏览器中打开链接：https://dido-h5-cdn.sanctpalace.com/static/jumpGame.html?cp=yilewan
+* 填写对应的游戏url和id
+* 点击按钮
+
 ## 交互流程
 
 ![交互流程](images/yilewan.png)
