@@ -20,6 +20,7 @@ if (window.ZXUtil) {
 ```
 // 供参考监听代码
 var beginRecharge = false
+var orientation = 'landscape' // 横屏
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && beginRecharge) {
         // 调用后台接口，更新金豆
@@ -27,10 +28,10 @@ window.addEventListener('visibilitychange', () => {
     }
 })
 
-function recharge (gameId) { // 充值调用
+function recharge (gameId, orientation) { // landscape：横屏；portrait：竖屏（默认值，不传则为竖屏）
     beginRecharge = true
     if (window.ZXUtil) {
-      ZXUtil.default.toRecharge(gameId) // 
+      ZXUtil.default.toRecharge(gameId, orientation)
     }
 }
 ```
