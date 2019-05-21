@@ -6,7 +6,7 @@
 
 ## jssdk引入
 
-* 页面中引入：`<script src="https://dido-h5-cdn.sanctpalace.com/static/sdk/gamecpsdk.js" charset="utf-8"></script>`
+* 页面中引入：`<script crossorigin="anonymous" src="https://dido-h5-cdn.sanctpalace.com/static/sdk/gamecpsdk.js" charset="utf-8"></script>`
 
 ## 付费接口调用
 
