@@ -22,31 +22,31 @@
 					"items": [{
 							"title": "1元购",
 							"text": "",
-							"imgUrl": "https://zxbook-res.zhaoxitech.com/image/common/822cc92fcaf75d4fb583ef5d45d16a01.png",
+							"imgUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/1.png",
 							"linkUrl": "zhaoxitech://com.meizu.media.ebook/website?title=%E5%A5%BD%E4%B9%A6%E6%95%B4%E6%9C%AC1%E5%85%83%E8%B4%AD&url=https%3A%2F%2Fzxbook-res.zhaoxitech.com%2Fcbook_h5%2Fspecial%2Fpages%2Findex.html%3Fweek%3D0813%26bgcolor%3D91D5FF%26bnrHeight%3D1200"
 						},
 						{
 							"title": "丹道宗师",
 							"text": "",
-							"imgUrl": "https://zxbook-res.zhaoxitech.com/image/common/fc17743e61e7e1a3a97c01527e7a6fbb.png",
+							"imgUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/2.png",
 							"linkUrl": "zhaoxitech://com.zhaoxitech.cbook/bookdetail?bookId=755355"
 						},
 						{
 							"title": "豪门天价前妻",
 							"text": "",
-							"imgUrl": "https://zxbook-res.zhaoxitech.com/image/common/9b7a9283b8884b22398ba93b81c7e3b6.png",
+							"imgUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/3.png",
 							"linkUrl": "zhaoxitech://com.zhaoxitech.cbook/bookdetail?bookId=755198"
 						},
 						{
 							"title": "都市神眼仙尊",
 							"text": "",
-							"imgUrl": "https://zxbook-res.zhaoxitech.com/image/common/0b2f6fa74c5f9d1888b1ec78807ddfc6.png",
+							"imgUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/4.png",
 							"linkUrl": "zhaoxitech://com.zhaoxitech.cbook/bookdetail?bookId=748537"
 						},
 						{
 							"title": "恰似寒光遇骄阳",
 							"text": "",
-							"imgUrl": "https://zxbook-res.zhaoxitech.com/image/common/a33f7aabbd8e929d2c7307cd9a5564cc.png",
+							"imgUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/5.png",
 							"linkUrl": "zhaoxitech://com.zhaoxitech.cbook/bookdetail?bookId=305588"
 						}
 					]
@@ -66,31 +66,31 @@
 					"items": [{
 							"title": "签到",
 							"text": "",
-							"imgUrl": "https://zxbook-res.zhaoxitech.com/image/common/088d5dd06047cba675440769fe647bb0.png",
+							"imgUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/qiandao.png",
 							"linkUrl": "zhaoxitech://com.meizu.media.ebook/website?title=%E7%AD%BE%E5%88%B0%E9%A2%86%E4%B9%A6%E5%B8%81&url=https%3A%2F%2Fzxbook-res.zhaoxitech.com%2Fcbook_h5%2Fnovice-welfare%2Fpages%2Findex2.html"
 						},
 						{
 							"title": "完本",
 							"text": "",
-							"imgUrl": "https://zxbook-res.zhaoxitech.com/image/common/d957ff865b19bc089f412c32784fb0ab.png",
+							"imgUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/wangben.png",
 							"linkUrl": "zhaoxitech://com.zhaoxitech.cbook/list_page?pageType=finished_page&pageId=4"
 						},
 						{
 							"title": "免费",
 							"text": "",
-							"imgUrl": "https://zxbook-res.zhaoxitech.com/image/common/ebd4fc0581e84493b7a7d8355ae1fe7b.png",
+							"imgUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/mianfei.png",
 							"linkUrl": "zhaoxitech://com.zhaoxitech.cbook/list_page?pageType=free_page&pageId=8"
 						},
 						{
 							"title": "人气",
 							"text": "",
-							"imgUrl": "https://zxbook-res.zhaoxitech.com/image/common/9284838da433f140c6e7e750bbe8ca1c.png",
+							"imgUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/renqi.png",
 							"linkUrl": "zhaoxitech://com.meizu.media.ebook/booklist?id=552&title=人气榜"
 						},
 						{
 							"title": "都市",
 							"text": "",
-							"imgUrl": "https://zxbook-res.zhaoxitech.com/image/common/0db6de339bc03ebb7e560a20c97609fe.png",
+							"imgUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/duoshi.png",
 							"linkUrl": "zhaoxitech://com.zhaoxitech.cbook/condition_query?categoryId=107&title=都市"
 						}
 					]
@@ -113,7 +113,7 @@
 							"name": "万道成神",
 							"shortDesc": null,
 							"mark": "",
-							"coverUrl": "http://zxcontent.zhaoxitech.com/image/book/468/755156/463e54cde4c31ea52a4380a62bcc97d8.jpg",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/755156.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [
@@ -131,7 +131,7 @@
 							"name": "夫人你马甲又掉了",
 							"shortDesc": null,
 							"mark": "",
-							"coverUrl": "http://qidian.qpic.cn/qdbimg/349573/c_12825572504042801/180",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/768060.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": null,
@@ -145,7 +145,7 @@
 							"name": "重生农女好种田",
 							"shortDesc": null,
 							"mark": "",
-							"coverUrl": "http://img.17k.com/cmsimg/recommend/600_800/21/16/2832116/2832116.jpg",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/196888.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [
@@ -165,7 +165,7 @@
 							"name": "名门暖婚之权爷追妻攻略",
 							"shortDesc": null,
 							"mark": "",
-							"coverUrl": "http://qidian.qpic.cn/qdbimg/349573/c_11752652304519801/180",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/381534.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": null,
@@ -179,7 +179,7 @@
 							"name": "凡人修仙之仙界篇",
 							"shortDesc": null,
 							"mark": "",
-							"coverUrl": "http://qidian.qpic.cn/qdbimg/349573/c_8817709703599303/180",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/311498.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [
@@ -195,7 +195,7 @@
 							"name": "无敌副村长",
 							"shortDesc": null,
 							"mark": "",
-							"coverUrl": "http://imgapi.hongshu.com/bookface/9/47/94751_large.jpg",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/133637.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [
@@ -215,7 +215,7 @@
 							"name": "村长的后院",
 							"shortDesc": null,
 							"mark": "",
-							"coverUrl": "http://zxcontent.zhaoxitech.com/image/book/97/746593/a45c5d50f915ba12a09cf816583e3ee1.jpg",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/746593.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [
@@ -234,7 +234,7 @@
 							"name": "超级兵王",
 							"shortDesc": null,
 							"mark": "",
-							"coverUrl": "http://img.17k.com/cmsimg/recommend/600_800/88/21/108821/108821.jpg",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/141011.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [
@@ -252,7 +252,7 @@
 							"name": "牧神记",
 							"shortDesc": null,
 							"mark": "",
-							"coverUrl": "http://qidian.qpic.cn/qdbimg/349573/c_7729531303813003/180",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/295760.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [
@@ -284,7 +284,7 @@
 							"name": "神医娇妻是大佬",
 							"shortDesc": "【全文甜宠无虐，星际】钟妈：“暖暖，你姐姐没你长得漂亮，身材...",
 							"mark": "",
-							"coverUrl": "http://qidian.qpic.cn/qdbimg/349573/c_10466727003456903/180",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/340776.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [],
@@ -298,7 +298,7 @@
 							"name": "最强妖孽特种兵王",
 							"shortDesc": "【请试读三十章】他是最强妖孽！王者归来！ 　　纵横武道世界...",
 							"mark": "",
-							"coverUrl": "http://qidian.qpic.cn/qdbimg/349573/c_11385463803921803/180",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/379890.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [],
@@ -312,7 +312,7 @@
 							"name": "透视小神棍",
 							"shortDesc": "重生归来的修仙大能，赚最多的钱，泡最美的妞儿，吊打各种不服！...",
 							"mark": "",
-							"coverUrl": "http://imgapi.hongshu.com/bookface/8/71/87157_large.jpg",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/133445.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [],
@@ -340,7 +340,7 @@
 							"name": "甜妻别闹，我们不离婚",
 							"shortDesc": "【正文已完结，番外进行中】 “我要离婚！” 人人都知道，...",
 							"mark": "",
-							"coverUrl": "http://qidian.qpic.cn/qdbimg/349573/c_10943352304049203/180",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/342978.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [],
@@ -354,7 +354,7 @@
 							"name": "无敌狙击兵王",
 							"shortDesc": "对于李仁杰来说，当兵就是为了玩枪，玩枪就要成为枪王。 ...",
 							"mark": "",
-							"coverUrl": "http://qidian.qpic.cn/qdbimg/349573/c_11260946704857303/180",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/345760.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [],
@@ -368,7 +368,7 @@
 							"name": "九阳神王",
 							"shortDesc": "落魄皇子秦云，得九阳传承，觉醒惊世武魂，习得绝世炼器之术。从...",
 							"mark": "",
-							"coverUrl": "http://imgapi.hongshu.com/bookface/7/14/71489_large.jpg",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/133191.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [],
@@ -382,7 +382,7 @@
 							"name": "穿越到大秦的武器大亨",
 							"shortDesc": "现代武器专家穿越到战国末期，你有骑兵，我有机关枪，你冲，我就...",
 							"mark": "",
-							"coverUrl": "http://img.17k.com/cmsimg/recommend/600_800/37/53/543753/543753.jpg",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/141208.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [],
@@ -396,7 +396,7 @@
 							"name": "万域天尊",
 							"shortDesc": "【傻猫新书《我真得无所不能》已经强势连载，修炼大命运术我真得...",
 							"mark": "",
-							"coverUrl": "http://qidian.qpic.cn/qdbimg/349573/c_4653918904351603/180",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/189599.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [],
@@ -410,7 +410,7 @@
 							"name": "重生之都市修神",
 							"shortDesc": "这是一个纵横万域星空的人族仙帝重生回少年，装逼打脸的故事。你...",
 							"mark": "",
-							"coverUrl": "http://zxcontent.zhaoxitech.com/image/book/874/770922/332180eb4e3f9e09de46cd1baf666c6e.jpg",
+							"coverUrl": "http://blog.shellhong.com/demo/api/book_homepage/images/770922.jpg",
 							"endStatus": "updating",
 							"wordCount": null,
 							"tags": [],
@@ -421,30 +421,6 @@
 					]
 				}
 			]
-		},
-		{
-			"id": 2,
-			"title": "男生",
-			"type": "homepage",
-			"linkUrl": "zhaoxitech://com.zhaoxitech.cbook/homepage?pageId=2&pageType=homepage",
-			"channels": null,
-			"modules": null
-		},
-		{
-			"id": 3,
-			"title": "女生",
-			"type": "homepage",
-			"linkUrl": "zhaoxitech://com.zhaoxitech.cbook/homepage?pageId=3&pageType=homepage",
-			"channels": null,
-			"modules": null
-		},
-		{
-			"id": 18,
-			"title": "出版",
-			"type": "homepage",
-			"linkUrl": "zhaoxitech://com.zhaoxitech.cbook/homepage?pageId=18&pageType=homepage",
-			"channels": null,
-			"modules": null
 		}
 	],
 	"logLevel": null,
