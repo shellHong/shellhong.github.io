@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body{
+      padding: 20px;
+    }
+    textarea{
+      width: 100%
+    }
+  </style>
+</head>
+<body>
+  <textarea id="origin" rows="20" placeholder="填入需要处理的内容"></textarea>
+  <hr/>
+  <textarea id="direct" rows="20" placeholder="处理完成的内容在此处展示"></textarea>
+  <script>
+    document.getElementById('origin').oninput = function () {
+      document.getElementById('direct').value = getFormat(this.value)
+    }
+    function getFormat (str) {
+      var arr = str.split(/\n|\r\n/)
+      var result = ''
+      arr.forEach(function (item, index) {
+        var url = item.match(/https?:\/\/.+\.(jpe?g|png|gif)/)
+        if (url) {
+          result += url[0]
+          if (index < arr.length - 1) {
+            result += '\n'
+          }
+        }
+      })
+      return result
+    }
+  </script>
+</body>
+</html>
