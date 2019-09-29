@@ -1,0 +1,11 @@
+.event-name-list{
+  display: flex;
+  align-items: center;
+}
+.event-name-list div{
+  flex: 1;
+}
+.event-name-list i {
+  line-height: 1;
+  cursor: pointer;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>mz sql generator</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <div id="app">
+    <el-form ref="form" :model="form" label-width="80px" size='mini'>
+      <el-form-item label="备注">
+        <el-input v-model="form.remark"></el-input>
+      </el-form-item>
+      <el-form-item label="分组">
+        <el-button @click='handleAddGroup'>新增</el-button>
+        <template v-for='(name, index) in form.groupList'>
+          <div class="event-name-list">
+            <el-input v-model="form.groupList[index]" placeholder="请输入分组名"></el-input>
+            <i slot="suffix" class="el-input__icon el-icon-delete" :data-index='index' @click='handleDeleteGroup(index)'></i>
+          </div>
+        </template>
+      </el-form-item>
+      <el-form-item label="页面名称">
+        <el-input v-model="form.pageName"></el-input>
+      </el-form-item>
+      <el-form-item label="事件名称">
+        <el-button @click='handleAdd'>新增</el-button>
+        <template v-for='(name, index) in form.eventNameList'>
+          <div class="event-name-list">
+            <el-input v-model="form.eventNameList[index]" placeholder="请输入埋点事件名"></el-input>
+            <i slot="suffix" class="el-input__icon el-icon-delete" :data-index='index' @click='handleDelete(index)'></i>
+          </div>
+        </template>
+      </el-form-item>
+      <el-form-item label="时间区间">
+        <el-date-picker
+          v-model="form.range"
+          type="daterange"
+          align="right"
+          format='yyyyMMdd'
+          value-format='yyyyMMdd'
+          unlink-panels
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          :picker-options="pickerOptions">
+        </el-date-picker>
+      </el-form-item>
+    </el-form>
+    <el-input
+      type="textarea"
+      autosize
+      placeholder="sql"
+      v-model="sql">
+    </el-input>
+    <hr>
+    <a href="cetus.meizu.com">cetus.meizu.com</a>
+    <img src="" alt="">
+  </div>
+  <script src="./index.js" charset="utf-8"></script>
+</body>
+</html>
