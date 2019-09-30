@@ -85,7 +85,6 @@ return sql
     var opt = {
       form: {
         remark: 'remarkxxx',
-        imeiName: 'imeixxx',
         pageName: 'pagexxx',
         groupList: ['groupxxx'],
         eventNameList: ['eventxxx'],
