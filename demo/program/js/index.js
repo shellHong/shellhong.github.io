@@ -545,6 +545,7 @@ gen.next()
 
 /**
  * 实现async/await中的async函数
+ * https://mp.weixin.qq.com/s/qavrUL0m7EzMinCmm46W4Q
  */
 
 function spawn(genF) {
