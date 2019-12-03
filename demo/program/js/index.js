@@ -687,9 +687,10 @@ function Cat(name) {
   Animal.call(this)
   this.name = name || 'Tom'
 }
-var Super = function() {}
-Super.prototype = Animal.prototype
-Cat.prototype = new Super()
+// var Super = function() {}
+// Super.prototype = Animal.prototype
+// Cat.prototype = new Super()
+Cat.prototype = Object.create(Animal.prototype)
 
 Cat.prototype.constructor = Cat
 
@@ -735,32 +736,23 @@ getMaxLenWord(['a', 'b', 'abc', 'cd', 'abc', 'ee', 'cd', 'cd', '1'])
 /**
  * 大数相加
  */
-function add(str1, str2) {
-  var arr1 = Array.from(str1)
-  var arr2 = Array.from(str2)
-
-  if (arr1.length < arr2.length) {
-    [arr1, arr2] = [arr2, arr1]
-  }
-
-  var carry = 0
-  var amount = 0
-  var result = []
-  debugger
-  for (var i = arr1.length - 1, n = arr2.length - 1; i >= 0; i--, n--) {
-    amount = parseInt(arr1[i]) + carry
-    if (n >= 0) {
-      amount += parseInt(arr2[n])
-    }
-    if (amount >= 10) {
-      carry = 1
-      amount -= 10
+function add (str1, str2) {
+  let arr1 = Array.from(str1)
+  let arr2 = Array.from(str2)
+  let result = []
+  let notice = 0
+  let temp
+  for (let i1 = arr1.length - 1, i2 = arr2.length - 1; i1 >= 0 || i2 >= 0; i1--, i2--) {
+    temp = parseInt(i1 >= 0 ? arr1[i1] : 0) + parseInt(i2 >= 0 ? arr2[i2] : 0) + notice
+    if (temp >= 10) {
+      notice = 1
+      temp -= 10
     } else {
-      carry = 0
+      notice = 0
     }
-    result.unshift(amount)
+    result.unshift(temp)
   }
-  if (carry === 1) {
+  if (notice === 1) {
     result.unshift(1)
   }
   return result.join('')
@@ -782,12 +774,12 @@ class Stack {
   constructor() {
     this.data = []
     this.maxData = []
+    this.max = Number.MIN_VALUE
   }
   push(value) {
     this.data.push(value)
-    this.maxData.push(this.maxData.length > 0 ?
-      Math.max(this.maxData[this.maxData.length - 1], value) :
-      value)
+    this.max = Math.max(this.max, value)
+    this.maxData.push(this.max)
   }
   pop() {
     this.maxData.pop()
