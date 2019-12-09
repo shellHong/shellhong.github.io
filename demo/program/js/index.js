@@ -548,39 +548,57 @@ gen.next()
  * https://mp.weixin.qq.com/s/qavrUL0m7EzMinCmm46W4Q
  */
 
-function spawn(genF) {
-  return new Promise(function(resolve, reject) {
-    const gen = genF()
+// function spawn(genF) {
+//   return new Promise(function(resolve, reject) {
+//     const gen = genF()
 
-    function step (nextF) {
-      let next
+//     function step (nextF) {
+//       let next
+//       try {
+//         next = nextF()
+//       } catch (e) {
+//         return reject(e)
+//       }
+//       if (next.done) {
+//         return resolve(next.value)
+//       }
+//       Promise.resolve(next.value).then(
+//         function (v) {
+//           step(function () {
+//             return gen.next(v)
+//           })
+//         },
+//         function (e) {
+//           step(function () {
+//             return gen.throw(e)
+//           })
+//         }
+//       )
+//     }
+//     step(function() {
+//       return gen.next(undefined)
+//     })
+//   })
+// }
+function spawn(genF) {
+  return new Promise (function (resolve, reject) {
+    var gen = genF()
+    function step (val) {
       try {
-        next = nextF()
-      } catch (e) {
-        return reject(e)
+        var result = gen.next(val)
+      } catch (error) {
+        reject()
       }
-      if (next.done) {
-        return resolve(next.value)
+      if (result.done) {
+        resolve(result.value)
       }
-      Promise.resolve(next.value).then(
-        function (v) {
-          step(function () {
-            return gen.next(v)
-          })
-        },
-        function (e) {
-          step(function () {
-            return gen.throw(e)
-          })
-        }
-      )
+      Promise.resolve().then(function () {
+        step(result.value)
+      })
     }
-    step(function() {
-      return gen.next(undefined)
-    })
+    step()
   })
 }
-
 /**
  * Event Loop
  * http://www.cnblogs.com/jiasm/p/9482443.html
@@ -651,8 +669,7 @@ var arr = [1, 2]
 
 console.log({...obj
   }) // {...obj}方式，无需可迭代
-console.log({...arr
-})
+console.log({...arr})
 console.log(...arr) // ...obj方式，需可迭代
 console.log([...arr]) // [...obj]方式，需可迭代
 
@@ -722,7 +739,7 @@ function getMaxLenWord(arr) {
   var one = null
   for (var i = 0, ilen = arr.length; i < ilen; i++) {
     one = arr[i]
-    map[one] = 1 + map[one] || 1
+    map[one] = 1 + map[one] || 0
     if (max < map[one]) {
       max = map[one]
       maxWord = one
