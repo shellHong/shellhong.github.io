@@ -1,66 +1,80 @@
 /**
- * 全排序
- */
-function getSubOrder(arr, num) {
-  var result = []
-  var temp = null
-  for (var i = 0, ilen = arr.length; i <= ilen; i++) {
-    temp = [].concat(arr)
-    temp.splice(i, 0, num)
-    result.push(temp)
-  }
-  return result
-}
-
-function handleReduce(arr, cur) {
-  var result = []
-  for (var i = 0, ilen = arr.length; i < ilen; i++) {
-    result = result.concat(getSubOrder(arr[i], cur))
-  }
-  return result
-}
-
-function getTotalOrder(arr) {
-  arr.splice(0, 1, [
-    [arr[0]]
-  ])
-  return arr.reduce(handleReduce)
-}
-
-getTotalOrder([1, 2, 3, 4])
-
-/**
  * promise模拟
  */
-class VPromise {
-  constructor(fn) {
-    this.result = null
-    this.fns = []
+// class VPromise {
+//   constructor(fn) {
+//     this.result = null
+//     this.fns = []
+//     this.status = 'pending'
+//     fn && fn(this.resolve.bind(this))
+//   }
+//   then(fn) {
+//     switch (this.status) {
+//       case 'pending':
+//         this.fns.push(fn)
+//         break
+//       case 'fulfilled':
+//         this.result = fn(this.result)
+//         break
+//     }
+//     return this
+//   }
+//   resolve(result) {
+//     this.status = 'fulfilled'
+//     if (!this.fns.length) {
+//       return
+//     }
+//     var fn = this.fns.splice(0, 1)[0]
+//     debugger
+//     var fnRes = fn(result)
+//     if (fnRes instanceof this.constructor) {
+//       fnRes.then(this.resolve.bind(this))
+//     } else {
+//       this.resolve(fnRes)
+//     }
+//   }
+// }
+
+class VPromise { 
+  constructor (fn) {
+    this.resolveFnArr = []
+    this.rejectFnArr = []
     this.status = 'pending'
-    fn && fn(this.resolve.bind(this))
+    fn(this.resolve.bind(this), this.reject)
   }
-  then(fn) {
-    switch (this.status) {
-      case 'pending':
-        this.fns.push(fn)
-        break
-      case 'fulfilled':
-        this.result = fn(this.result)
-        break
+  then (resolveFn, rejectFn) {
+    if (this.status === 'fulfilled') {
+      this.resolveResult = resolveFn(this.resolveResult)
+    } else if (this.status === 'fail') {
+      this.rejectResult = rejectFn(this.rejectResult)
+    } else {
+      this.resolveFnArr.push(resolveFn)
+      this.rejectFnArr.push(rejectFn)
     }
     return this
   }
-  resolve(result) {
+  resolve (val) {
     this.status = 'fulfilled'
-    if (!this.fns.length) {
-      return
+    if (this.resolveFnArr.length > 0) {
+      var fn = this.resolveFnArr.shift()
+      var result = fn(val)
+      if (result instanceof VPromise) {
+        result.then(this.resolve.bind(this), this.reject.bind(this))
+      } else {
+        this.resolve(result)
+      }
     }
-    var fn = this.fns.splice(0, 1)[0]
-    var fnRes = fn(result)
-    if (fnRes instanceof this.constructor) {
-      fnRes.then(this.resolve.bind(this))
-    } else {
-      this.resolve(fnRes)
+  }
+  reject (val) {
+    this.status = 'fail'
+    if (this.rejectFnArr.length > 0) {
+      var fn = this.rejectFnArr.shift()
+      var result = fn(val)
+      if (result instanceof VPromise) {
+        result.then(this.resolve.bind(this), this.reject.bind(this))
+      } else {
+        this.reject(result)
+      }
     }
   }
 }
@@ -260,6 +274,37 @@ function bubbleSort(arr) {
 bubbleSort([3, 1, 4, 2, 5])
 
 /**
+ * 全排序
+ */
+function getSubOrder(arr, num) {
+  var result = []
+  var temp = null
+  for (var i = 0, ilen = arr.length; i <= ilen; i++) {
+    temp = [].concat(arr)
+    temp.splice(i, 0, num)
+    result.push(temp)
+  }
+  return result
+}
+
+function handleReduce(arr, cur) {
+  var result = []
+  for (var i = 0, ilen = arr.length; i < ilen; i++) {
+    result = result.concat(getSubOrder(arr[i], cur))
+  }
+  return result
+}
+
+function getTotalOrder(arr) {
+  arr.splice(0, 1, [
+    [arr[0]]
+  ])
+  return arr.reduce(handleReduce)
+}
+
+getTotalOrder([1, 2, 3, 4])
+
+/**
  * 选择排序，时间复杂度（O(n^2)）
  * 每轮遍历都会标记出最小的数，然后在每轮结束的时候，把这个数放到较左边
  */
@@ -377,7 +422,7 @@ function search(arr, count, amount) {
   var len = 0
   var result = []
 
-  var getOneAmount = function(num) {
+  var getOneAmount = function(num) { // 从低位开始，每次剔除一个1
     var count = 0
     while (num !== 0) {
       num = num & (num - 1)
@@ -393,7 +438,7 @@ function search(arr, count, amount) {
       var subResult = []
       var innerAmount = 0
       for (var n = 0, nlen = arr.length; n < nlen; n++) {
-        if (((1 << n) & i) !== 0) {
+        if (((1 << n) & i) !== 0) { // 判断该位置的数字是否为1
           subResult.push({
             [n]: arr[n]
           })
